@@ -130,6 +130,7 @@ void BTN2() {
   if(prevrun!=running) {
     clear();
     prevrun = running;
+    nextrun = millis() + 2000;
     bstep=0;
   }
   if(nextrun > millis()) {
@@ -142,12 +143,12 @@ void BTN2() {
       strip.setPixelColor(pinmap[j][bstep], gamma8[i], gamma8[i], gamma8[i]); 
     }
     strip.show();
-    delay(1);
+    delayMicroseconds(400);
   }
   bstep++;
   if(bstep==16) {
     bstep=0;
-    nextrun = millis() + 5000;
+    nextrun = millis() + 2000;
     clear();
   }
 }
