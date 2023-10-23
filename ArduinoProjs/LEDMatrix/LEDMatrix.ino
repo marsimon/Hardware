@@ -137,16 +137,18 @@ void BTN2() {
     delay(100);
     return;
   }
-  for(int i=0;i<255;i++) {
+  for(int i=0;i<16;i++) {
     for(int j=0;j<16;j++) {
       if(pinmap[j][bstep]==-1) continue;
-      strip.setPixelColor(pinmap[j][bstep], gamma8[i], gamma8[i], gamma8[i]); 
+      uint8_t b = gamma8[i*16];
+      strip.setPixelColor(pinmap[j][bstep], b, b, b); 
     }
     strip.show();
-    delayMicroseconds(400);
+    delay(25);
   }
   bstep++;
   if(bstep==16) {
+    delay(2000);
     bstep=0;
     nextrun = millis() + 2000;
     clear();
