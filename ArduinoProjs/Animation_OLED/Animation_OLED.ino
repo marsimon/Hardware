@@ -2,12 +2,22 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+#include <HardwareSerial.h>
+HardwareSerial RS485Serial(2);
+
+#define SSerialTxControl 3   //RS485 Direction control
+#define RS485Transmit    HIGH
+#define RS485Receive     LOW
+
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 
+int byteReceived;
+int byteSend;
+
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-
+int curAnim=0;
 // interval between the animation frames
 int frame_delay =70;
 
@@ -815,23 +825,22 @@ const unsigned char Frame12 [1024] PROGMEM = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 void setup() {
-
+  Serial.begin(9600);
+  
+  pinMode(SSerialTxControl, OUTPUT);  
+  
+  digitalWrite(SSerialTxControl, RS485Receive);  // Init Transceiver
+  
+  RS485Serial.begin(115200, SERIAL_8N1, 16, 17);   // set the data rate 
  
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
     Serial.println(F("SSD1306 allocation failed"));
     for(;;);
   }
 
-  // Show initial display buffer contents on the screen --
-  // the library initializes this with an Adafruit splash screen.
- // display.display();
- // delay(2000); // Pause for 2 seconds
 }
 
-void loop() {
-  
-  // Diplay Animation
-  
+void PlayAnim() {
   // Frame1
   display.clearDisplay();
   display.drawBitmap(0,0,Frame1, 128, 64, 1);
@@ -892,8 +901,43 @@ void loop() {
   display.display();
   delay(frame_delay); 
 
-  
+}
 
-  if (frame_delay>50) frame_delay=frame_delay-20;
-  
+void loop() {
+
+   if (RS485Serial.read() == 0x02)  //Read
+  {
+    int buf = RS485Serial.read();
+    switch (buf) {
+      case 0x10: 
+       curAnim=0;
+       break;
+      case 0x11: 
+       curAnim=1;
+       break;
+       
+      case 0x12: 
+       curAnim=2;
+       break;
+       
+      case 0x13: 
+       curAnim=3;
+       break;
+       
+      case 0x14: 
+       curAnim=4;
+       break;
+       
+      case 0x15: 
+       curAnim=5;
+       break;
+       
+      case 0x16: 
+       curAnim=6;
+       break;
+    }
+
+  }
+  // Diplay Animation
+  PlayAnim();
 }
