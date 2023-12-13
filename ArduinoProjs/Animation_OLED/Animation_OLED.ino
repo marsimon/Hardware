@@ -8961,7 +8961,7 @@ void PlayAnim(int num) {
     display.clearDisplay();
     display.drawBitmap(0,0,FrameallArray[i], 128, 64, 1);
     display.display();
-    delay(30);
+    delay(40);
   }
   delay(670);
 }
