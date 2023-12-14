@@ -1,15 +1,45 @@
-#include <Servo.h>  // 서보모터 라이브러리를 불러옵니다.
-Servo myservo1;      
+#include <Servo.h>
+
+Servo myservo1;
 Servo myservo2;
+
+#define OFFSET 15
+
 void setup() {
- myservo1.attach(9);  // myservo를 9번으로 선언하고 작동할 준비를 합니다.
- myservo2.attach(10);
+  Serial.begin(9600);
+  myservo1.attach(9);
+  myservo2.attach(10); 
+  myservo1.write(0);
+  myservo2.write(180); 
 }
+
 void loop() {
-  myservo.write(80);  // myservo를 30도가 되도록 움직입니다.
-  delay(1000);        // 1초동안 기다립니다.
-  myservo.write(90);
-  delay(1000);
-  myservo.write(100); // myservo를 150도가 되도록 움직입니다.
-  delay(1000);        // 1초동안 기다립니다.
+  int angle;
+  if(Serial.available()) {
+    char buffer[10];
+    int cnt = 0;
+    unsigned long start = millis();
+    while (millis() - start < 100) {
+      if (Serial.available() < 1) {
+        continue;
+      }
+      char data = Serial.read();
+      if (data == '\n') {
+        buffer[cnt++] = '\0';
+        break;
+      }
+      buffer[cnt++] = data;
+    }
+    sscanf(buffer,"%d",&angle);
+    angle = angle + OFFSET; //각도 값 수정
+
+    if(angle>=0) {
+      myservo1.write(0);
+      myservo2.write(180-angle); 
+    }  
+    else {
+      myservo1.write(abs(angle));
+      myservo2.write(180); 
+    }  
+  }  
 }
