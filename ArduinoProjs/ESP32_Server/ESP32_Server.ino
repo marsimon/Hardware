@@ -122,7 +122,6 @@ void setup() {
 	Serial.println(WiFi.localIP());  //Show ESP32 IP on serial
 
 	InitWebServer(); 
-    
 	Serial.println("HTTP server started");
 	delay(100); 
 }
