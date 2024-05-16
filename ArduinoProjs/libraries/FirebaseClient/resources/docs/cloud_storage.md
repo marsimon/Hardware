@@ -238,7 +238,11 @@ void ota(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, Go
 - `uid` - The user specified UID of async result (optional).
 
 
+<<<<<<< Updated upstream
 12. ## 🔹  String getMetadata(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::GetOptions &options)
+=======
+12. ## 🔹  bool getMetadata(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::GetOptions &options)
+>>>>>>> Stashed changes
 
 
 The bucketid is the Storage bucket Id of object to get metadata.
@@ -248,7 +252,11 @@ For the get options, see https://cloud.google.com/storage/docs/json_api/v1/objec
 
 
 ```cpp
+<<<<<<< Updated upstream
 String getMetadata(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::GetOptions &options)
+=======
+bool getMetadata(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::GetOptions &options)
+>>>>>>> Stashed changes
 ```
 
 **Params:**
@@ -259,7 +267,11 @@ String getMetadata(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &
 
 **Returns:**
 
+<<<<<<< Updated upstream
 - `String` - The response payload.
+=======
+- Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
 
 13. ## 🔹  void getMetadata(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::GetOptions &options, AsyncResult &aResult)
 
@@ -302,7 +314,11 @@ void getMetadata(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &pa
 - `uid` - The user specified UID of async result (optional).
 
 
+<<<<<<< Updated upstream
 15. ## 🔹  String list(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::ListOptions &options)
+=======
+15. ## 🔹  bool list(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::ListOptions &options)
+>>>>>>> Stashed changes
 
 
 The bucketid is the Storage bucket Id to list all objects.
@@ -310,7 +326,11 @@ For the list options, see https://cloud.google.com/storage/docs/json_api/v1/obje
 
 
 ```cpp
+<<<<<<< Updated upstream
 String list(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::ListOptions &options)
+=======
+bool list(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::ListOptions &options)
+>>>>>>> Stashed changes
 ```
 
 **Params:**
@@ -321,7 +341,11 @@ String list(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent,
 
 **Returns:**
 
+<<<<<<< Updated upstream
 - `String` - The response payload.
+=======
+- Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
 
 16. ## 🔹  void list(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::ListOptions &options, AsyncResult &aResult)
 

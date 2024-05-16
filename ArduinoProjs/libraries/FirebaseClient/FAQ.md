@@ -1,4 +1,5 @@
 
+<<<<<<< Updated upstream
 `2024-04-23T11:47:49Z`
 
 # Async Firebase Client library for Arduino Frequently Asked Questions.
@@ -40,6 +41,73 @@
 #### A1: The server was disconnected or unable to connect to the server.
 
 There are many possible causes of this issue.
+=======
+`2024-04-23T08:54:39Z`
+
+# Async Firebase Client library for Arduino Frequently Asked Questions.
+
+# Table of Contents
+
+- [Q1: Why I get an error `"TCP connection failed"`?](#q1-why-i-get-an-error-tcp-connection-failed)
+
+- [Q2: Why I get an error `"TCP send failed"`?](#q1-why-i-get-an-error-tcp-connection-failed)
+
+- [Q3: Why I get an error `"TCP receive time out"`?](#q3-why-i-get-an-error-tcp-receive-time-out)
+
+- [Q4: Why I get an error `"TCP disconnected"`?](#q4-why-i-get-an-error-tcp-disconnected)
+
+- [Q5: What should I do when I get the error `"error opening file"`?](#q5-what-should-i-do-when-i-get-the-error-error-opening-file)
+
+- [Q6: What should I do when I get the error `"error reading file"` or `"error writng file"`?](#q6-what-should-i-do-when-i-get-the-error-error-reading-file-or-error-writng-file)
+
+- [Q7: What should I do when ESP32 crashed with the error `"Exception was unhandled"`?](#q7-what-should-i-do-when-esp32-crashed-with-the-error-exception-was-unhandled)
+
+- [Q8: What should I do when I get the error `"unauthenticate"`?](#q8-what-should-i-do-when-i-get-the-error-unauthenticate)
+
+- [Q9: What should I do when I get the error `"JWT, private key parsing fail"`?](#q9-what-should-i-do-when-i-get-the-error-jwt-private-key-parsing-fail)
+
+- [Q10: What should I do when I get the error `"JWT, token signing fail"`?](#q10-what-should-i-do-when-i-get-the-error-jwt-token-signing-fail)
+
+- [Q11: What should I do when I get the error `"too low sketch space"`?](#q11-what-should-i-do-when-i-get-the-error-too-low-sketch-space)
+
+- [Q12: What should I do when I get the error `"firmware write failed"` or `"firmware end failed"`?](#q12-what-should-i-do-when-i-get-the-error-firmware-write-failed-or-firmware-end-failed)
+
+- [Q13: What should I do when I get the error `"stream time out"`?](#q13-what-should-i-do-when-i-get-the-error-stream-time-out)
+
+- [Q14: What should I do when I get the error `"auth revoked"`?](#q14-what-should-i-do-when-i-get-the-error-auth-revoked)
+
+- [Q15: Why I get the error `"app was not assigned"`?](#q15-why-i-get-the-error-app-was-not-assigned)
+
+- [Q16: Why I get the error `"operation was cancelled"`?](#q16-why-i-get-the-error-operation-was-cancelled)
+
+- [Q17: Why I get the error `"JWT, time was not set or not valid"`?](#q17-why-i-get-the-error-jwt-time-was-not-set-or-not-valid)
+
+- [Q18: Why sometimes the Reltime Database Stream does not work when WiFi was disconnected and reconnected and I get the error `"stream time out"`?](#q18-why-sometimes-the-reltime-database-stream-does-not-work-when-wifi-was-disconnected-and-reconnected-and-i-get-the-error-stream-time-out)
+
+- [Q19: Can I use delay in this library?](#q19-can-i-use-delay-in-this-library)
+
+- [Q20: Can I change the send timeout?](#q20-can-i-change-the-send-timeout)
+
+- [Q21: Can I change the read timeout?](#q21-can-i-change-the-read-timeout)
+
+- [Q22: Why my device crashed?](#q22-why-my-device-crashed)
+
+- [Q23: How I restart the Realtime Database stream?](#q23-how-can-i-restart-the-realtime-database-stream)
+
+- [Q24: How can I stop all tasks?](#q24-how-can-i-stop-all-tasks)
+
+- [Q25: How can I stop authentication task?](#q25-how-can-i-stop-authentication-task)
+
+- [Q26: How can I run more than one Realtime Database Stream with the same async client?](#q26-how-can-i-run-more-than-one-realtime-database-stream-with-the-same-async-client)
+
+- [Q27: How can I run Realtime Database task and Cloud Firestore Database task using the same async client?](#q27-how-can-i-run-realtime-database-task-and-cloud-firestore-database-task-using-the-same-async-client)
+
+## Q1: Why I get an error `"TCP connection failed"`?
+
+### A1: The server was disconnected or unable to connect to the server.
+
+There are manypossible cases of this issue.
+>>>>>>> Stashed changes
 
 #### Possible WiFi issues
 
@@ -55,8 +123,11 @@ There are many possible causes of this issue.
 
 - In ESP32, ADC channel 2 cannot be used while using WiFi.
 
+<<<<<<< Updated upstream
 #### Possible WiFi firmware issues
 
+=======
+>>>>>>> Stashed changes
 - If you are using `Arduino UNO R4 WiFi`, `Arduino Portenta C33`, `Arduino MKR WiFi 1010`, `Arduino NANO 33 IoT`, and `Arduino Nano RP2040`, please make sure you have already done the following.
   - Add the `Realtime Database host root certificate` to the board firmware. Plese see [Upload SSL root certificates](https://support.arduino.cc/hc/en-us/articles/360016119219-Upload-SSL-root-certificates) for how to.
   - Install the WiFiNINA library.
@@ -77,9 +148,13 @@ There are many possible causes of this issue.
 
 #### Possible GSM issues
 
+<<<<<<< Updated upstream
 - Incorrect TinyGSMClient library configuration. The GSM module macros e.g. `TINY_GSM_MODEM_SIM7600` should be defined in two locations.
    1. In [src/Config.h](/src/Config.h) or in your own defined config at [src/UserConfig.h](/src) or adding `TINY_GSM_MODEM_SIM7600` in compiler build flags.
    2. In your sketch.
+=======
+- Incorrect TinyGSMClient library configuration. The GSM module macros e.g. `TINY_GSM_MODEM_SIM7600` should be defined in [src/Config.h](/src/Config.h) or in your own defined config at [src/UserConfig.h](/src) or adding `TINY_GSM_MODEM_SIM7600` in compiler build flags.
+>>>>>>> Stashed changes
 
 - GSM library issue. Follow the GSM library examples. Post your issue in the GSM library repository.
 
@@ -90,9 +165,15 @@ There are many possible causes of this issue.
 - Memory allocation failure due to out of memory. The SSL client may fail to allocate memory required during SSL/TLS handshake. You have to reduce the memory used by your code and inspect memory usage for memory leaks.
 
 
+<<<<<<< Updated upstream
 ### Q2: Why I get an error `"TCP send failed"`?
 
 #### A2: The time that used while sending the request (header or payload) is greater than the send timeout.
+=======
+## Q2: Why I get an error `"TCP send failed"`?
+
+### A2: The time that used while sending the request (header or payload) is greater than the send timeout.
+>>>>>>> Stashed changes
 
 - The delay function and user blocking code are used in the same loop that async task handler is running and they blocked the async task handler to work. You have to remove the delay function from loop function or minimize the time that used by your blocking code.
 
@@ -104,9 +185,15 @@ There are many possible causes of this issue.
 
 - The send timeout is too small. In case sync task, the send timeout can be set via `AsyncClientClass::setSyncSendTimeout`. The async task send timeout is 30 seconds and cannot be changed and you have to fix the possible issues instead of increasing the send timeout.
 
+<<<<<<< Updated upstream
 ### Q3: Why I get an error `"TCP receive time out"`?
 
 #### A3: The time that used while processing the server response (header or payload) is greater than the read timeout.
+=======
+## Q3: Why I get an error `"TCP receive time out"`?
+
+### A3: The time that used while processing the server response (header or payload) is greater than the read timeout.
+>>>>>>> Stashed changes
 
 - The delay function and user blocking codes are used in the same loop that async task handler is running and they blocked the async task handler to work. You have to remove the delay function from loop function or minimize the time that used by your blocking code.
 
@@ -118,6 +205,7 @@ There are many possible causes of this issue.
 
 - The read timeout is too small. In case sync task, the read timeout can be set via `AsyncClientClass::setSyncReadTimeout`. The async task read timeout is 30 seconds and cannot be changed and you have to fix the above issues instead of increasing the timeout.
 
+<<<<<<< Updated upstream
 ### Q4: Why I get an error `"TCP disconnected"`?
 
 #### A4: The network was disconnected.
@@ -127,6 +215,17 @@ Read [Q1: Why I get an error `"TCP connection failed"`?](#q1-why-i-get-an-error-
 ### Q5: What should I do when I get the error `"error opening file"`?
 
 #### A5: The error occurred while opening the file.
+=======
+## Q4: Why I get an error `"TCP disconnected"`?
+
+### A4: The network was disconnected.
+
+Read [Q1: Why I get an error `"TCP connection failed"`?](#q1-why-i-get-an-error-tcp-connection-failed).
+
+## Q5: What should I do when I get the error `"error opening file"`?
+
+### A5: The error occurred while opening the file.
+>>>>>>> Stashed changes
 
 - File does not exist for reading. Check for the file existent when open the file for reading.
 
@@ -137,9 +236,15 @@ Read [Q1: Why I get an error `"TCP connection failed"`?](#q1-why-i-get-an-error-
 - Memory allocation failure due to out of memory. The filesystem may not work in this case and you have to solve the memory issue. You have to reduce the memory used by your code and inspect memory usage for memory leaks.
 
 
+<<<<<<< Updated upstream
 ### Q6: What should I do when I get the error `"error reading file"` or `"error writng file"`?
 
 #### A6: The error occurred while reading from or writing to filesystem.
+=======
+## Q6: What should I do when I get the error `"error reading file"` or `"error writng file"`?
+
+### A6: The error occurred while reading from or writing to filesystem.
+>>>>>>> Stashed changes
 
 If filesytem was mounted successfully.
 
@@ -147,7 +252,11 @@ If filesytem was mounted successfully.
 
 - Memory allocation failure due to out of memory. The filesystem may not work in this case and you have to solve the memory issue. You have to reduce the memory used by your code and inspect memory usage for memory leaks.
 
+<<<<<<< Updated upstream
 ### Q7: What should I do when ESP32 crashed with the error `"Exception was unhandled"`?
+=======
+## Q7: What should I do when ESP32 crashed with the error `"Exception was unhandled"`?
+>>>>>>> Stashed changes
 
 ```
 13:07:18.043 -> Guru Meditation Error: Core  1 panic'ed (LoadProhibited). Exception was unhandled.
@@ -161,22 +270,33 @@ If filesytem was mounted successfully.
 13:07:18.075 -> EXCVADDR: 0x00000002  LBEG    : 0x4008b215  LEND    : 0x4008b225  LCOUNT  : 0xffffffff 
 ``` 
 
+<<<<<<< Updated upstream
 #### A7: It is the dangling pointer issue.
+=======
+### A7: It is the dangling pointer issue.
+>>>>>>> Stashed changes
 
 The dangling pointer issue occurred when you are trying to use the object that point by the pointer that was deconstructed or not existed.
 
 The memory allocation failure due to out of memory can cause the dangling pointer as the pointer is still point to the unallocated memory.
 
 
+<<<<<<< Updated upstream
 ### Q8: What should I do when I get the error `"unauthenticate"`?
 
 #### A8: The auth token is not ready while processing the request.
+=======
+## Q8: What should I do when I get the error `"unauthenticate"`?
+
+### A8: The auth token is not ready while processing the request.
+>>>>>>> Stashed changes
 
 You have to wait for the authentication task to be ready before calling the Firebase functions.
 
 Please read [Required Operation Flows](https://github.com/mobizt/FirebaseClient#required-operation-flows) for more details.
 
 
+<<<<<<< Updated upstream
 ### Q9: What should I do when I get the error `"JWT, private key parsing fail"`?
 
 #### A9: The RSA private key that uses in JWT token signing process is not valid.
@@ -198,11 +318,35 @@ Please check the partition size.
 ### Q12: What should I do when I get the error `"firmware write failed"` or `"firmware end failed"`?
 
 #### A12: The OTA download process is unterruped and cause the data wrtting failure or the library unknown error.
+=======
+## Q9: What should I do when I get the error `"JWT, private key parsing fail"`?
+
+### A9: The RSA private key that uses in JWT token signing process is not valid.
+
+The private key can be obtained from the service account credentials. Please read [Service Account](https://github.com/mobizt/FirebaseClient#service-account) for more details.
+
+## Q10: What should I do when I get the error `"JWT, token signing fail"`?
+
+### A10: The JWT token signing with RSA private key was failed.
+
+This can be the out of memory issue. You have to reduce the memory usage and check for memory leaks. 
+
+## Q11: What should I do when I get the error `"too low sketch space"`?
+
+### A11: The flash space in the current partition is not enough for use in OTA update process.
+
+Please check the partition size. 
+
+## Q12: What should I do when I get the error `"firmware write failed"` or `"firmware end failed"`?
+
+### A12: The OTA download process is unterruped and cause the data wrtting failure or the library unknown error.
+>>>>>>> Stashed changes
 
 In case download process interrupted, see [Q1: Why I get an error `"TCP connection failed"`?](#q1-why-i-get-an-error-tcp-connection-failed). 
 
 In case unkbown error, please verify your free flash and do not write any file to the filesytem that decreased the free flash space. 
 
+<<<<<<< Updated upstream
 ### Q13: What should I do when I get the error `"stream time out"`?
 
 #### A13: The error can be occured when no keep-alive event received during the stream timeout period.
@@ -224,6 +368,30 @@ You have to apply the FirebaseApp by using `FirebaseApp::getApp`. Please read [R
 ### Q16: Why I get the error `"operation was cancelled"`?
 
 #### A16: The async client's queue is full due to too many new tasks are added while the old tasks that waiting in the queue are not yet processed.
+=======
+
+## Q13: What should I do when I get the error `"stream time out"`?
+
+### A13: The error can be occured when no keep-alive event received during the stream timeout period.
+
+Please read [Possible WiFi issues](#possible-wifi-issues).
+
+## Q14: What should I do when I get the error `"auth revoked"`?
+
+### A14: The auth token is expired.
+
+The delay function and user blocking code are used in the same loop that authentication task handler is running and they blocked the authentication task handler to work. You have to remove the delay function from loop function or minimize the time that used by your blocking code.
+
+## Q15: Why I get the error `"app was not assigned"`?
+
+### A15: The FirebaseApp was not applied to the Firebase Service apps.
+
+You have to apply the FirebaseApp by using `FirebaseApp::getApp`. Please read [Required Operation Flows](https://github.com/mobizt/FirebaseClient#required-operation-flows) for more details.
+
+## Q16: Why I get the error `"operation was cancelled"`?
+
+### A16: The async client's queue is full due to too many new tasks are added while the old tasks that waiting in the queue are not yet processed.
+>>>>>>> Stashed changes
 
 The currently running task in the queue may be slow because of the delay function and user blocking codes are used in the same loop that async task handler is running and they blocked the async task handler to work. You have to remove the delay function from loop function or minimize the time that used by your blocking code.
 
@@ -233,6 +401,7 @@ When more than one `SSE mode (HTTP Streaming)`task was add to the queue. You can
 
 When no more memory to be allocated for new task. You have to reduce the memory usage.
 
+<<<<<<< Updated upstream
 ### Q17: Why I get the error `"JWT, time was not set or not valid"`?
 
 #### A17: The time is not set or not valid
@@ -266,6 +435,44 @@ The sync task read timeout can be set via `AsyncClientClass::setSyncReadTimeout`
 ### Q22: Why my device crashed?
 
 #### A22: There are many possible causes.
+=======
+
+## Q17: Why I get the error `"JWT, time was not set or not valid"`?
+
+### A17: The time is not set or not valid
+
+The timestamp that you set in the uint32_t variable of time status callback function is not valid or it was not set.
+
+
+## Q18: Why sometimes the Reltime Database Stream does not work when WiFi was disconnected and reconnected and I get the error `"stream time out"`?
+
+### A18: The problem is due to the WiFi reconnection interferences.
+
+Please read [Possible WiFi issues](#possible-wifi-issues).
+
+
+## Q19: Can I use delay in this library?
+
+### A19: Yes, but it's not recommend.
+
+If the delay was used in the loop it causes many errors e.g. read and send time out and stream time out.
+
+## Q20: Can I change the send timeout?
+
+### A20: Yes.
+
+The sync task send timeout can be set via `AsyncClientClass::setSyncSendTimeout`. The async task send timeout is 30 seconds and cannot be changed.
+
+## Q21: Can I change the read timeout?
+
+### A21: Yes.
+
+The sync task read timeout can be set via `AsyncClientClass::setSyncReadTimeout`. The async task read timeout is 30 seconds and cannot be changed.
+
+## Q22: Why my device crashed?
+
+### A22: There are many possible causes.
+>>>>>>> Stashed changes
 
 - Out of memory. Reduce memory usage and check memory usage for memory leaks.
 
@@ -280,9 +487,15 @@ It is because you are trying to use the object that point by the pointer that wa
 The memory allocation failure due to out of memory can cause the dangling pointer as the pointer is still point to unallocated memory.
 
 
+<<<<<<< Updated upstream
 ### Q23: How can I restart the Realtime Database stream?
 
 #### A23: Normally Realtime Database stream task is running and stay in the queue in all network conditions.
+=======
+## Q23: How can I restart the Realtime Database stream?
+
+### A23: Normally Realtime Database stream task is running and stay in the queue in all network conditions.
+>>>>>>> Stashed changes
 
 It can be resumed automatically (if it was stopped) without showing any notification status in the async result or async result callback.
 
@@ -290,6 +503,7 @@ If you are intend to totally remove the steam task from the queue, and stream is
 
 The `AsyncClientClass::stopAsync()` will stop only the running task and remove from queue while `AsyncClientClass::stopAsync(true)` will stop the running task and remove all tasks in the queue.
 
+<<<<<<< Updated upstream
 ### Q24: How can I stop all tasks?
 #### A24: You can use `AsyncClientClass::stopAsync(true)` to stop all tasks in the queue.
 
@@ -300,6 +514,18 @@ You have to remove the functions; `FirebaseApp::loop()` and/or `FirebaseServices
 
 ### Q26: How can I run more than one Realtime Database Stream with the same async client?
 #### A26: No, it is not possible by design.
+=======
+## Q24: How can I stop all tasks?
+### A24: You can use `AsyncClientClass::stopAsync(true)` to stop all tasks in the queue.
+
+## Q25: How can I stop authentication task?
+### A25: Normally you cannot stop the authentication task unless you can remove the queue from loop.
+
+You have to remove the functions; `FirebaseApp::loop()` and/or `FirebaseServicesApps::loop()`(if the same async client was used in `FirebaseServicesApps` and `FirebaseApp`) from the `loop`.
+
+## Q26: How can I run more than one Realtime Database Stream with the same async client?
+### A26: No, it is not possible by design.
+>>>>>>> Stashed changes
 
 The `SSE mode (HTTP Streaming)` task is a kind of `infinite task` which the server connection was kept alive and waiting for the incoming event data.
 
@@ -309,13 +535,19 @@ To run many `SSE mode (HTTP Streaming)` tasks, you have to run each task in diff
 
 For running more tasks concurrency, see [Running Many Tasks Concurrency Using Different Async Clients (In Different SSL Clients)](https://github.com/mobizt/FirebaseClient#running-many-tasks-concurrency-using-different-async-clients-in-different-ssl-clients).
 
+<<<<<<< Updated upstream
 ### Q27: How can I run Realtime Database task and Cloud Firestore Database task using the same async client?
 #### A27: Yes, you can run different Firebase Products using the same async client or different async client.
+=======
+## Q27: How can I run Realtime Database task and Cloud Firestore Database task using the same async client?
+### A27: Yes, you can run different Firebase Products using the same async client or different async client.
+>>>>>>> Stashed changes
 
 When you run different Firebase products using the same async client, all tasks are in the same queue and it needs to start the new server connection for different host of Firebase products. This takes time when establish the new server connection.
 
 When you run different Firebase products using the different async clients, all tasks are in the different queues. When tasks are running concurrency, it consumed more memory which may not suitable for low memory devices.
 
+<<<<<<< Updated upstream
 For running more tasks concurrency, see [Running Many Tasks Concurrency Using Different Async Clients (In Different SSL Clients)](https://github.com/mobizt/FirebaseClient#running-many-tasks-concurrency-using-different-async-clients-in-different-ssl-clients).
 
 ### Q28: Why my Arduino MKR board failed to connect to the server?
@@ -323,3 +555,6 @@ For running more tasks concurrency, see [Running Many Tasks Concurrency Using Di
 
 ### Q29: Why my SIM7600 failed to connect to the server?
 #### A29: Please see, [Possible GSM issues](#possible-gsm-issues).
+=======
+For running more tasks concurrency, see [Running Many Tasks Concurrency Using Different Async Clients (In Different SSL Clients)](https://github.com/mobizt/FirebaseClient#running-many-tasks-concurrency-using-different-async-clients-in-different-ssl-clients).
+>>>>>>> Stashed changes

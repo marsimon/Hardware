@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created March 31, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -103,17 +107,29 @@ public:
      * @param parent The Messages::Parent object included project Id in its constructor.
      * The Firebase project Id should be only the name without the firebaseio.com.
      * @param message The Messages::Message object that holds the information to send.
+<<<<<<< Updated upstream
      * @return String The response payload.
+=======
+     * @return Boolean type status indicates the success of the operation.
+>>>>>>> Stashed changes
      *
      * This function requires ServiceAuth authentication.
      *
      * Read more details about HTTP v1 API here https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages
      */
+<<<<<<< Updated upstream
     String send(AsyncClientClass &aClient, const Messages::Parent &parent, const Messages::Message &message)
     {
         AsyncResult result;
         sendRequest(aClient, &result, NULL, "", parent, message.c_str(), Messages::firebase_cloud_messaging_request_type_send, false);
         return result.c_str();
+=======
+    bool send(AsyncClientClass &aClient, const Messages::Parent &parent, const Messages::Message &message)
+    {
+        AsyncResult result;
+        sendRequest(aClient, &result, NULL, "", parent, message.c_str(), Messages::firebase_cloud_messaging_request_type_send, false);
+        return result.lastError.code() == 0;
+>>>>>>> Stashed changes
     }
 
     /** Send a message to specified target (a registration token, topic or condition) with HTTP v1 API.
@@ -234,6 +250,10 @@ private:
         if (!aResult)
             aResult = new AsyncResult();
 
+<<<<<<< Updated upstream
+=======
+        aResult->error_available = true;
+>>>>>>> Stashed changes
         aResult->lastError.setClientError(code);
 
         if (request.cb)

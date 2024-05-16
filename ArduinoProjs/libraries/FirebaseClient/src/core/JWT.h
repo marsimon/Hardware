@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created March 25, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -71,7 +75,10 @@ namespace firebase
     class JWTClass
     {
         friend class FirebaseApp;
+<<<<<<< Updated upstream
         friend class FirebaseClient;
+=======
+>>>>>>> Stashed changes
 
     private:
         Memory mem;
@@ -84,7 +91,10 @@ namespace firebase
         Timer err_timer;
         auth_data_t *auth_data = nullptr;
         bool processing = false;
+<<<<<<< Updated upstream
         app_debug_t *app_debug = nullptr;
+=======
+>>>>>>> Stashed changes
 
         bool exit(bool ret)
         {
@@ -99,8 +109,11 @@ namespace firebase
         bool begin(auth_data_t *auth_data);
         bool create();
         void sendErrCB(AsyncResultCallback cb, AsyncResult *aResult = nullptr);
+<<<<<<< Updated upstream
         void sendErrResult(AsyncResult *refResult);
         void setAppDebug(app_debug_t *app_debug);
+=======
+>>>>>>> Stashed changes
 
     public:
         JWTClass();

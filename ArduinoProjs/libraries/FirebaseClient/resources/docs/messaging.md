@@ -35,7 +35,11 @@ void loop()
 ```
 
 
+<<<<<<< Updated upstream
 3. ## 🔹  String send(AsyncClientClass &aClient, const Messages::Parent &parent, const Messages::Message &message)
+=======
+3. ## 🔹  bool send(AsyncClientClass &aClient, const Messages::Parent &parent, const Messages::Message &message)
+>>>>>>> Stashed changes
 
 
 The Firebase project Id should be only the name without the firebaseio.com.
@@ -45,7 +49,11 @@ This function requires ServiceAuth authentication.
 Read more details about HTTP v1 API here https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages
 
 ```cpp
+<<<<<<< Updated upstream
 String send(AsyncClientClass &aClient, const Messages::Parent &parent, const Messages::Message &message)
+=======
+bool send(AsyncClientClass &aClient, const Messages::Parent &parent, const Messages::Message &message)
+>>>>>>> Stashed changes
 ```
 
 **Params:**
@@ -56,7 +64,11 @@ String send(AsyncClientClass &aClient, const Messages::Parent &parent, const Mes
 
 **Returns:**
 
+<<<<<<< Updated upstream
 - `String` - The response payload.
+=======
+- Boolean type status indicates the success of the operation.
+>>>>>>> Stashed changes
 
 4. ## 🔹  void send(AsyncClientClass &aClient, const Messages::Parent &parent, const Messages::Message &message, AsyncResult &aResult)
 

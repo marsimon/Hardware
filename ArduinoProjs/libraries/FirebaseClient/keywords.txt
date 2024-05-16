@@ -279,7 +279,10 @@ isAuthenticated KEYWORD2
 isExpired   KEYWORD2
 ttl KEYWORD2
 setCallback KEYWORD2
+<<<<<<< Updated upstream
 setAsyncResult  KEYWORD2
+=======
+>>>>>>> Stashed changes
 getAuth KEYWORD2
 join    KEYWORD2
 setDebugLevel   KEYWORD2
@@ -288,7 +291,10 @@ setBufferSizes  KEYWORD2
 setInsecure KEYWORD2
 setSyncSendTimeout  KEYWORD2
 setSyncReadTimeout  KEYWORD2
+<<<<<<< Updated upstream
 taskCount   KEYWORD2
+=======
+>>>>>>> Stashed changes
 
 ###################
 # Struct (KEYWORD3)

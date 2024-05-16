@@ -6,6 +6,7 @@
 
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/mobizt?logo=github)](https://github.com/sponsors/mobizt)
 
+<<<<<<< Updated upstream
 `2024-05-05T14:06:57Z`
 
 ## Table of Contents
@@ -76,6 +77,136 @@
     1. [Predefined Options](#predefined-options)
     2. [Optional Options](#optional-options)
 11. [License](#license)
+=======
+`2024-04-23T08:54:39Z`
+
+## Table of Contents
+
+[1. Introduction](#introduction)
+
+[2. Frequently Asked Questions](/FAQ.md)
+
+[3. Supported Devices](#supported-devices)
+
+[4. Dependencies](#dependencies)
+
+[5. Incompatability Between Old Firebase Library and This Firebase Library](#incompatability-between-old-firebase-library-and-this-firebase-library)
+
+[6. Installation](#installation)
+
+- [Using Library Manager](#using-library-manager)
+
+- [Manual installation](#manual-installation)
+
+- [RP2040 Arduino SDK installation](#rp2040-arduino-sdk-installation)
+
+[7. Usages](#usages)
+
+- [Authentication](#authentication)
+
+- [Firebase and Google Services](#firebase-and-google-services)
+
+- [Async Queue](#async-queue)
+
+  - [Running Many Tasks Concurrency Using Different Async Clients (In Different SSL Clients)](#running-many-tasks-concurrency-using-different-async-clients-in-different-ssl-clients)
+
+- [Async Client](#async-client)
+
+- [Tasks Timeout](#tasks-timeout)
+
+- [Async Result](#async-result)
+
+  - [App Events](#app-events)
+
+  - [Server Response and Event Data](#server-response-and-event-data)
+
+  - [Error Information](#error-information)
+
+  - [Debug Information](#debug-information)
+
+- [App Initialization](#app-initialization)
+ 
+  - [CustomAuth (ID Token Authorization Using Service Account)](#customauth-id-token-authorization-using-service-account)
+
+  - [ServiceAuth (OAuth2.0 Access Token Authorization Using Service Account)](#serviceauth-oauth20-access-token-authorization-using-service-account)
+
+  - [UserAuth (User Sign-In Authentication)](#userauth-user-sign-in-authentication)
+
+  - [NoAuth (Non-Authentication)](#noauth-non-authentication)
+
+  - [CustomToken (ID Token Authorization Using Custom Token)](#customtoken-id-token-authorization-using-custom-token)
+
+  - [AccessToken (OAuth2.0 Access Token Authorization)](#accesstoken-oauth20-access-token-authorization)
+
+  - [IDToken (ID token Authorization)](#idtoken-id-token-authorization)
+
+  - [LegacyToken (Database Secret)](#legacytoken-database-secret)
+
+- [Working with Filesystems and BLOB](#working-with-filesystems-and-blob)
+
+- [Working with Networks](#working-with-networks)
+
+- [Required Operation Flows](#required-operation-flows)
+
+- [Basic Example](#basic-example)
+
+- [Realtime Database Usage](#realtime-database-usage)
+
+- [Google Cloud Firestore Database Usage](#google-cloud-firestore-database-usage)
+
+- [Google Cloud Messaging Usage](#google-cloud-messaging-usage)
+
+- [Firebase Storage Usage](#firebase-storage-usage)
+
+- [Google Cloud Storage Usage](#google-cloud-storage-usage)
+
+- [Google Cloud Functions Usage](#google-cloud-functions-usage)
+
+- [Placeholders](#the-placeholder-represents-the-primitive-types-values-that-used-in-this-library)
+
+
+[8. Project Preparation and Setup](#project-preparation-and-setup)
+
+  - [Authentication Getting Started](#authentication-getting-started)
+
+  - [Realtime Database Getting Started](#realtime-database-getting-started)
+
+  - [Google Cloud Firestore Database Getting Started](#google-cloud-firestore-database-getting-started)
+
+  - [Storage Getting Started](#storage-getting-started)
+
+  - [Google Cloud Functions Getting Started](#google-cloud-functions-getting-started)
+
+  - [Cloud Messaging Getting Started](#cloud-messaging-getting-started)
+
+  - [Service Account](#service-account)
+
+    - [Service Account Permissions](#service-account-permissions)
+
+[9. Memory Options](#memory-options)
+
+- [Memory Options for ESP8266](#memory-options-for-esp8266)
+
+  - [Arduino IDE](#arduino-ide)
+
+  - [PlatformIO IDE](#platformio-ide)
+
+  - [ESP8266 and SRAM/PSRAM Chip connection](#esp8266-and-srampsram-chip-connection)
+
+- [Memory Options for ESP32](#memory-options-for-esp32)
+
+  - [Arduino IDE](#arduino-ide-1)
+
+  - [PlatformIO IDE](#platformio-ide-1)
+
+[10. Library Build Options](#library-build-options)
+
+- [Predefined Options](#predefined-options)
+
+- [Optional Options](#optional-options)
+
+[11. License](#license)
+>>>>>>> Stashed changes
 
 
 ## Introduction
@@ -125,15 +256,22 @@ For the FAQ (Frequently Asked Questions), please visit [here](/FAQ.md).
  * Arduino® Nano RP2040
  * Arduino® GIGA R1 WiFi
  * Raspberry Pi Pico (RP2040)
+<<<<<<< Updated upstream
  * STM32 MCU based boards (minimum 256k Flash memory)
  * Teensy 3.1, 3.2, 3.5, 3.6, 4.0 and 4.1
+=======
+>>>>>>> Stashed changes
  * LAN8720 Ethernet PHY
  * TLK110 Ethernet PHY
  * IP101 Ethernet PHY
  * ENC28J60 SPI Ethernet module
  * W5100 SPI Ethernet module
  * W5500 SPI Ethernet module
+<<<<<<< Updated upstream
  * SIMCom Modules with [TinyGSM](https://github.com/vshymanskyy/TinyGSM)
+=======
+ * SIMCom Modules with TinyGSMClient
+>>>>>>> Stashed changes
 
 
  ## Dependencies
@@ -169,6 +307,11 @@ For PlatfoemIO IDE, the ESP8266 Core SDK can be installed through **PIO Home** >
 
 The RP2040 boards required [Arduino-Pico SDK](https://github.com/earlephilhower/arduino-pico) from Earle F. Philhower to be installed.
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 ## Incompatability Between Old Firebase Library and This Firebase Library.
 
 This library APIs are not compattible with the Firebase-ESP8266, Firebase-ESP32 and Firebase-ESP-Client libraries.
@@ -332,7 +475,11 @@ See this Arduino-Pico SDK [documentation](https://arduino-pico.readthedocs.io/en
 
 ## Usages
 
+<<<<<<< Updated upstream
 Based on the async library design , there are no central configuration class (`FirebaseConfig`) and all-in-one data containter class (`FirebaseData`) as in the old Firebase library. 
+=======
+Based on the async library design , there are no main generic `Firebase` class, central configuration class (`FirebaseConfig`) and all-in-one data containter class (`FirebaseData`) as in the old Firebase library. 
+>>>>>>> Stashed changes
 
 This library provides the managed classes that are used in different purposes i.e. the classes that used to hadle the sync and async tasks and to use as a container (data provider) for authentication credentials, networking and filesystems configurations, and async task result.
 
@@ -379,7 +526,11 @@ The `Users` tab in the `Authentication` page in the [`Firebase console`](https:/
 
 ![Email/Password Sign-in provider](https://raw.githubusercontent.com/mobizt/FirebaseClient/main/resources/images/user_auth_console.png)
 
+<<<<<<< Updated upstream
 The user management using this library are also [available](/examples/App/UserManagement/).
+=======
+The user management using this library are also [available](/examples/App/UserManagement).
+>>>>>>> Stashed changes
 
 The sucurity rules can be used for user accessing control.
 
@@ -419,9 +570,13 @@ The Firebase and Google Services classes that are available in this library are 
 - ### Async Queue
 
 
+<<<<<<< Updated upstream
 All sync and async tasks are managed using `FIFO queue` in async client. The task in the queue will refer to `slot` in this library.
 
 The queue is task based or session based which stores the HTTP request and response data which used for a task. 
+=======
+All sync and async tasks are managed using `FIFO queue` in async client. The task in the queue will refer to `slot` in this library. 
+>>>>>>> Stashed changes
  
 The memory used for a task that stores in the queue is approximately 1 k. Then in order to limit the memory usage in a async client, this library allows only 10 tasks can be stored in the queue at a time.
 
@@ -444,8 +599,11 @@ When `SSE mode (HTTP Streaming)` task was currently stored in the queue, the new
 The new task can be cancelled in case the queue is full or the another `SSE mode (HTTP Streaming)` task is already stored in the queue. 
 
 The error code `-118` (`FIREBASE_ERROR_OPERATION_CANCELLED`) or `"operation was cancelled"` will show in this case.
+<<<<<<< Updated upstream
 
 The number of tasks that currently stored in the queue can be obtained from `AsyncClientClass::taskCount()` function.
+=======
+>>>>>>> Stashed changes
  
 The running task will be removed from the queue when operation is finished or error occurred.
 
@@ -461,6 +619,7 @@ You cannot run more than one `infinite task` in the same async client's queue as
 
 To run multiple `SSE mode (HTTP Streaming)` tasks, you have to run each task in different async client. Please note that `SSE mode (HTTP Streaming)` task consumes memory all the time while it is running. Running many `SSE mode (HTTP Streaming)` tasks may not possible because of out of memory especially in ESP8266 and SAMD devices.
 
+<<<<<<< Updated upstream
 The async task handler will kepp the async tasks running as long as it places in the main `loop` function.
 
 > [!IMPORTANT]  
@@ -469,6 +628,10 @@ The async task handler will kepp the async tasks running as long as it places in
 
 > [!NOTE] 
 > Even the authentication task can run asynchronously, you can run it asynchronously by waiting until the `FirebaseApp::ready()` function returns true.
+=======
+> [!IMPORTANT]  
+> The user blocking code and `delay` function that used in the same loop of async task handler will block the async tasks to run. Please avoid using `delay` function in the same loop of async task handler.
+>>>>>>> Stashed changes
 
 #### Running Many Tasks Concurrency Using Different Async Clients (In Different SSL Clients)
 
@@ -476,11 +639,19 @@ In Raspberry Pi Pico W, its `WiFiClientSecure` memory used for the transmit and 
 
 In ESP32 device, its `WiFiClientSecure` memory usage cannot be adjusted, it requires at least 50 k per connection (37 k used for `mbedTLS` memory allocation) and only three `WiFiClientSecure`(s) can be defined.
 
+<<<<<<< Updated upstream
 Alternatively, for ESP32 device, you can use `ESP_SSLClient` that was included in this library. It works similar to ESP8266's `WiFiClientSecure` and the memory used for the transmit and receive buffers are adjustable (512 to 16384). See the [Stream Concurentcy example](/examples/RealtimeDatabase/Async/Callback/StreamConcurentcy/) for how to run many tasks concurrency.
 
 The useful of using `ESP_SSLClient` is it uses `PSRAM` by default, you can use it in ESP32 and ESP8266 modules that have `PSRAM` or connected to external `PSRAM`.
 
 In case of ESP8266 that connected to external `PSRAM`, you have enough RAM for running many tasks concurrency, and you can run [Stream Concurentcy example](/examples/RealtimeDatabase/Async/Callback/StreamConcurentcy/) without memory problem.
+=======
+Alternatively, for ESP32 device, you can use `ESP_SSLClient` that was included in this library. It works similar to ESP8266's `WiFiClientSecure` and the memory used for the transmit and receive buffers are adjustable (512 to 16384). See the [Stream Concurentcy example](/examples/RealtimeDatabase/Async/StreamConcurentcy/StreamConcurentcy.ino) for how to run many tasks concurrency.
+
+The useful of using `ESP_SSLClient` is it uses `PSRAM` by default, you can use it in ESP32 and ESP8266 modules that have `PSRAM` or connected to external `PSRAM`.
+
+In case of ESP8266 that connected to external `PSRAM`, you have enough RAM for running many tasks concurrency, and you can run [Stream Concurentcy example](/examples/RealtimeDatabase/Async/StreamConcurentcy/StreamConcurentcy.ino) without memory problem.
+>>>>>>> Stashed changes
 
 For how to use `PSRAM` in ESP32 and ESP8266 devices, see [Memory Options](#memory-options) section.
 
@@ -488,9 +659,12 @@ In case using ESP8266 without `PSRAM` and you want to reduce the memory usage, y
 
 Note that, because the receive buffer size was set to minimum safe value, 1024, the large server response may not be able to handle. 
 
+<<<<<<< Updated upstream
 > [!WARNING] 
 > When using `WiFiClient` with `ESP_SSLClient` classes in ESP32, the `TCP receive time out` error can be occurred as found in the old Firebase library because of ESP32's `WiFiClient` issue. Then using `WiFiClient` with `ESP_SSLClient` in ESP32 is your own risk.
 
+=======
+>>>>>>> Stashed changes
 
 - ### Async Client
 
@@ -544,7 +718,10 @@ In case async task, the send timeout and read timeout are 30 seconds by default 
 
 In case sync task, the timeouts can be set via `AsyncClientClass::setSyncSendTimeout` and `AsyncClientClass::setSyncReadTimeout` for send timeout and read timeout respectively.
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 - ### Async Result
 
 This library provides the class object called async result (`AsyncResult`) which is used as a container that provides 4 types of information: `App Events` (`app_event_t`), `Server Response and Event Data`, `Debug Information` and `Error Information` and will be discussed later.
@@ -557,6 +734,7 @@ The `Error Information` (`FirebaseError`) can be obtained from `AsyncResult::err
 
 The `Debug Information` (`String`) can be obtained from `AsyncResult::debug()`.
 
+<<<<<<< Updated upstream
 There are two use cases of async result: with callback function and without callback function.
 
    1. User provided async result (without callback function).
@@ -589,13 +767,41 @@ initializeApp(<AsyncClientClass>, <FirebaseApp>, <user_auth_data>, <AsyncResultC
  
 ```cpp
 RealtimeDatabase::get(<AsyncClientClass>, <path>, <options>, <AsyncResultCallback>);
+=======
+There are two use cases of async result:
+
+   1. User provided async result.
+
+   The async result is defined by user and assigned with the async function.
+
+Example:
+
+```cpp
+Database.get(<AsyncClientClass>, <path>, <options>, <AsyncResult>);
+```
+
+   2. From the instance of async data.
+
+   The async result was taken from async data which created within the async task.
+
+   This is the case where the async result callback function was set to the async function.   
+
+Example:
+
+```cpp
+Database.get(<AsyncClientClass>, <path>, <options>, <AsyncResultCallback>);
+>>>>>>> Stashed changes
 ```
 
 In case 1, the async result (`AsyncResult`) shall be defined globally because it needs the containter to keep the result while running the async task.
 
 In case 1, when the async result was used in the `loop` function to take or print information from it. It should follow the below recommendation for checking its status before processing the data to avoid processing or printing the same data.
 
+<<<<<<< Updated upstream
 > To check the `App Event` changes, you should use `AsyncResult::isEvent()`.
+=======
+> To check the `App Event` changes, you should use `AsyncResult::appEvent().code() > 0`.
+>>>>>>> Stashed changes
 >
 > To check the `Server Response and Event Data` changes, you should use `AsyncResult::available()`.
 >
@@ -621,7 +827,12 @@ You can get the `UID` from `AsyncResult` via `AsyncResult::uid()`.
 > The async client used in authentication task should be defined globally as it runs asynchronously.
 
 > [!CAUTION]
+<<<<<<< Updated upstream
 > Please don't run your code inside the async callback function because it use stack memory.
+=======
+> Please avoid calling the codes or functions that consumed large memory inside the asyn callback function because they use stack memory then the wdt reset crash can be occurred in ESP8266 device because of stack overflow.
+> Then in ESP8266 device, global defined `AsyncResult` as used in case 1 is recommended for async task.
+>>>>>>> Stashed changes
 
 - ### App Events
 
@@ -715,7 +926,11 @@ The `realtime_database_data_type` enums are included the following.
 
 - `realtime_database_data_type_undefined` or -1.
 
+<<<<<<< Updated upstream
 - `realtime_database_data_type_null` or 5.
+=======
+- `realtime_database_data_type_null`  or 5.
+>>>>>>> Stashed changes
 
 - `realtime_database_data_type_integer` or 1.
 
@@ -764,7 +979,11 @@ The error information (`FirebaseError`) from the async result can be obtained fr
 
 - ### Debug Information
 
+<<<<<<< Updated upstream
 The debug information (`String`) from the async result can be obtained from `String AsyncResult::debug()` which is currently availabele when getting current time, starting and closing the server connection and information about network connection process.
+=======
+The debug information (`String`) from the async result can be obtained from `String AsyncResult::debug()` which is currently availabele when starting and closing the server connection and information about network connection process.
+>>>>>>> Stashed changes
 
 ### App Initialization
 
@@ -784,6 +1003,7 @@ The authentication/authorization classes also mentioned in the earlier section w
 
 The following authentication/authorization classes generate and hold the `ID token` which used in the authorization requests.
 
+<<<<<<< Updated upstream
 - [UserAuth](/examples/App/AppInitialization/Async/Callback/UserAuth/)
 
 - [CustomAuth](/examples/App/AppInitialization/Async/Callback/CustomAuth/)
@@ -801,6 +1021,25 @@ The following classes provide the privilege access to the Firebase/Google APIs.
  The following class provides for non-authentication acesss.
  
  - [NoAuth](/examples/App/AppInitialization/Async/Callback/NoAuth/)
+=======
+- [UserAuth](examples/App/AppInitialization/UserAuth/UserAuth.ino)
+
+- [CustomAuth](examples/App/AppInitialization/CustomAuth/CustomAuth.ino)
+
+- [IDToken](examples/App/AppInitialization/TokenAuth/IDToken/IDToken.ino)
+
+The following classes provide the privilege access to the Firebase/Google APIs.
+
+ - [ServiceAuth](examples/App/AppInitialization/ServiceAuth/ServiceAuth.ino)
+ 
+ - [AccessToken](examples/App/AppInitialization/TokenAuth/AccessToken/AccessToken.ino)
+
+ - [LegacyToken](examples/App/AppInitialization/TokenAuth/LegacyToken/LegacyToken.ino)
+
+ The following class provides for non-authentication acesss.
+ 
+ - [NoAuth](examples/App/AppInitialization/NoAuth/NoAuth.ino)
+>>>>>>> Stashed changes
 
 
 The `getAuth` function is the function that provides the user auth data (`user_auth_data`) from the authentication/authorization classes.
@@ -814,6 +1053,7 @@ The `auth token` (`ID token` and `access token`) and legacy token can be obtaine
 
 The refresh token (when using authentication/authorization classes that provided the `ID token`) can be obtained from `FirebaseApp::getRefreshToken()`.
 
+<<<<<<< Updated upstream
 - ### initializeApp or Firebase::initializeApp
 
 To initialize the `FirebaseApp`, call `Firebase::initializeApp` or static function `initializeApp` which the functions parameters are included the following.
@@ -848,11 +1088,18 @@ initializeApp(<AsyncClientClass>, <FirebaseApp>, <user_auth_data>, <AsyncResultC
 The service account credentials and json file can be used for authentication. 
 
 The [CustomAuth](/examples/App/AppInitialization/Async/Callback/CustomAuth/) class parameters are included the following.
+=======
+
+- ### CustomAuth (ID Token Authorization Using Service Account)
+
+The [CustomAuth](examples/App/AppInitialization/CustomAuth/CustomAuth.ino) class parameters are included the following.
+>>>>>>> Stashed changes
 
 ```cpp
 CustomAuth::CustomAuth(<TimeStatusCallback>, <api_key>, <client_email>, <project_id>, <private_key>, <user_id>, <scope>, <claims>, <expire>)
 ```
 
+<<<<<<< Updated upstream
 
 ```cpp
 CustomAuth::CustomAuth(<TimeStatusCallback>, <file_config_data>, <api_key>, <user_id>, <scope>, <claims>, <expire>)
@@ -862,6 +1109,10 @@ CustomAuth::CustomAuth(<TimeStatusCallback>, <file_config_data>, <api_key>, <use
 
 `<file_config_data>` The filesystem data (`file_config_data`) obtained from `FileConfig` class object of service account key file.
 
+=======
+`<TimeStatusCallback>` The time status callback that provides the UNIX timestamp used to set the issue time and expiration time in the JWT token payload.
+
+>>>>>>> Stashed changes
 `<api_key>` The web API key of the project.
 
 `<client_email>` The service account client Email.
@@ -882,6 +1133,7 @@ CustomAuth::CustomAuth(<TimeStatusCallback>, <file_config_data>, <api_key>, <use
 
 This type of authentication is used when privilege (admin rights) access is needed.
 
+<<<<<<< Updated upstream
 The service account credentials and json file can be used for authentication. 
 
 The [ServiceAuth](/examples/App/AppInitialization/Async/Callback/ServiceAuth/) class parameters are included the following.
@@ -892,12 +1144,21 @@ ServiceAuth::ServiceAuth(<TimeStatusCallback>, <client_email>, <project_id>, <pr
 
 ```cpp
 ServiceAuth::ServiceAuth(<TimeStatusCallback>, <file_config_data>, <expire>)
+=======
+The [ServiceAuth](examples/App/AppInitialization/ServiceAuth/ServiceAuth.ino) class parameters are included the following.
+
+```cpp
+ServiceAuth::ServiceAuth(<TimeStatusCallback>, <api_key>, <client_email>, <project_id>, <private_key>, <expire>)
+>>>>>>> Stashed changes
 ```
 
 `<TimeStatusCallback>` The time status callback that provides the UNIX timestamp used to set the issue time and expiration time in the JWT token payload.
 
+<<<<<<< Updated upstream
 `<file_config_data>` The filesystem data (`file_config_data`) obtained from `FileConfig` class object of service account key file.
 
+=======
+>>>>>>> Stashed changes
 `<client_email>` The service account client Email.
 
 `<project_id>` The service account project ID.
@@ -913,14 +1174,19 @@ The auth token need to be re-created instead of refreshing.
 
 - ### UserAuth (User Sign-In Authentication)
 
+<<<<<<< Updated upstream
 The user name and password credentials are used for authentication. You can save the credentials to file and load it with the constructor.
 
 The [UserAuth](/examples/App/AppInitialization/Async/Callback/UserAuth/) class parameters are included the following.
+=======
+The [UserAuth](examples/App/AppInitialization/UserAuth/UserAuth.ino) class parameters are included the following.
+>>>>>>> Stashed changes
 
 ```cpp
 UserAuth::UserAuth(<api_key>, <user_email>, <user_password>, <expire>)
 ```
 
+<<<<<<< Updated upstream
 ```cpp
 UserAuth::UserAuth(<file_config_data>)
 ```
@@ -929,6 +1195,8 @@ UserAuth::UserAuth(<file_config_data>)
 UserAuth::save(<file_config_data>)
 ```
 
+=======
+>>>>>>> Stashed changes
 `<api_key>` The API key which can be obtained from Firebase console > Project Overview > Project settings.
 
 `<user_email>` The Email of user in the project.
@@ -937,11 +1205,17 @@ UserAuth::save(<file_config_data>)
 
 `<expire>`The expiry period in seconds (less than 3600), 3300 is the default value.
 
+<<<<<<< Updated upstream
 `<file_config_data>` The filesystem data (`file_config_data`) obtained from `FileConfig` class object of file that the `UserAuth` credentials will be saved to or read from.
 
 - ### NoAuth (Non-Authentication)
 
 The [NoAuth](/examples/App/AppInitialization/Async/Callback/NoAuth/) class allows you to access the Firebase/Google APIs without authorization token. There is no parameters in its class constructor.
+=======
+- ### NoAuth (Non-Authentication)
+
+The [NoAuth](examples/App/AppInitialization/NoAuth/NoAuth.ino) class allows you to access the Firebase/Google APIs without authorization token. There is no parameters in its class constructor.
+>>>>>>> Stashed changes
 
 This required read and write access in Firebase/Google APIs.
 
@@ -949,14 +1223,19 @@ It should be used for testing only.
 
 - ### CustomToken (ID Token Authorization Using Custom Token)
 
+<<<<<<< Updated upstream
 The API key and the custom token credentials are used for authorization. You can save the credentials to file and load it with the constructor.
 
 The [CustomToken](/examples/App/AppInitialization/Async/Callback/TokenAuth/CustomToken/) class parameters are included the following.
+=======
+The [CustomToken](examples/App/AppInitialization/TokenAuth/CustomToken/CustomToken.ino) class parameters are included the following.
+>>>>>>> Stashed changes
 
 ```cpp
 CustomToken::CustomToken(<api_key>, <custom_token>, <expire_in_seconds>)
 ```
 
+<<<<<<< Updated upstream
 ```cpp
 CustomToken::CustomToken(<file_config_data>)
 ```
@@ -973,6 +1252,14 @@ CustomToken::save(<file_config_data>)
 
 `<file_config_data>` The filesystem data (`file_config_data`) obtained from `FileConfig` class object of file that the `CustomToken` credentials will be saved to or read from.
 
+=======
+`<api_key>` API key can be obtained from Firebase console > Project Overview > Project settings.
+
+`<custom_token>` Auth custom token (jwt signed token).
+
+`<expire_in_seconds>` Expiry period in seconds (less than 3600), 3300 is the default value.
+
+>>>>>>> Stashed changes
 The expire period should be less than the remaining time to live of your signed `JWT` token.
 
 > [!NOTE]  
@@ -986,6 +1273,7 @@ The ID token is a short-lived token which will be expired in 1 hour.
 
 - ### AccessToken (OAuth2.0 Access Token Authorization)
 
+<<<<<<< Updated upstream
 The access token was used for authorization. You can save the credentials to file and load it with the constructor.
 
 The [AccessToken](/examples/App/AppInitialization/Async/Callback/TokenAuth/AccessToken/) class parameters are included the following.
@@ -1003,6 +1291,15 @@ AccessToken::save(<file_config_data>)
 ```
 
 `<access_token>` The access token.
+=======
+The [AccessToken](examples/App/AppInitialization/TokenAuth/AccessToken/AccessToken.ino) class parameters are included the following.
+
+```cpp
+AccessToken::AccessToken(<auth_token>, <expire_in_seconds>, <refresh_token>, <client_id>, <client_secret>)
+```
+
+`<auth_token>` The access token.
+>>>>>>> Stashed changes
 
 `<expire_in_seconds>` Expire period in seconds
 
@@ -1012,14 +1309,18 @@ AccessToken::save(<file_config_data>)
 
 `<client_secret>` Client secret.
 
+<<<<<<< Updated upstream
 `<file_config_data>` The filesystem data (`file_config_data`) obtained from `FileConfig` class object of file that the `AccessToken` credentials will be saved to or read from.
 
+=======
+>>>>>>> Stashed changes
 Normally `<refresh_token>` is not needed, if it is provided, the token will be refresh immediately when calling `FirebaseApp`'s  `initializeApp`.
 
 The Client ID and Client Secret are OAuth 2.0 credentials that can be taken from the [developer console](https://console.developers.google.com/apis/credentials).
 
 - ### IDToken (ID token Authorization)
 
+<<<<<<< Updated upstream
 The API key and ID token are used for authorization. You can save the credentials to file and load it with the constructor.
 
 The [IDToken](/examples/App/AppInitialization/Async/Callback/TokenAuth/IDToken/) class parameters are included the following.
@@ -1034,16 +1335,27 @@ IDToken::IDToken(<file_config_data>)
 
 ```cpp
 IDToken::save(<file_config_data>)
+=======
+The [IDToken](examples/App/AppInitialization/TokenAuth/IDToken/IDToken.ino) class parameters are included the following.
+
+```cpp
+IDToken::IDToken(<api_key>, <auth_token>, <expire_in_seconds>, <refresh_token>)
+>>>>>>> Stashed changes
 ```
 
 `<api_key>` API key can be obtained from Firebase console > Project Overview > Project settings.
 
+<<<<<<< Updated upstream
 `<ID_token>` The ID token.
+=======
+`<auth_token>` Auth token from user auth.
+>>>>>>> Stashed changes
 
 `<expire_in_seconds>` Expire period in seconds.
 
 `<refresh_token>` Refresh token.
 
+<<<<<<< Updated upstream
 `<file_config_data>` The filesystem data (`file_config_data`) obtained from `FileConfig` class object of file that the `IDToken` credentials will be saved to or read from.
 
 - ### LegacyToken (Database Secret)
@@ -1051,11 +1363,17 @@ IDToken::save(<file_config_data>)
 The database secret was used for authorization. You can save the credentials to file and load it with the constructor.
 
 The [LegacyToken](/examples/App/AppInitialization/Async/Callback/TokenAuth/LegacyToken/) class parameters aer included the following.
+=======
+- ### LegacyToken (Database Secret)
+
+The [LegacyToken](examples/App/AppInitialization/TokenAuth/LegacyToken/LegacyToken.ino) class parameters is included the following.
+>>>>>>> Stashed changes
 
 ```cpp
 LegacyToken::LegacyToken(<database_secret>)
 ```
 
+<<<<<<< Updated upstream
 ```cpp
 LegacyToken::LegacyToken(<file_config_data>);
 ```
@@ -1072,12 +1390,24 @@ LegacyToken::save(<file_config_data>);
 - ### Working with Filesystems and BLOB
 
 The file config class ([FileConfig](/examples/App/AppInitialization/Async/Callback/SaveAndLoad/)) will be used to hold the SD/Flash filesystems information and the file operation callback when file upload or download is required.
+=======
+`<database_secret>` The `Realtime Database` secret key.
+
+
+- ### Working with Filesystems and BLOB
+
+The file config class ([FileConfig](examples/App/AppInitialization/SaveAndLoad/)) will be used to hold the SD/Flash filesystems information and the file operation callback when file upload or download is required.
+>>>>>>> Stashed changes
 
 The function that requires file/BLOB for download and upload will accept the file config data (`file_config_data`) in its parameters.
 
 The `file_config_data` can be obtained from the static functions called `getFile` and `getBlob`.
 
+<<<<<<< Updated upstream
 The `FileConfig` class parameters are included the following.
+=======
+The `FileConfig` class parameters is included the following.
+>>>>>>> Stashed changes
 
 ```cpp
 FileConfig::FileConfig(<filename>, <file_callback>)
@@ -1138,7 +1468,11 @@ void download()
 
 ```
 
+<<<<<<< Updated upstream
 The blob config class ([BlobConfig](examples/RealtimeDatabase/Async/Callback/BLOB/)) provides the in/out data for upload and download functions.
+=======
+The blob config class ([BlobConfig](examples/RealtimeDatabase/Extras/BLOB/BLOB.ino)) provides the in/out data for upload and download functions.
+>>>>>>> Stashed changes
 
 The `BlobConfig` class constructor parameters class parameters are included the following.
 
@@ -1180,6 +1514,7 @@ When you don't use filesystems, you can exclude the related code in this library
 
 The `AsyncClientClass` object requires the network config data (`network_config_data`) that obtained from one of the following networking classes via the static function called `getNetwork`.
 
+<<<<<<< Updated upstream
 - [DefaultNetwork](/examples/App/NetworkInterfaces/Async/Callback/DefaultNetworks/DefaultNetwork/) is used with the core WiFi enabled networking.
 
 - [DefaultWiFiNetwork](/examples/App/NetworkInterfaces/Async/Callback/DefaultNetworks/DefaultWiFiNetwork/) is used with the core WiFi Multi enabled networking or non-core WiFi networking.
@@ -1191,13 +1526,30 @@ The `AsyncClientClass` object requires the network config data (`network_config_
 - [GSMNetwork](/examples/App/NetworkInterfaces/Async/Callback/GSMNetwork/) is used with the non-core GSM networking.
 
 - [GenericNetwork](/examples/App/NetworkInterfaces/Async/Callback/GenericNetwork/) is used with the non-core or user defined networking.
+=======
+- [DefaultNetwork](examples/App/NetworkInterfaces/DefaultNetworks/DefaultNetwork/DefaultNetwork.ino) is used with the core WiFi enabled networking.
+
+- [DefaultWiFiNetwork](examples/App/NetworkInterfaces/DefaultNetworks/DefaultWiFiNetwork/DefaultWiFiNetwork.ino) is used with the core WiFi Multi enabled networking or non-core WiFi networking.
+
+- [DefaultEthernetNetwork](examples/App/NetworkInterfaces/DefaultNetworks/DefaultEthernetNetwork) is used with the core Ethernet enabled networking.
+
+- [EthernetNetwork](examples/App/NetworkInterfaces/EthernetNetwork/EthernetNetwork.ino) is used with the non-core Ethernet networking.
+
+- [GSMNetwork](examples/App/NetworkInterfaces/GSMNetwork/GSMNetwork.ino) is used with the non-core GSM networking.
+
+- [GenericNetwork](examples/App/NetworkInterfaces/GenericNetwork/GenericNetwork.ino) is used with the non-core or user defined networking.
+>>>>>>> Stashed changes
 
 > [!WARNING]  
 > In ESP32, [ADC2](https://docs.espressif.com/projects/esp-idf/en/v4.2/esp32/api-reference/peripherals/adc.html) (`GPIO 0`, `GPIO 2`, `GPIO 4`, `GPIO 12`, `GPIO 13`, `GPIO 14`, `GPIO 15`, `GPIO 25`, `GPIO 26` and `GPIO 27`) cannot be used while using WiFi.
 
 The default network class can be used with WiFi capable MCUs e.g. ESP8266, ESP32 and Raspberry Pi Pico W.
 
+<<<<<<< Updated upstream
 The boolean parameter passed to the default network class constructor is the option for how the network (WiFi) reconnection can be done automatically or manually.
+=======
+The boolean parameter assigned with the default network class constructor is the option for how the network (WiFi) reconnection can be done automatically or manually.
+>>>>>>> Stashed changes
 
 The default WiFi network class provided the mean for connection with multiple WiFi credentials (WiFi Multi),
 
@@ -1215,9 +1567,13 @@ The `DefaultNetwork` class parameters are included the following.
 
 ```cpp
 DefaultNetwork::DefaultNetwork()
+<<<<<<< Updated upstream
 ```
 
 ```cpp
+=======
+
+>>>>>>> Stashed changes
 DefaultNetwork::DefaultNetwork(<reconnect_option>)
 ```
 
@@ -1272,9 +1628,13 @@ The DefaultEthernetNetwork class parameters are included the following.
 
 ```cpp
 DefaultEthernetNetwork::DefaultEthernetNetwork()
+<<<<<<< Updated upstream
 ```
 
 ```cpp
+=======
+
+>>>>>>> Stashed changes
 DefaultEthernetNetwork::DefaultEthernetNetwork(<Firebase_SPI_ETH_Module>)
 ```
 
@@ -1282,11 +1642,14 @@ DefaultEthernetNetwork::DefaultEthernetNetwork(<Firebase_SPI_ETH_Module>)
 
  To use ESP8266 native lwIP Ethernet, the one of following macros, `ENABLE_ESP8266_ENC28J60_ETH`, `ENABLE_ESP8266_W5500_ETH` and `ENABLE_ESP8266_W5100_ETH` should be defined in [src/Config.h](/src/Config.h) or in your own defined config at [src/UserConfig.h](/src) or adding `ENABLE_ESP8266_ENC28J60_ETH`, `ENABLE_ESP8266_W5500_ETH` and `ENABLE_ESP8266_W5100_ETH` in the compiler build flags.
 
+<<<<<<< Updated upstream
 In `PlatformIO IDE`, please set the `lib_ldf_mode` option in `platformio.ini` as the following.
 
 ```ini
 lib_ldf_mode = chain+
 ```
+=======
+>>>>>>> Stashed changes
 
 The following example shows how to use ENC28J60 Ethernet module with ESP8266
 ```cpp
@@ -1310,6 +1673,7 @@ void setup()
 }
 ```
 
+<<<<<<< Updated upstream
 See [ESP8266 DefaultEthernetNetwork example](/examples/App/NetworkInterfaces/Async/Callback/DefaultNetworks/DefaultEthernetNetwork/ESP8266/) for using ESP8266 with its native lwIP Ethernet library.
 
 For ESP32, to use the native ETH class, define the `DefaultEthernetNetwork` object with no parameter.
@@ -1319,6 +1683,17 @@ See [ESP32 DefaultEthernetNetwork example](/examples/App/NetworkInterfaces/Async
 - `EthernetNetwork`
 
 By default the external Ethernet module can be used with the library when the macro `ENABLE_ETHERNET_NETWORK` was defined and Ethernet library was included in the user sketch.
+=======
+See [ESP8266 DefaultEthernetNetwork example](examples/App/NetworkInterfaces/DefaultNetworks/DefaultEthernetNetwork/ESP8266/ESP8266.ino) for using ESP8266 with its native lwIP Ethernet library.
+
+For ESP32, to use the native ETH class, define the `DefaultEthernetNetwork` object with no parameter.
+
+See [ESP32 DefaultEthernetNetwork example](examples/App/NetworkInterfaces/DefaultNetworks/DefaultEthernetNetwork/ESP32/ESP32.ino) for using ESP32 with its native Ethernet library.
+
+- `EthernetNetwork`
+
+By default the external Ethernet module can be used with the library when the macro `ENABLE_ETHERNET_NETWORK` was assigned and Ethernet library was included in the user sketch.
+>>>>>>> Stashed changes
 
 The user defined Ethernet class and header other than `Ethernet.h` and `Ethernet` can be used, see the [Library Build Options](#library-build-options) section.
 
@@ -1351,6 +1726,7 @@ Firebase_StaticIP::Firebase_StaticIP(<local_ip>, <subnet>, <gateway>, <dns_serve
 
 `<optional>` The boolean option to force use static IP only (not use DHCP).
 
+<<<<<<< Updated upstream
 See [EthernetNetwork example](/examples/App/NetworkInterfaces/Async/Callback/EthernetNetwork/)  for external Ethernet module usage.
 
 - `GSMNetwork`
@@ -1358,13 +1734,26 @@ See [EthernetNetwork example](/examples/App/NetworkInterfaces/Async/Callback/Eth
 The `GSMNetwork` class can be used only with [TinyGSM](https://github.com/vshymanskyy/TinyGSM) library.
 
 As [TinyGSM](https://github.com/vshymanskyy/TinyGSM) library requirement, one of GSM module macro should be defined in the sketch. 
+=======
+See [EthernetNetwork example](examples/App/NetworkInterfaces/EthernetNetwork/EthernetNetwork.ino)  for external Ethernet module usage.
+
+- `GSMNetwork`
+
+The `GSMNetwork` class can be used only with [TinyGSMClient](https://github.com/vshymanskyy/TinyGSM) library.
+
+As TinyGSMClient library requirement, one of GSM module macro should be defined in the sketch. 
+>>>>>>> Stashed changes
 
 For example, for SIM7600 module, the macro `TINY_GSM_MODEM_SIM7600` should be defined.
 
 > [!IMPORTANT]  
+<<<<<<< Updated upstream
 > The GSM module macros e.g. `TINY_GSM_MODEM_SIM7600` should be defined in two locations.
 > 1. In [src/Config.h](/src/Config.h) or in your own defined config at [src/UserConfig.h](/src) or adding `TINY_GSM_MODEM_SIM7600` in compiler build flags.
 > 2. In your sketch.
+=======
+> The GSM module macros e.g. `TINY_GSM_MODEM_SIM7600` should be defined in [src/Config.h](/src/Config.h) or in your own defined config at [src/UserConfig.h](/src) or adding `TINY_GSM_MODEM_SIM7600` in compiler build flags.
+>>>>>>> Stashed changes
 
 The class parameters are included the following.
 
@@ -1384,7 +1773,11 @@ GSMNetwork::GSMNetwork(<modem>, <gsm_pin>, <apn>, <user>, <password>)
 
 The TinyGsm modem should be defined at the same usage scope of `GSMNetwork` and `AsyncClientClass`.
 
+<<<<<<< Updated upstream
 See [GSMNetwork example](/examples/App/NetworkInterfaces/Async/Callback/GSMNetwork/) for using [TinyGSM](https://github.com/vshymanskyy/TinyGSM) with this library.
+=======
+See [GSMNetwork example](examples/App/NetworkInterfaces/GSMNetwork/GSMNetwork.ino) for using TinyGSMClient with this library.
+>>>>>>> Stashed changes
 
 - `GenericNetwork`
 
@@ -1404,6 +1797,7 @@ In the `<net_connect_callback>`, the complete operations for the carier (network
 
 In the `<network_status_callback>` function, the `status` (Boolean variable) that provided in the function, should set with the network status.
 
+<<<<<<< Updated upstream
 See [GenericNetwork example](/examples/App/NetworkInterfaces/Async/Callback/GenericNetwork/) for using WiFi with `GenericNetwork` for demonstation.
 
 
@@ -2040,6 +2434,65 @@ void printResult(AsyncResult &aResult)
 ```
 
   #### The Sync Example.
+=======
+See [GenericNetwork example](examples/App/NetworkInterfaces/GenericNetwork/GenericNetwork.ino) for using WiFi with `GenericNetwork` for demonstation.
+
+- ### Required Operation Flows
+
+When using this library, you should follow one of the following operation flows otherwise unexpected errors can be occurred.
+
+![Operation Flows 1](https://raw.githubusercontent.com/mobizt/FirebaseClient/main/resources/images/operation_flows1.png)
+
+![Operation Flows 2](https://raw.githubusercontent.com/mobizt/FirebaseClient/main/resources/images/operation_flows2.png)
+
+This library does not run any background process in the FreeRTOS task or schedule task and timer ISR.
+
+For maintaining the async tasks, you have to place the code for `Maintain Authentication and Async Operation Queue` in the infinite loop function e.g. main `loop()` function, timer or scheduler cyclically event's callback function or infinite loop in the FreeRTOS task (as in ESP32).
+
+For ESP32's `FreeRTOS` task, the CPU Core 1 is recommend for safely operation. Although the async task is designed to run without blocking, the SSL/TLS handshake in SSL client is the blocking process then running the task in Core 0 may cause the wdt reset.
+
+**Example** for `Maintain Authentication and Async Operation Queue` in ESP32's `FreeRTOS` task in lambda function usage style.
+
+```cpp
+void setup()
+{
+    /////////////////////////////////////
+    // Network connection code here
+    /////////////////////////////////////
+
+    /////////////////////////////////////
+    // Authentication code here
+    /////////////////////////////////////
+
+    auto loopTask = [](void *pvParameters)
+    {
+        for (;;)
+        {
+            /////////////////////////////////////
+            // Maintain Authentication Queue
+            /////////////////////////////////////
+            app.loop();
+
+            /////////////////////////////////////
+            // Maintain App Async Queue
+            /////////////////////////////////////
+            Database.loop();
+
+            if (app.ready())
+            {
+                // your other code here
+                // For non-callback stream, you can check the information that provided from AsyncResult that assigned with the asyn get function with SSE mode (HTTP Streaming)
+            }
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+        }
+    };
+
+    xTaskCreatePinnedToCore(loopTask, "loopTask", 8000, NULL, 3, NULL, 1 /* must be core 1 for network task */);
+}
+```
+
+- ### Basic Example
+>>>>>>> Stashed changes
 
 
 ```cpp
@@ -2071,6 +2524,7 @@ void printResult(AsyncResult &aResult)
 // User Email and password that already registerd or added in your project.
 #define USER_EMAIL "USER_EMAIL"
 #define USER_PASSWORD "USER_PASSWORD"
+<<<<<<< Updated upstream
 #define DATABASE_URL "URL"
 
 void authHandler();
@@ -2082,6 +2536,14 @@ void printResult(AsyncResult &aResult);
 DefaultNetwork network; // initilize with boolean parameter to enable/disable network reconnection
 
 UserAuth user_auth(API_KEY, USER_EMAIL, USER_PASSWORD);
+=======
+
+void asyncCB(AsyncResult &aResult);
+
+DefaultNetwork network; // initilize with boolean parameter to enable/disable network reconnection
+
+UserAuth user_auth(API_KEY, USER_EMAIL, USER_PASSWORD, 3000 /* expire period in seconds (< 3600) */);
+>>>>>>> Stashed changes
 
 FirebaseApp app;
 
@@ -2099,12 +2561,23 @@ AsyncClient aClient(ssl_client, getNetwork(network));
 
 RealtimeDatabase Database;
 
+<<<<<<< Updated upstream
 AsyncResult aResult_no_callback;
+=======
+unsigned long tmo = 0;
+>>>>>>> Stashed changes
 
 void setup()
 {
 
     Serial.begin(115200);
+<<<<<<< Updated upstream
+=======
+
+    /////////////////////////////////////
+    // Network connection
+    /////////////////////////////////////
+>>>>>>> Stashed changes
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
     Serial.print("Connecting to Wi-Fi");
@@ -2130,14 +2603,37 @@ void setup()
 #endif
 #endif
 
+<<<<<<< Updated upstream
     initializeApp(aClient, app, getAuth(user_auth), aResult_no_callback);
 
     authHandler();
 
+=======
+    /////////////////////////////////////
+    // Authentication
+    /////////////////////////////////////
+
+    app.setCallback(asyncCB);
+
+    initializeApp(aClient, app, getAuth(user_auth));
+
+    
+    /////////////////////////////////////
+    // Waits for App authenticate
+    /////////////////////////////////////
+    ms = millis();
+    while (app.isInitialized() && !app.ready() && millis() - ms < 120 * 1000)
+        ;
+    
+    /////////////////////////////////////
+    // Apply auth data to Service app
+    /////////////////////////////////////
+>>>>>>> Stashed changes
     app.getApp<RealtimeDatabase>(Database);
 
     Database.url(DATABASE_URL);
 
+<<<<<<< Updated upstream
     Serial.println("Synchronous Get... ");
 
     Serial.print("Get int... ");
@@ -2146,10 +2642,22 @@ void setup()
         Serial.println(v1);
     else
         printError(aClient.lastError().code(), aClient.lastError().message());
+=======
+    /////////////////////////////////////
+    // Call Service App
+    /////////////////////////////////////
+    if (app.ready())
+    {
+       // Set int
+       Database.set<int>(aClient, "/test/int", 12345, asyncCB);
+    }
+
+>>>>>>> Stashed changes
 }
 
 void loop()
 {
+<<<<<<< Updated upstream
     authHandler();
 
     Database.loop();
@@ -2170,6 +2678,35 @@ void authHandler()
 void printResult(AsyncResult &aResult)
 {
     if (aResult.isEvent())
+=======
+    /////////////////////////////////////
+    // Maintain Authentication Queue
+    /////////////////////////////////////
+    app.loop();
+
+    /////////////////////////////////////
+    // Maintain App Async Queue
+    /////////////////////////////////////
+    Database.loop();
+
+    /////////////////////////////////////
+    // Call Service App
+    /////////////////////////////////////
+    if (app.ready() && millis() - tmo > 3000)
+    {
+      
+       tmo = millis();
+    
+       // Get int
+       Database.get(aClient, "/test/int", asyncCB);
+    }
+
+}
+
+void asyncCB(AsyncResult &aResult)
+{
+    if (aResult.appEvent().code() > 0)
+>>>>>>> Stashed changes
     {
         Firebase.printf("Event task: %s, msg: %s, code: %d\n", aResult.uid().c_str(), aResult.appEvent().message().c_str(), aResult.appEvent().code());
     }
@@ -2183,12 +2720,22 @@ void printResult(AsyncResult &aResult)
     {
         Firebase.printf("Error task: %s, msg: %s, code: %d\n", aResult.uid().c_str(), aResult.error().message().c_str(), aResult.error().code());
     }
+<<<<<<< Updated upstream
 }
 
 void printError(int code, const String &msg)
 {
     Firebase.printf("Error, msg: %s, code: %d\n", msg.c_str(), code);
 }
+=======
+
+    if (aResult.available())
+    {
+        Firebase.printf("task: %s, payload: %s\n", aResult.uid().c_str(), aResult.c_str());
+    }
+}
+
+>>>>>>> Stashed changes
 ```
 
 The library provides the placeholder struct for boolean, integer, float with custom precision, double with custom precision and object represents JSON or map and Array to use as the input of the functions.
@@ -2203,6 +2750,7 @@ The library provides the placeholder struct for boolean, integer, float with cus
 
 There is no `JSON` serialization/deserialization class in this library unless the `JsonWriter` utility class to create the `JSON` object placeholder (`object_t`) which will be available for user and also used in the examples.
 
+<<<<<<< Updated upstream
 - ### Firebase Client Class and Static Functions Usage
 
     - [Class and Functions](/resources/docs/firebase_client.md).
@@ -2218,6 +2766,8 @@ There is no `JSON` serialization/deserialization class in this library unless th
 - ### Async Result Usage
 
     - [Class and Functions](/resources/docs/async_result.md).
+=======
+>>>>>>> Stashed changes
 
 - ### Realtime Database Usage
 
@@ -2227,10 +2777,13 @@ There is no `JSON` serialization/deserialization class in this library unless th
 
     - [API Doc](https://firebase.google.com/docs/reference/rest/database).
 
+<<<<<<< Updated upstream
 - ### Realtime Database Result Usage
 
     - [Class and Functions](/resources/docs/realtime_database_result.md).
 
+=======
+>>>>>>> Stashed changes
 - ### Google Cloud Firestore Database Usage
 
     - [Examples](/examples/FirestoreDatabase).
@@ -2320,7 +2873,11 @@ Under Sign-in providers, choose Email/Password.
 
 ![Authentication Select Email/Password Provider](https://raw.githubusercontent.com/mobizt/FirebaseClient/main/resources/images/firebase_console_authentication_get_started_step1.png)
 
+<<<<<<< Updated upstream
 Select `Enable` check option in `Email/Password` section, and click `Save` button.
+=======
+Select enable check option in Email/Password section, and click `Save` button.
+>>>>>>> Stashed changes
 
 ![Authentication Enable Email/Password](https://raw.githubusercontent.com/mobizt/FirebaseClient/main/resources/images/firebase_console_authentication_get_started_step2.png)
 
@@ -2336,8 +2893,11 @@ Once the `Authentication` was setup, the `Web API Key` will be generated. See th
 
 The `Web API Key` is used in all `custom token`, `ID token` authentications that used via the `CustomAuth`, `UserAuth`, `CustomToken` and `IDToken` provider classes and it was assign to the `API_KEY` in the exampless.
 
+<<<<<<< Updated upstream
 See [API Keys Overview](https://cloud.google.com/api-keys/docs/overview) and [Authenticate by using API keys](https://cloud.google.com/docs/authentication/api-keys) for more details. 
 
+=======
+>>>>>>> Stashed changes
 At the `Authentication` page, under `Sign-in method` tab, other Sign-in providers can be added.
 
 To add `Anonymous` sign-in provider, click at `Add new provider` button.
@@ -2529,7 +3089,11 @@ firebase.initializeApp({
 });
 ```
 
+<<<<<<< Updated upstream
 The app (iOS, Android, Web and Unity) registration token or `DEVICE_TOKEN` is a unique token string that identifies each client app instance. The registration token is required for single device and device group messaging. Note that registration tokens must be kept secret ([Ref.](https://firebase.google.com/docs/cloud-messaging/concept-options#credentials))
+=======
+The app (iOS, Android, Web and Unity) registration token or `DEVICE_TOKEN` is a unique token string that identifies each client app instance. The registration token is required for single device and device group messaging. Note that registration tokens must be kept secret ([ref](https://firebase.google.com/docs/cloud-messaging/concept-options#credentials))
+>>>>>>> Stashed changes
 
 
 ### Service Account
@@ -2572,7 +3136,11 @@ To use `Service Account` in your sketch, open the .json file that is already dow
 }
 ```
 
+<<<<<<< Updated upstream
 Copy the `project_id`, `client_email` and `private_key` from .json file and paste to these defines in the example.
+=======
+Copy the `project_id`, `client_email`, `private_key_id` and `private_key` from .json file and paste to these defines in the example.
+>>>>>>> Stashed changes
 
 ```cpp
 #define FIREBASE_PROJECT_ID "..." // Taken from "project_id" key in JSON file.
@@ -2580,13 +3148,21 @@ Copy the `project_id`, `client_email` and `private_key` from .json file and past
 const char PRIVATE_KEY[] PROGMEM = "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"; // Taken from "private_key" key in JSON file.
 ```
 
+<<<<<<< Updated upstream
 Normally `Firebase Admin SDK Service Account` is used in Firebase APIs authentication/authorization.
+=======
+Normally `Firebase Admin SDK Service Account` is used in Firebase APIs authenticatyin/authorization.
+>>>>>>> Stashed changes
 
 To access `Google Cloud APIs` e.g. `Google Cloud Storage`, `Google Cloud Functions` services, you have to update the service account permissions.
 
 #### Service Account Permissions
 
+<<<<<<< Updated upstream
 When the `Firebase Admin SDK Service Account` was used for Google Cloud APIs authentication/authorization, you have to update its permissive roles.
+=======
+When the `Firebase Admin SDK Service Account` was used for Google Cloud APIs authenticatyin/authorization, you have to update its permissive roles.
+>>>>>>> Stashed changes
 
 The `Basic roles` are highly permissive roles that used to grant principals broad access to Google Cloud resources.
 
@@ -2746,7 +3322,10 @@ ENABLE_FUNCTIONS // For Google Cloud Functions compilation
 ENABLE_PSRAM // For enabling PSRAM support
 ENABLE_OTA // For enabling OTA updates support via RTDB, Firebase Storage and Google Cloud Storage buckets
 ENABLE_FS // For enabling Flash filesystem support
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 // For enabling authentication and token
 ENABLE_SERVICE_AUTH
 ENABLE_CUSTOM_AUTH
@@ -2755,7 +3334,10 @@ ENABLE_ACCESS_TOKEN
 ENABLE_CUSTOM_TOKEN
 ENABLE_ID_TOKEN
 ENABLE_LEGACY_TOKEN
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 // For enabling non-sdk networking
 ENABLE_ETHERNET_NETWORK
 ENABLE_GSM_NETWORK
@@ -2763,7 +3345,11 @@ ENABLE_GSM_NETWORK
 
 - ### Optional Options
 
+<<<<<<< Updated upstream
 The following options are not yet defined in [**Config.h**](src/Config.h) and can be defined by user.
+=======
+The following options are not yet defined in [**Config.h**](src/Config.h) and can be assigned by user.
+>>>>>>> Stashed changes
 
 ```cpp
 FIREBASE_ETHERNET_MODULE_LIB `"EthernetLibrary.h"` // For the Ethernet library to work with external Ethernet module
@@ -2813,7 +3399,10 @@ DISABLE_FUNCTIONS // For disabling Google Cloud Functions support
 DISABLE_PSRAM // For disabling PSRAM support
 DISABLE_OTA // For disabling OTA updates support
 DISABLE_FS // For disabling filesystem support
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 // For disabling authentication and token
 DISABLE_SERVICE_AUTH
 DISABLE_CUSTOM_AUTH

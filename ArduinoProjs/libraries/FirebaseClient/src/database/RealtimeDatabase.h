@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created April 9, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -32,7 +36,11 @@ using namespace firebase;
 
 #if defined(ENABLE_DATABASE)
 
+<<<<<<< Updated upstream
 class RealtimeDatabase : public RTDBResultBase
+=======
+class RealtimeDatabase
+>>>>>>> Stashed changes
 {
     friend class FirebaseApp;
 
@@ -348,7 +356,11 @@ public:
         options.silent = true;
         async_request_data_t aReq(&aClient, path, async_request_handler_t::http_get, slot_options_t(), &options, nullptr, &result, NULL);
         asyncRequest(aReq);
+<<<<<<< Updated upstream
         return !getNullETagOption(&result.rtdbResult);
+=======
+        return !result.rtdbResult.null_etag;
+>>>>>>> Stashed changes
     }
 
     /**
@@ -816,7 +828,11 @@ public:
         AsyncResult result;
         async_request_data_t aReq(&aClient, path, async_request_handler_t::http_delete, slot_options_t(), nullptr, nullptr, &result, nullptr);
         asyncRequest(aReq);
+<<<<<<< Updated upstream
         return getNullETagOption(&result.rtdbResult) && String(result.rtdbResult.data()).indexOf("null") > -1;
+=======
+        return result.rtdbResult.null_etag && String(result.rtdbResult.data()).indexOf("null") > -1;
+>>>>>>> Stashed changes
     }
 
     /**
@@ -1025,6 +1041,10 @@ private:
         if (!aResult)
             aResult = new AsyncResult();
 
+<<<<<<< Updated upstream
+=======
+        aResult->error_available = true;
+>>>>>>> Stashed changes
         aResult->lastError.setClientError(code);
 
         if (request.cb)

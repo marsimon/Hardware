@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 
 
 ## Examples Tree Structure
@@ -365,6 +366,8 @@
 
 - [Class and Functions](/resources/docs/async_result.md).
 
+=======
+>>>>>>> Stashed changes
 ## Realtime Database Usage
 
 - [Examples](/examples/RealtimeDatabase).
@@ -373,10 +376,13 @@
 
 - [API Doc](https://firebase.google.com/docs/reference/rest/database).
 
+<<<<<<< Updated upstream
 ## Realtime Database Result Usage
 
 - [Class and Functions](/resources/docs/realtime_database_result.md).
 
+=======
+>>>>>>> Stashed changes
 ## Google Cloud Firestore Database Usage
 
 - [Examples](/examples/FirestoreDatabase).
@@ -422,4 +428,8 @@
 
 ## JsonWriter
 
+<<<<<<< Updated upstream
 - [Class and Functions](/resources/docs/json_writer.md).
+=======
+- [Class and Functions](/resources/docs/json_writer.md).
+>>>>>>> Stashed changes

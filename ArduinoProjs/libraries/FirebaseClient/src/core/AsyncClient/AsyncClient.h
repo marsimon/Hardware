@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created April 7, 2024
+>>>>>>> Stashed changes
  *
  * For MCU build target (CORE_ARDUINO_XXXX), see Options.h.
  *
@@ -36,8 +40,11 @@
 #include "./core/Error.h"
 #include "./core/OTA.h"
 #include "./core/AsyncResult/AsyncResult.h"
+<<<<<<< Updated upstream
 #include "./core/AsyncResult/ResultBase.h"
 #include "./core/AsyncResult/RTDBResultBase.h"
+=======
+>>>>>>> Stashed changes
 #include "./core/AuthConfig.h"
 #include "./core/List.h"
 #include "./core/Core.h"
@@ -163,9 +170,15 @@ public:
     }
 };
 
+<<<<<<< Updated upstream
 class AsyncClientClass : public ResultBase, RTDBResultBase
 {
     friend class AppBase;
+=======
+class AsyncClientClass
+{
+    friend class FirebaseApp;
+>>>>>>> Stashed changes
     friend class RealtimeDatabase;
     friend class Databases;
     friend class Documents;
@@ -176,8 +189,11 @@ class AsyncClientClass : public ResultBase, RTDBResultBase
     friend class CloudStorage;
 
 private:
+<<<<<<< Updated upstream
     app_debug_t app_debug;
     app_event_t app_event;
+=======
+>>>>>>> Stashed changes
     FirebaseError lastErr;
     String header, reqEtag, resETag;
     int netErrState = 0;
@@ -279,7 +295,10 @@ private:
                 {
                     if (!openFile(sData, file_mode_open_read))
                     {
+<<<<<<< Updated upstream
                         // In case file open error.
+=======
+>>>>>>> Stashed changes
                         setAsyncError(sData, state, FIREBASE_ERROR_OPEN_FILE, !sData->sse, true);
                         return function_return_type_failure;
                     }
@@ -320,7 +339,10 @@ private:
                     toSend = sData->request.file_data.file.read(buf, toSend);
                     if (toSend == 0)
                     {
+<<<<<<< Updated upstream
                         // In case file read error.
+=======
+>>>>>>> Stashed changes
                         setAsyncError(sData, state, FIREBASE_ERROR_FILE_READ, !sData->sse, true);
                         ret = function_return_type_failure;
                         goto exit;
@@ -355,7 +377,10 @@ private:
                     toSend = sData->request.file_data.file.read(buf, toSend);
                     if (toSend == 0)
                     {
+<<<<<<< Updated upstream
                         // In case file read error.
+=======
+>>>>>>> Stashed changes
                         setAsyncError(sData, state, FIREBASE_ERROR_FILE_READ, !sData->sse, true);
                         ret = function_return_type_failure;
                         goto exit;
@@ -463,7 +488,10 @@ private:
 
         sData->return_type = sData->request.payloadIndex == size && size > 0 ? function_return_type_complete : function_return_type_failure;
 
+<<<<<<< Updated upstream
         // In case TCP write error.
+=======
+>>>>>>> Stashed changes
         if (sData->return_type == function_return_type_failure)
             setAsyncError(sData, state, FIREBASE_ERROR_TCP_SEND, !sData->sse, false);
 
@@ -504,7 +532,10 @@ private:
     {
         if (!sData || !netConnect(sData))
         {
+<<<<<<< Updated upstream
             // In case TCP (network) disconnected error.
+=======
+>>>>>>> Stashed changes
             setAsyncError(sData, sData->state, FIREBASE_ERROR_TCP_DISCONNECTED, !sData->sse, false);
             return function_return_type_failure;
         }
@@ -537,7 +568,10 @@ private:
             {
                 if (sData->request.app_token->val[app_tk_ns::token].length() == 0)
                 {
+<<<<<<< Updated upstream
                     // In case missing auth token error.
+=======
+>>>>>>> Stashed changes
                     setAsyncError(sData, sData->state, FIREBASE_ERROR_UNAUTHENTICATE, !sData->sse, false);
                     return function_return_type_failure;
                 }
@@ -575,16 +609,25 @@ private:
 
     function_return_type receive(async_data_item_t *sData)
     {
+<<<<<<< Updated upstream
         if (!sData || !netConnect(sData))
         {
             // In case TCP (network) disconnected error.
+=======
+
+        if (!sData || !netConnect(sData))
+        {
+>>>>>>> Stashed changes
             setAsyncError(sData, sData->state, FIREBASE_ERROR_TCP_DISCONNECTED, !sData->sse, false);
             return function_return_type_failure;
         }
 
         if (!readResponse(sData))
         {
+<<<<<<< Updated upstream
             // In case HTTP or TCP read error.
+=======
+>>>>>>> Stashed changes
             setAsyncError(sData, sData->state, sData->response.httpCode > 0 ? sData->response.httpCode : FIREBASE_ERROR_TCP_RECEIVE_TIMEOUT, !sData->sse, false);
             return function_return_type_failure;
         }
@@ -643,7 +686,10 @@ private:
 
     function_return_type connErrorHandler(async_data_item_t *sData, async_state state)
     {
+<<<<<<< Updated upstream
         // In case TCP connection error.
+=======
+>>>>>>> Stashed changes
         setAsyncError(sData, state, FIREBASE_ERROR_TCP_CONNECTION, !sData->sse, false);
         return function_return_type_failure;
     }
@@ -672,10 +718,13 @@ private:
     async_data_item_t *addSlot(int index = -1)
     {
         async_data_item_t *sData = new async_data_item_t();
+<<<<<<< Updated upstream
 
         sData->aResult.app_debug = &app_debug;
         sData->aResult.app_event = &app_event;
 
+=======
+>>>>>>> Stashed changes
         if (index > -1)
             sVec.insert(sVec.begin() + index, sData->addr);
         else
@@ -707,7 +756,14 @@ private:
         {
             if (setData || error_notify_timeout || download_status || upload_status)
             {
+<<<<<<< Updated upstream
                 *sData->refResult = sData->aResult;
+=======
+                uint32_t ms = sData->refResult->last_debug_ms;
+                *sData->refResult = sData->aResult;
+                // Restore last debug ms after.
+                sData->refResult->last_debug_ms = ms;
+>>>>>>> Stashed changes
 
                 if (setData)
                     sData->refResult->setPayload(sData->aResult.val[ares_ns::data_payload]);
@@ -729,6 +785,7 @@ private:
 
     void setLastError(async_data_item_t *sData)
     {
+<<<<<<< Updated upstream
         if (sData->error.code < 0)
         {
             sData->aResult.lastError.setClientError(sData->error.code);
@@ -740,6 +797,24 @@ private:
             sData->aResult.lastError.setResponseError(sData->response.val[res_hndlr_ns::payload], sData->response.httpCode);
             lastErr.setResponseError(sData->response.val[res_hndlr_ns::payload], sData->response.httpCode);
             clearAppData(sData->aResult.app_data);
+=======
+        if (!sData->aResult.error_available)
+        {
+            if (sData->error.code < 0)
+            {
+                sData->aResult.lastError.setClientError(sData->error.code);
+                lastErr.setClientError(sData->error.code);
+                sData->aResult.error_available = true;
+                sData->aResult.data_available = false;
+            }
+            else if (sData->response.httpCode > 0 && sData->response.httpCode >= FIREBASE_ERROR_HTTP_CODE_BAD_REQUEST)
+            {
+                sData->aResult.lastError.setResponseError(sData->response.val[res_hndlr_ns::payload], sData->response.httpCode);
+                lastErr.setResponseError(sData->response.val[res_hndlr_ns::payload], sData->response.httpCode);
+                sData->aResult.error_available = true;
+                sData->aResult.data_available = false;
+            }
+>>>>>>> Stashed changes
         }
     }
 
@@ -809,12 +884,20 @@ private:
                             sData->aResult.setPayload(sData->response.val[res_hndlr_ns::payload]);
 
                             if (sData->aResult.download_data.total > 0)
+<<<<<<< Updated upstream
                                 clearAppData(sData->aResult.app_data);
 
 #if defined(ENABLE_DATABASE)
 
                             if (sData->request.method == async_request_handler_t::http_post)
                                 parseNodeName(&sData->aResult.rtdbResult);
+=======
+                                sData->aResult.data_available = false;
+#if defined(ENABLE_DATABASE)
+
+                            if (sData->request.method == async_request_handler_t::http_post)
+                                sData->aResult.rtdbResult.parseNodeName();
+>>>>>>> Stashed changes
 
                             // data available from sse event
                             if (sData->response.flags.sse && sData->response.val[res_hndlr_ns::payload].length())
@@ -825,7 +908,11 @@ private:
                                     // save payload to slot result
                                     sData->aResult.setPayload(sData->response.val[res_hndlr_ns::payload]);
                                     clear(sData->response.val[res_hndlr_ns::payload]);
+<<<<<<< Updated upstream
                                     parseSSE(&sData->aResult.rtdbResult);
+=======
+                                    sData->aResult.rtdbResult.parseSSE();
+>>>>>>> Stashed changes
                                     sData->response.flags.payload_available = true;
                                     returnResult(sData, true);
                                 }
@@ -893,7 +980,11 @@ private:
                 sData->aResult.val[ares_ns::res_etag] = sData->response.val[res_hndlr_ns::etag];
                 sData->aResult.val[ares_ns::data_path] = sData->request.val[req_hndlr_ns::path];
 #if defined(ENABLE_DATABASE)
+<<<<<<< Updated upstream
                 setNullETagOption(&sData->aResult.rtdbResult, sData->response.val[res_hndlr_ns::etag].indexOf("null_etag") > -1);
+=======
+                sData->aResult.rtdbResult.null_etag = sData->response.val[res_hndlr_ns::etag].indexOf("null_etag") > -1;
+>>>>>>> Stashed changes
 #endif
 
                 parseRespHeader(sData, sData->response.val[res_hndlr_ns::header], temp[0], "Content-Length");
@@ -1048,7 +1139,10 @@ private:
                                     otaut.prepareDownloadOTA(sData->response.payloadLen, sData->request.base64, sData->request.ota_error);
                                     if (sData->request.ota_error != 0)
                                     {
+<<<<<<< Updated upstream
                                         // In case OTA error.
+=======
+>>>>>>> Stashed changes
                                         setAsyncError(sData, async_state_read_response, sData->request.ota_error, !sData->sse, false);
                                         return false;
                                     }
@@ -1060,7 +1154,10 @@ private:
 
                                     if (!openFile(sData, file_mode_open_write))
                                     {
+<<<<<<< Updated upstream
                                         // In case file open error.
+=======
+>>>>>>> Stashed changes
                                         setAsyncError(sData, async_state_read_response, FIREBASE_ERROR_OPEN_FILE, !sData->sse, true);
                                         return false;
                                     }
@@ -1106,7 +1203,10 @@ private:
                                         otaut.decodeBase64OTA(mem, &but, (const char *)buf, read - ofs, sData->request.ota_error);
                                         if (sData->request.ota_error != 0)
                                         {
+<<<<<<< Updated upstream
                                             // In case OTA error.
+=======
+>>>>>>> Stashed changes
                                             setAsyncError(sData, async_state_read_response, sData->request.ota_error, !sData->sse, false);
                                             goto exit;
                                         }
@@ -1116,7 +1216,10 @@ private:
                                             otaut.endDownloadOTA(sData->request.b64Pad, sData->request.ota_error);
                                             if (sData->request.ota_error != 0)
                                             {
+<<<<<<< Updated upstream
                                                 // In case OTA error.
+=======
+>>>>>>> Stashed changes
                                                 setAsyncError(sData, async_state_read_response, sData->request.ota_error, !sData->sse, false);
                                                 goto exit;
                                             }
@@ -1128,7 +1231,10 @@ private:
 
                                         if (!but.decodeToFile(mem, sData->request.file_data.file, (const char *)buf + ofs))
                                         {
+<<<<<<< Updated upstream
                                             // In case file write error.
+=======
+>>>>>>> Stashed changes
                                             setAsyncError(sData, async_state_read_response, FIREBASE_ERROR_FILE_WRITE, !sData->sse, true);
                                             goto exit;
                                         }
@@ -1148,7 +1254,10 @@ private:
                                             otaut.endDownloadOTA(0, sData->request.ota_error);
                                             if (sData->request.ota_error != 0)
                                             {
+<<<<<<< Updated upstream
                                                 // In case OTA error.
+=======
+>>>>>>> Stashed changes
                                                 setAsyncError(sData, async_state_read_response, sData->request.ota_error, !sData->sse, false);
                                                 goto exit;
                                             }
@@ -1160,7 +1269,10 @@ private:
                                         int write = sData->request.file_data.file.write(buf, read);
                                         if (write < read)
                                         {
+<<<<<<< Updated upstream
                                             // In case file write error.
+=======
+>>>>>>> Stashed changes
                                             setAsyncError(sData, async_state_read_response, FIREBASE_ERROR_FILE_WRITE, !sData->sse, true);
                                             goto exit;
                                         }
@@ -1191,7 +1303,10 @@ private:
 
         if (sData->response.payloadLen > 0 && sData->response.payloadRead >= sData->response.payloadLen && sData->response.tcpAvailable(client_type, client, async_tcp_config) == 0)
         {
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             // Async payload and header data collision workaround from session reusage.
             if (!sData->response.flags.chunks && sData->response.payloadRead > sData->response.payloadLen)
             {
@@ -1211,7 +1326,10 @@ private:
             if (sData->response.flags.chunks && sData->auth_used)
                 stop(sData);
 
+<<<<<<< Updated upstream
             // In case HTTP error.
+=======
+>>>>>>> Stashed changes
             if (sData->response.httpCode >= FIREBASE_ERROR_HTTP_CODE_BAD_REQUEST)
             {
                 setAsyncError(sData, sData->state, sData->response.httpCode, !sData->sse, true);
@@ -1346,7 +1464,11 @@ private:
 
 #if defined(ENABLE_ETHERNET_NETWORK)
 
+<<<<<<< Updated upstream
 #if defined(FIREBASE_LWIP_ETH_IS_AVAILABLE)
+=======
+#if defined(FIREBASE_ETH_IS_AVAILABLE)
+>>>>>>> Stashed changes
 
 #if defined(ESP32)
         if (validIP(ETH.localIP()))
@@ -1502,7 +1624,11 @@ private:
 #if defined(FIREBASE_ETHERNET_MODULE_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
 
         if (net.ethernet.ethernet_cs_pin > -1)
+<<<<<<< Updated upstream
             FIREBASE_ETHERNET_MODULE_CLASS_IMPL.init(net.ethernet.ethernet_cs_pin);
+=======
+            ETH_MODULE_CLASS.init(net.ethernet.ethernet_cs_pin);
+>>>>>>> Stashed changes
 
         if (net.ethernet.ethernet_reset_pin > -1)
         {
@@ -1525,6 +1651,7 @@ private:
         {
 
             if (net.ethernet.static_ip->optional == false)
+<<<<<<< Updated upstream
                 FIREBASE_ETHERNET_MODULE_CLASS_IMPL.begin(net.ethernet.ethernet_mac, net.ethernet.static_ip->ipAddress, net.ethernet.static_ip->dnsServer, net.ethernet.static_ip->defaultGateway, net.ethernet.static_ip->netMask);
             else if (!FIREBASE_ETHERNET_MODULE_CLASS_IMPL.begin(net.ethernet.ethernet_mac))
             {
@@ -1537,6 +1664,20 @@ private:
         net.eth_timer.feed(FIREBASE_ETHERNET_MODULE_TIMEOUT);
 
         while (FIREBASE_ETHERNET_MODULE_CLASS_IMPL.linkStatus() == LinkOFF && net.eth_timer.remaining() > 0)
+=======
+                ETH_MODULE_CLASS.begin(net.ethernet.ethernet_mac, net.ethernet.static_ip->ipAddress, net.ethernet.static_ip->dnsServer, net.ethernet.static_ip->defaultGateway, net.ethernet.static_ip->netMask);
+            else if (!ETH_MODULE_CLASS.begin(net.ethernet.ethernet_mac))
+            {
+                ETH_MODULE_CLASS.begin(net.ethernet.ethernet_mac, net.ethernet.static_ip->ipAddress, net.ethernet.static_ip->dnsServer, net.ethernet.static_ip->defaultGateway, net.ethernet.static_ip->netMask);
+            }
+        }
+        else
+            ETH_MODULE_CLASS.begin(net.ethernet.ethernet_mac);
+
+        net.eth_timer.feed(FIREBASE_ETHERNET_MODULE_TIMEOUT);
+
+        while (ETH_MODULE_CLASS.linkStatus() == LinkOFF && net.eth_timer.remaining() > 0)
+>>>>>>> Stashed changes
         {
             delay(100);
         }
@@ -1546,7 +1687,11 @@ private:
         if (ret && sData)
         {
             String debug = FPSTR("Starting Ethernet connection...");
+<<<<<<< Updated upstream
             debug += FIREBASE_ETHERNET_MODULE_CLASS_IMPL.localIP();
+=======
+            debug += ETH_MODULE_CLASS.localIP();
+>>>>>>> Stashed changes
             sData->aResult.setDebug(debug);
         }
 
@@ -1561,11 +1706,19 @@ private:
     bool ethernetConnected()
     {
 #if defined(FIREBASE_ETHERNET_MODULE_IS_AVAILABLE)
+<<<<<<< Updated upstream
         net.network_status = FIREBASE_ETHERNET_MODULE_CLASS_IMPL.linkStatus() == LinkON && validIP(FIREBASE_ETHERNET_MODULE_CLASS_IMPL.localIP());
         if (!net.network_status)
         {
             delay(FIREBASE_ETHERNET_MODULE_TIMEOUT);
             net.network_status = FIREBASE_ETHERNET_MODULE_CLASS_IMPL.linkStatus() == LinkON && validIP(FIREBASE_ETHERNET_MODULE_CLASS_IMPL.localIP());
+=======
+        net.network_status = ETH_MODULE_CLASS.linkStatus() == LinkON && validIP(ETH_MODULE_CLASS.localIP());
+        if (!net.network_status)
+        {
+            delay(FIREBASE_ETHERNET_MODULE_TIMEOUT);
+            net.network_status = ETH_MODULE_CLASS.linkStatus() == LinkON && validIP(ETH_MODULE_CLASS.localIP());
+>>>>>>> Stashed changes
         }
 #endif
         return net.network_status;
@@ -1744,10 +1897,16 @@ private:
 #if defined(ENABLE_DATABASE)
     void handleEventTimeout(async_data_item_t *sData)
     {
+<<<<<<< Updated upstream
         if (sData->sse && sData->aResult.rtdbResult.eventTimeout() && eventResumeStatus(&sData->aResult.rtdbResult) == event_resume_status_undefined)
         {
             // In case stream time out.
             setEventResumeStatus(&sData->aResult.rtdbResult, event_resume_status_resuming);
+=======
+        if (sData->sse && sData->aResult.rtdbResult.eventTimeout() && sData->aResult.rtdbResult.eventResumeStatus() == RealtimeDatabaseResult::event_resume_status_undefined)
+        {
+            sData->aResult.rtdbResult.setEventResumeStatus(RealtimeDatabaseResult::event_resume_status_resuming);
+>>>>>>> Stashed changes
             setAsyncError(sData, sData->state, FIREBASE_ERROR_STREAM_TIMEOUT, false, false);
             returnResult(sData, false);
             reset(sData, true);
@@ -1759,7 +1918,10 @@ private:
     {
         if (sData->request.send_timer.remaining() == 0 || sData->cancel)
         {
+<<<<<<< Updated upstream
             // In case TCP write error.
+=======
+>>>>>>> Stashed changes
             setAsyncError(sData, sData->state, FIREBASE_ERROR_TCP_SEND, !sData->sse, false);
             sData->return_type = function_return_type_failure;
             // This requires by WiFiSSLClient before stating a new connection in case session was reused.
@@ -1773,7 +1935,10 @@ private:
     {
         if (!sData->sse && (sData->response.read_timer.remaining() == 0 || sData->cancel))
         {
+<<<<<<< Updated upstream
             // In case TCP read error.
+=======
+>>>>>>> Stashed changes
             setAsyncError(sData, sData->state, FIREBASE_ERROR_TCP_RECEIVE_TIMEOUT, !sData->sse, false);
             sData->return_type = function_return_type_failure;
             // This requires by WiFiSSLClient before stating a new connection in case session was reused.
@@ -1837,11 +2002,57 @@ private:
         inStopAsync = false;
     }
 
+<<<<<<< Updated upstream
     void stop(async_data_item_t *sData)
     {
         if (sData && client && client->connected())
             sData->aResult.setDebug(FPSTR("Terminating the server connection..."));
 
+=======
+public:
+    std::vector<uint32_t> rVec; // AsyncResult vector
+    AsyncClientClass(Client &client, network_config_data &net) : client(&client)
+    {
+        this->net.copy(net);
+        this->addr = reinterpret_cast<uint32_t>(this);
+        client_type = async_request_handler_t::tcp_client_type_sync;
+    }
+
+#if defined(ENABLE_ASYNC_TCP_CLIENT)
+    AsyncClientClass(AsyncTCPConfig &tcpClientConfig, network_config_data &net) : async_tcp_config(&tcpClientConfig)
+    {
+        this->net.copy(net);
+        this->addr = reinterpret_cast<uint32_t>(this);
+        client_type = async_request_handler_t::tcp_client_type_async;
+    }
+#endif
+
+    ~AsyncClientClass()
+    {
+        stop(nullptr);
+
+        for (size_t i = 0; i < sVec.size(); i++)
+        {
+            reset(getData(i), true);
+            async_data_item_t *sData = getData(i);
+            // if (!sData->auth_used)
+            delete sData;
+            sData = nullptr;
+        }
+
+        addRemoveClientVec(cvec_addr, false);
+    }
+
+    bool networkStatus() { return netStatus(nullptr); }
+
+    void stopAsync(bool all = false) { stopAsyncImpl(all); }
+    void stopAsync(const String &uid) { stopAsyncImpl(false, uid); }
+
+    void stop(async_data_item_t *sData)
+    {
+        if (sData)
+            sData->aResult.setDebug(FPSTR("Terminating the server connection..."));
+>>>>>>> Stashed changes
         if (client_type == async_request_handler_t::tcp_client_type_sync)
         {
             if (client)
@@ -1859,6 +2070,19 @@ private:
         port = 0;
     }
 
+<<<<<<< Updated upstream
+=======
+    FirebaseError lastError() const { return lastErr; }
+
+    String etag() const { return resETag; }
+
+    void setETag(const String &etag) { reqEtag = etag; }
+
+    void setSyncSendTimeout(uint32_t timeoutSec) { sync_send_timeout_sec = timeoutSec; }
+
+    void setSyncReadTimeout(uint32_t timeoutSec) { sync_read_timeout_sec = timeoutSec; }
+
+>>>>>>> Stashed changes
     async_data_item_t *createSlot(slot_options_t &options)
     {
         int slot_index = sMan(options);
@@ -1880,7 +2104,11 @@ private:
         sData->request.val[req_hndlr_ns::etag] = reqEtag;
 
         clear(reqEtag);
+<<<<<<< Updated upstream
         sData->aResult.setUID(uid);
+=======
+        sData->aResult.val[ares_ns::res_uid] = uid;
+>>>>>>> Stashed changes
 
         clear(sData->request.val[req_hndlr_ns::header]);
         sData->request.addRequestHeaderFirst(method);
@@ -1932,8 +2160,11 @@ private:
             sData->request.addNewLine();
     }
 
+<<<<<<< Updated upstream
     void returnResult(async_data_item_t *sData) { *sData->refResult = sData->aResult; }
 
+=======
+>>>>>>> Stashed changes
     void setAuthTs(uint32_t ts) { auth_ts = ts; }
 
     void addRemoveClientVec(uint32_t cvec_addr, bool add)
@@ -1957,6 +2188,7 @@ private:
         }
     }
 
+<<<<<<< Updated upstream
     void handleRemove()
     {
         for (size_t slot = 0; slot < slotCount(); slot++)
@@ -1998,6 +2230,8 @@ private:
 
     size_t slotCount() { return sVec.size(); }
 
+=======
+>>>>>>> Stashed changes
     void process(bool async)
     {
         if (processLocked())
@@ -2014,6 +2248,7 @@ private:
                 return;
             }
 
+<<<<<<< Updated upstream
             updateDebug(app_debug);
             updateEvent(app_event);
             sData->aResult.updateData();
@@ -2021,6 +2256,10 @@ private:
             if (!netConnect(sData))
             {
                 // In case TCP (network) disconnected error.
+=======
+            if (!netConnect(sData))
+            {
+>>>>>>> Stashed changes
                 setAsyncError(sData, sData->state, FIREBASE_ERROR_TCP_DISCONNECTED, !sData->sse, false);
                 if (sData->async)
                 {
@@ -2076,6 +2315,12 @@ private:
 
             if (sData->state == async_state_read_response)
             {
+<<<<<<< Updated upstream
+=======
+                // if (!sData->download && !sData->upload)
+                //    sData->request.clear();
+
+>>>>>>> Stashed changes
                 // it can be complete response from payload sending
                 if (sData->return_type == function_return_type_complete)
                     sData->return_type = function_return_type_continue;
@@ -2116,9 +2361,15 @@ private:
                     {
                         if (sData->sse)
                         {
+<<<<<<< Updated upstream
 #if defined(ENABLE_DATABASE)
                             clearAppData(sData->aResult.app_data);
                             clearSSE(&sData->aResult.rtdbResult);
+=======
+                            sData->aResult.data_available = false;
+#if defined(ENABLE_DATABASE)
+                            sData->aResult.rtdbResult.clearSSE();
+>>>>>>> Stashed changes
 #endif
                         }
                         sData->return_type = function_return_type_failure;
@@ -2135,8 +2386,12 @@ private:
             handleEventTimeout(sData);
 #endif
 
+<<<<<<< Updated upstream
             if (!sData->sse && sData->return_type == function_return_type_complete)
                 sData->to_remove = true;
+=======
+            setAsyncError(sData, sData->state, 0, !sData->sse && sData->return_type == function_return_type_complete, false);
+>>>>>>> Stashed changes
 
             if (sData->to_remove)
                 removeSlot(slot);
@@ -2144,6 +2399,7 @@ private:
 
         inProcess = false;
     }
+<<<<<<< Updated upstream
 
     std::vector<uint32_t> rVec; // AsyncResult vector
 
@@ -2243,6 +2499,43 @@ public:
      * @param timeoutSec The TCP read time out in seconds.
      */
     void setSyncReadTimeout(uint32_t timeoutSec) { sync_read_timeout_sec = timeoutSec; }
+=======
+    void handleRemove()
+    {
+        for (size_t slot = 0; slot < slotCount(); slot++)
+        {
+            async_data_item_t *sData = getData(slot);
+            if (sData && sData->to_remove)
+                removeSlot(slot);
+        }
+    }
+
+    size_t slotCount() { return sVec.size(); }
+
+    void removeSlot(uint8_t slot, bool sse = true)
+    {
+        async_data_item_t *sData = getData(slot);
+
+        if (!sData)
+            return;
+
+        if (sData->sse && !sse)
+            return;
+
+#if defined(ENABLE_DATABASE)
+        sData->aResult.rtdbResult.clearSSE();
+#endif
+        closeFile(sData);
+        setLastError(sData);
+        // data available from sync and asyn request except for sse
+        returnResult(sData, true);
+        reset(sData, sData->auth_used);
+        if (!sData->auth_used)
+            delete sData;
+        sData = nullptr;
+        sVec.erase(sVec.begin() + slot);
+    }
+>>>>>>> Stashed changes
 };
 
 #endif

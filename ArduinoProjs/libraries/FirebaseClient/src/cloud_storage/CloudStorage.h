@@ -274,15 +274,26 @@ public:
      * @param options Optional. The GoogleCloudStorage::GetOptions that holds the get options.
      * For the get options, see https://cloud.google.com/storage/docs/json_api/v1/objects/get#optional-parameters
      *
+<<<<<<< Updated upstream
      * @return String The response payload.
      *
      */
     String getMetadata(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::GetOptions &options)
+=======
+     * @return Boolean value, indicates the success of the operation.
+     *
+     */
+    bool getMetadata(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::GetOptions &options)
+>>>>>>> Stashed changes
     {
         AsyncResult result;
         file_config_data file;
         sendRequest(aClient, &result, NULL, "", parent, file, &options, nullptr, nullptr, GoogleCloudStorage::google_cloud_storage_request_type_get_meta, false);
+<<<<<<< Updated upstream
         return result.c_str();
+=======
+        return result.lastError.code() == 0;
+>>>>>>> Stashed changes
     }
 
     /** Get the metadata of object in Google Cloud Storage data bucket.
@@ -327,15 +338,26 @@ public:
      * The bucketid is the Storage bucket Id to list all objects.
      * @param options Optional. The GoogleCloudStorage::ListOptions that holds the list options.
      * For the list options, see https://cloud.google.com/storage/docs/json_api/v1/objects/list#optional-parameters
+<<<<<<< Updated upstream
      * @return String The response payload.
      *
      */
     String list(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::ListOptions &options)
+=======
+     * @return Boolean value, indicates the success of the operation.
+     *
+     */
+    bool list(AsyncClientClass &aClient, const GoogleCloudStorage::Parent &parent, GoogleCloudStorage::ListOptions &options)
+>>>>>>> Stashed changes
     {
         AsyncResult result;
         file_config_data file;
         sendRequest(aClient, &result, NULL, "", parent, file, nullptr, nullptr, &options, GoogleCloudStorage::google_cloud_storage_request_type_list, false);
+<<<<<<< Updated upstream
         return result.c_str();
+=======
+        return result.lastError.code() == 0;
+>>>>>>> Stashed changes
     }
 
     /** List all objects in Google Cloud Storage data bucket.
@@ -639,6 +661,10 @@ private:
         if (!aResult)
             aResult = new AsyncResult();
 
+<<<<<<< Updated upstream
+=======
+        aResult->error_available = true;
+>>>>>>> Stashed changes
         aResult->lastError.setClientError(code);
 
         if (request.cb)

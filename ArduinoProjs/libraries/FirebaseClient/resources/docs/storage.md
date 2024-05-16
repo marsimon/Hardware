@@ -219,7 +219,11 @@ void ota(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent, Async
 - `uid` - The user specified UID of async result (optional).
 
 
+<<<<<<< Updated upstream
 12. ## 🔹  String getMetadata(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+=======
+12. ## 🔹  bool getMetadata(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+>>>>>>> Stashed changes
 
 
 The bucketid is the Storage bucket Id of object to get metadata.
@@ -228,7 +232,11 @@ The object is the object in Storage bucket to get metadata.
 
 
 ```cpp
+<<<<<<< Updated upstream
 String getMetadata(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+=======
+bool getMetadata(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+>>>>>>> Stashed changes
 ```
 
 **Params:**
@@ -238,7 +246,11 @@ String getMetadata(AsyncClientClass &aClient, const FirebaseStorage::Parent &par
 
 **Returns:**
 
+<<<<<<< Updated upstream
 - `String` - The response payload.
+=======
+- Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
 
 13. ## 🔹  void getMetadata(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent, AsyncResult &aResult)
 
@@ -277,7 +289,11 @@ void getMetadata(AsyncClientClass &aClient, const FirebaseStorage::Parent &paren
 - `uid` - The user specified UID of async result (optional).
 
 
+<<<<<<< Updated upstream
 15. ## 🔹  String list(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+=======
+15. ## 🔹  bool list(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+>>>>>>> Stashed changes
 
 
 The bucketid is the Storage bucket Id to list all objects.
@@ -285,7 +301,11 @@ The bucketid is the Storage bucket Id to list all objects.
 
 
 ```cpp
+<<<<<<< Updated upstream
 String list(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+=======
+bool list(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+>>>>>>> Stashed changes
 ```
 
 **Params:**
@@ -295,7 +315,11 @@ String list(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
 
 **Returns:**
 
+<<<<<<< Updated upstream
 - `String` - The response payload.
+=======
+- Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
 
 16. ## 🔹  void list(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent, AsyncResult &aResult)
 

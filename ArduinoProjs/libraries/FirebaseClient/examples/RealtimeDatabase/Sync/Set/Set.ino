@@ -1,7 +1,11 @@
 /**
  * SYNTAX:
  *
+<<<<<<< Updated upstream
  * bool RealtimeDatabase::set<T>(<AsyncClient>, <path>, <value>);
+=======
+ * bool status = RealtimeDatabase::set<T>(<AsyncClient>, <path>, <value>);
+>>>>>>> Stashed changes
  *
  * <AsyncClient> - The async client.
  * <path> - The node path to set the value.
@@ -52,10 +56,17 @@
 #define USER_PASSWORD "USER_PASSWORD"
 #define DATABASE_URL "URL"
 
+<<<<<<< Updated upstream
 void printResult(AsyncResult &aResult);
 
 void printError(int code, const String &msg);
 
+=======
+void printError(int code, const String &msg);
+
+void asyncCB(AsyncResult &aResult);
+
+>>>>>>> Stashed changes
 DefaultNetwork network; // initilize with boolean parameter to enable/disable network reconnection
 
 UserAuth user_auth(API_KEY, USER_EMAIL, USER_PASSWORD);
@@ -70,14 +81,23 @@ WiFiClientSecure ssl_client;
 WiFiSSLClient ssl_client;
 #endif
 
+<<<<<<< Updated upstream
+=======
+// In case the keyword AsyncClient using in this example was ambigous and used by other library, you can change
+// it with other name with keyword "using" or use the class name AsyncClientClass directly.
+
+>>>>>>> Stashed changes
 using AsyncClient = AsyncClientClass;
 
 AsyncClient aClient(ssl_client, getNetwork(network));
 
 RealtimeDatabase Database;
 
+<<<<<<< Updated upstream
 AsyncResult aResult_no_callback;
 
+=======
+>>>>>>> Stashed changes
 void setup()
 {
 
@@ -107,9 +127,21 @@ void setup()
 #endif
 #endif
 
+<<<<<<< Updated upstream
     initializeApp(aClient, app, getAuth(user_auth), aResult_no_callback);
 
     authHandler();
+=======
+    app.setCallback(asyncCB);
+
+    initializeApp(aClient, app, getAuth(user_auth));
+
+    // Waits for app to be authenticated.
+    // For asynchronous operation, this blocking wait can be ignored by calling app.loop() in loop().
+    ms = millis();
+    while (app.isInitialized() && !app.ready() && millis() - ms < 120 * 1000)
+        ;
+>>>>>>> Stashed changes
 
     app.getApp<RealtimeDatabase>(Database);
 
@@ -184,6 +216,7 @@ void setup()
 
 void loop()
 {
+<<<<<<< Updated upstream
     authHandler();
 
     Database.loop();
@@ -204,6 +237,18 @@ void authHandler()
 void printResult(AsyncResult &aResult)
 {
     if (aResult.isEvent())
+=======
+    // This function is required for handling async operations and maintaining the authentication tasks.
+    app.loop();
+
+    // (For Async Only) This required when different AsyncClients than used in FirebaseApp assigned to the Realtime database functions.
+    Database.loop();
+}
+
+void asyncCB(AsyncResult &aResult)
+{
+    if (aResult.appEvent().code() > 0)
+>>>>>>> Stashed changes
     {
         Firebase.printf("Event task: %s, msg: %s, code: %d\n", aResult.uid().c_str(), aResult.appEvent().message().c_str(), aResult.appEvent().code());
     }

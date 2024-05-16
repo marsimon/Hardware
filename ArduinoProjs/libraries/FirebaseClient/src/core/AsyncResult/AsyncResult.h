@@ -1,9 +1,17 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
  *
+=======
+ * Created March 13, 2024
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2024 K. Suwatchai (Mobizt)
+ *4
+>>>>>>> Stashed changes
  *
  * Permission is hereby granted, free of charge, to any person returning a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -31,10 +39,17 @@
 #include "./core/List.h"
 #include "./core/Timer.h"
 #include "./core/StringUtil.h"
+<<<<<<< Updated upstream
 #include "./core/AsyncResult/AppEvent.h"
 #include "./core/AsyncResult/AppDebug.h"
 #include "./core/AsyncResult/ResultBase.h"
 #include "./core/AsyncResult/AppData.h"
+=======
+
+#define FIREBASE_CHUNK_SIZE 2048
+#define FIREBASE_BASE64_CHUNK_SIZE 1026
+#define FIREBASE_SSE_TIMEOUT 40 * 1000
+>>>>>>> Stashed changes
 
 using namespace firebase;
 
@@ -46,14 +61,164 @@ namespace ares_ns
         res_etag,
         data_path,
         data_payload,
+<<<<<<< Updated upstream
+=======
+        debug_info,
+>>>>>>> Stashed changes
         max_type
     };
 }
 
+<<<<<<< Updated upstream
 class AsyncResult : public ResultBase, RealtimeDatabaseResult
 {
     friend class AsyncClientClass;
     friend class AppBase;
+=======
+namespace firebase
+{
+    struct app_event_t
+    {
+
+    private:
+        String ev_msg;
+        int ev_code = 0;
+
+    public:
+        String message() { return ev_msg; }
+        int code() { return ev_code; }
+        void setEvent(int code, const String &msg)
+        {
+            ev_code = code;
+            ev_msg = msg;
+        }
+    };
+#if defined(ENABLE_DATABASE)
+    struct RealtimeDatabaseResult
+    {
+        friend class AsyncResult;
+        friend class AsyncClientClass;
+
+        enum event_resume_status_t
+        {
+            event_resume_status_undefined,
+            event_resume_status_resuming,
+            event_resume_status_finished
+        };
+
+    public:
+        template <typename T>
+        T to() { return vcon.to<T>(data().c_str()); }
+        bool isStream() const { return sse; }
+        String name() const { return node_name.c_str(); }
+        String ETag() const { return etag.c_str(); }
+        String dataPath() const { return ref_payload ? ref_payload->substring(data_path_p1, data_path_p2).c_str() : ""; }
+        String event() { return ref_payload ? ref_payload->substring(event_p1, event_p2).c_str() : ""; }
+        String data()
+        {
+            if (data_p1 > 0)
+                return ref_payload->substring(data_p1, data_p2).c_str();
+            return ref_payload ? ref_payload->c_str() : "";
+        }
+
+        bool eventTimeout() { return sse && sse_timer.remaining() == 0; }
+
+        realtime_database_data_type type() { return vcon.getType(data().c_str()); }
+
+        void clearSSE()
+        {
+            data_path_p1 = 0;
+            data_path_p2 = 0;
+            event_p1 = 0;
+            event_p2 = 0;
+            data_p1 = 0;
+            data_p2 = 0;
+            sse = false;
+            event_resume_status = event_resume_status_undefined;
+        }
+        void parseNodeName()
+        {
+            int p1 = 0, p2 = 0;
+            sut.parse(*ref_payload, "\"name\"", "}", p1, p2);
+            if (p1 > -1 && p2 > -1)
+            {
+                node_name = ref_payload->substring(p1 + 1, p2 - 1);
+            }
+        }
+        void parseSSE()
+        {
+            clearSSE();
+            int p1 = 0, p2 = 0;
+            sut.parse(*ref_payload, "event", "\n", p1, p2);
+            if (p1 > -1 && p2 > -1)
+            {
+                event_p1 = p1;
+                event_p2 = p2;
+                p1 = p2;
+                setEventResumeStatus(event_resume_status_undefined);
+                sse_timer.feed(String(event()).indexOf("cancel") > -1 || String(event()).indexOf("auth_revoked") > -1 ? 0 : FIREBASE_SSE_TIMEOUT);
+                sse = true;
+            }
+
+            sut.parse(*ref_payload, "data", "\n", p1, p2);
+            if (p1 > -1 && p2 > -1)
+            {
+                int p3 = p1, p4 = p2;
+                if (ref_payload->substring(p1, p2) == "null")
+                {
+                    data_p1 = p1;
+                    data_p2 = p2;
+                    return;
+                }
+
+                sut.parse(*ref_payload, "\"path\"", ",", p1, p2);
+                if (p1 > -1 && p2 > -1)
+                {
+                    data_path_p1 = p1 + 1;
+                    data_path_p2 = p2 - 1;
+                    p1 = p2;
+                }
+
+                sut.parse(*ref_payload, "\"data\"", "\n", p1, p2);
+                if (p1 > -1 && p2 > -1)
+                {
+                    if ((*ref_payload)[p2 - 1] == '}')
+                        p2--;
+                    data_p1 = p1;
+                    data_p2 = p2;
+                }
+
+                if (data_p1 == 0)
+                {
+                    data_p1 = p3;
+                    data_p2 = p4;
+                }
+            }
+        }
+        void setEventResumeStatus(event_resume_status_t status) { event_resume_status = status; }
+
+        event_resume_status_t eventResumeStatus() const { return event_resume_status; }
+
+        bool null_etag = false;
+        String *ref_payload = nullptr;
+
+    private:
+        ValueConverter vcon;
+        StringUtil sut;
+        Timer sse_timer;
+        bool sse = false;
+        event_resume_status_t event_resume_status = event_resume_status_undefined;
+        String node_name, etag;
+        uint16_t data_path_p1 = 0, data_path_p2 = 0, event_p1 = 0, event_p2 = 0, data_p1 = 0, data_p2 = 0;
+    };
+#endif
+}
+
+class AsyncResult
+{
+    friend class AsyncClientClass;
+    friend class FirebaseApp;
+>>>>>>> Stashed changes
     friend class RealtimeDatabase;
     friend class Messaging;
     friend class Functions;
@@ -100,6 +265,11 @@ private:
     uint32_t addr = 0;
     uint32_t rvec_addr = 0;
     String val[ares_ns::max_type];
+<<<<<<< Updated upstream
+=======
+    bool debug_info_available = false;
+    uint32_t debug_ms = 0, last_debug_ms = 0;
+>>>>>>> Stashed changes
     download_data_t download_data;
     upload_data_t upload_data;
 #if defined(ENABLE_DATABASE)
@@ -110,6 +280,7 @@ private:
     {
         if (data.length())
         {
+<<<<<<< Updated upstream
             app_data.setData();
             val[ares_ns::data_payload] = data;
         }
@@ -123,6 +294,16 @@ private:
         app_data.update();
     }
 
+=======
+            data_available = true;
+            val[ares_ns::data_payload] = data;
+        }
+#if defined(ENABLE_DATABASE)
+        rtdbResult.ref_payload = &val[ares_ns::data_payload];
+#endif
+    }
+
+>>>>>>> Stashed changes
     void setETag(const String &etag) { val[ares_ns::res_etag] = etag; }
     void setPath(const String &path) { val[ares_ns::data_path] = path; }
 
@@ -158,6 +339,7 @@ private:
         return false;
     }
 
+<<<<<<< Updated upstream
     void setDebug(const String &msg)
     {
         if (app_debug)
@@ -193,6 +375,42 @@ public:
         setUID();
     };
 
+=======
+public:
+    bool data_available = false, error_available = false;
+    app_event_t app_event;
+    FirebaseError lastError;
+
+    void setDebug(const String &debug)
+    {
+        // Keeping old message in case unread.
+        debug_ms = millis();
+        if (debug_info_available && val[ares_ns::debug_info].length() < 200)
+        {
+            if (val[ares_ns::debug_info].indexOf(debug) == -1)
+            {
+                val[ares_ns::debug_info] += " >> ";
+                val[ares_ns::debug_info] += debug;
+            }
+        }
+        else
+            val[ares_ns::debug_info] = debug;
+        if (debug.length())
+            debug_info_available = true;
+    }
+
+    AsyncResult()
+    {
+#if defined(ENABLE_DATABASE)
+        rtdbResult.ref_payload = &val[ares_ns::data_payload];
+#endif
+        addr = reinterpret_cast<uint32_t>(this);
+        val[ares_ns::res_uid] = FPSTR("task_v");
+        val[ares_ns::res_uid] += FIREBASE_CLIENT_VERSION;
+        val[ares_ns::res_uid] += FPSTR("_");
+        val[ares_ns::res_uid] += String(millis());
+    };
+>>>>>>> Stashed changes
     ~AsyncResult()
     {
         if (rvec_addr > 0)
@@ -206,6 +424,7 @@ public:
             }
         }
     };
+<<<<<<< Updated upstream
 
     /**
      * Get the pointer to the internal response payload string buffer.
@@ -257,10 +476,23 @@ public:
     /**
      * Clear the async result.
      */
+=======
+    const char *c_str() { return val[ares_ns::data_payload].c_str(); }
+    String payload() const { return val[ares_ns::data_payload].c_str(); }
+    String path() const { return val[ares_ns::data_path].c_str(); }
+    String etag() const { return val[ares_ns::res_etag].c_str(); }
+    String uid() const { return val[ares_ns::res_uid].c_str(); }
+    String debug()
+    {
+        last_debug_ms = millis();
+        return val[ares_ns::debug_info].c_str();
+    }
+>>>>>>> Stashed changes
     void clear()
     {
         for (size_t i = 0; i < ares_ns::max_type; i++)
             val[i].remove(0, val[i].length());
+<<<<<<< Updated upstream
 
         lastError.reset();
 
@@ -283,6 +515,18 @@ public:
      *
      * @return RealtimeDatabaseResult The reference to the internal RealtimeDatabaseResult object.
      */
+=======
+        debug_info_available = false;
+        lastError.setLastError(0, "");
+        app_event.setEvent(0, "");
+        data_available = false;
+        download_data.reset();
+        upload_data.reset();
+#if defined(ENABLE_DATABASE)
+        rtdbResult.clearSSE();
+#endif
+    }
+>>>>>>> Stashed changes
     template <typename T>
     T &to()
     {
@@ -291,6 +535,7 @@ public:
             return rtdbResult;
         return o;
     }
+<<<<<<< Updated upstream
 
     /**
      * Get the number of bytes of available response payload.
@@ -320,6 +565,17 @@ public:
      *
      * @return bool Returns true if upload information is available.
      */
+=======
+    int available()
+    {
+        bool ret = data_available;
+        data_available = false;
+        return ret ? val[ares_ns::data_payload].length() : 0;
+    }
+
+    app_event_t appEvent() const { return app_event; }
+
+>>>>>>> Stashed changes
     bool uploadProgress()
     {
         if (!upload_data.progress_available)
@@ -327,6 +583,7 @@ public:
         return upload_data.progress_available;
     }
 
+<<<<<<< Updated upstream
     /**
      * Get the file/BLOB upload information.
      *
@@ -339,6 +596,10 @@ public:
      *
      * @return bool The file/BLOB download status.
      */
+=======
+    upload_data_t uploadInfo() const { return upload_data; }
+
+>>>>>>> Stashed changes
     bool downloadProgress()
     {
         if (!download_data.progress_available)
@@ -346,6 +607,7 @@ public:
         return download_data.progress_available;
     }
 
+<<<<<<< Updated upstream
     /**
      * Get the file/BLOB download information.
      *
@@ -397,6 +659,35 @@ public:
      * @return FirebaseError The internal FirebaseError object.
      */
     FirebaseError &error() { return lastError; }
+=======
+    download_data_t downloadInfo() const { return download_data; }
+
+    bool isOTA() { return download_data.ota; }
+
+    bool isError()
+    {
+        bool err = lastError.code() != 0 && lastError.code() != FIREBASE_ERROR_HTTP_CODE_OK;
+        if (error_available)
+        {
+            error_available = false;
+            return err;
+        }
+        return false;
+    }
+
+    bool isDebug()
+    {
+        bool dbg = val[ares_ns::debug_info].length() > 0;
+        if (debug_info_available && last_debug_ms < debug_ms && debug_ms > 0)
+        {
+            debug_info_available = false;
+            return dbg;
+        }
+        return false;
+    }
+
+    FirebaseError error() const { return lastError; }
+>>>>>>> Stashed changes
 };
 
 typedef void (*AsyncResultCallback)(AsyncResult &aResult);

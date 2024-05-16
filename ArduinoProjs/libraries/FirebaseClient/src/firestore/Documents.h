@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created March 24, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -65,18 +69,30 @@ namespace Firestore
          * A timestamp in RFC3339 UTC "Zulu" format, with nanosecond resolution and up to nine fractional digits.
          * Examples: "2014-10-02T15:01:23Z" and "2014-10-02T15:01:23.045123456Z".
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth authentication.
          *
          * For more detail, see https://cloud.google.com/firestore/docs/reference/rest/v1/projects.databases.documents/batchGet
          *
          */
+<<<<<<< Updated upstream
         String batchGet(AsyncClientClass &aClient, const Firestore::Parent &parent, BatchGetDocumentOptions batchOptions)
         {
             AsyncResult result;
             batchGetDoc(aClient, &result, NULL, "", parent, batchOptions, false);
             return result.c_str();
+=======
+        bool batchGet(AsyncClientClass &aClient, const Firestore::Parent &parent, BatchGetDocumentOptions batchOptions)
+        {
+            AsyncResult result;
+            batchGetDoc(aClient, &result, NULL, "", parent, batchOptions, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Gets multiple documents.
@@ -160,18 +176,30 @@ namespace Firestore
          *
          * For the write object, see https://firebase.google.com/docs/firestore/reference/rest/v1/Write
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth authentication.
          *
          * For more description, see https://cloud.google.com/firestore/docs/reference/rest/v1/projects.databases.documents/batchWrite
          *
          */
+<<<<<<< Updated upstream
         String batchWrite(AsyncClientClass &aClient, const Firestore::Parent &parent, Writes &writes)
         {
             AsyncResult result;
             batchWriteDoc(aClient, &result, NULL, "", parent, writes, false);
             return result.c_str();
+=======
+        bool batchWrite(AsyncClientClass &aClient, const Firestore::Parent &parent, Writes &writes)
+        {
+            AsyncResult result;
+            batchWriteDoc(aClient, &result, NULL, "", parent, writes, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Applies a batch of write operations.
@@ -236,6 +264,7 @@ namespace Firestore
          *
          * See https://cloud.google.com/firestore/docs/reference/rest/v1/TransactionOptions for transaction options.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
          *
          * This function requires ServiceAuth authentication.
@@ -245,6 +274,17 @@ namespace Firestore
             AsyncResult result;
             beginTrans(aClient, &result, NULL, "", parent, transOptions, false);
             return result.c_str();
+=======
+         * @return Boolean value, indicates the success of the operation.
+         *
+         * This function requires ServiceAuth authentication.
+         */
+        bool beginTransaction(AsyncClientClass &aClient, const Firestore::Parent &parent, const TransactionOptions &transOptions)
+        {
+            AsyncResult result;
+            beginTrans(aClient, &result, NULL, "", parent, transOptions, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Starts a new transaction.
@@ -318,16 +358,28 @@ namespace Firestore
          *
          * For the write object, see https://firebase.google.com/docs/firestore/reference/rest/v1/Write
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth, CustomAuth, UserAuth, CustomToken or IDToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String commit(AsyncClientClass &aClient, const Firestore::Parent &parent, Writes &writes)
         {
             AsyncResult result;
             commitDoc(aClient, &result, NULL, "", parent, writes, false);
             return result.c_str();
+=======
+        bool commit(AsyncClientClass &aClient, const Firestore::Parent &parent, Writes &writes)
+        {
+            AsyncResult result;
+            commitDoc(aClient, &result, NULL, "", parent, writes, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Commits a transaction, while optionally updating documents.
@@ -380,19 +432,31 @@ namespace Firestore
          * @param document A Firestore document.
          * See https://firebase.google.com/docs/firestore/reference/rest/v1/projects.databases.documents#Document
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth, CustomAuth, UserAuth, CustomToken or IDToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String createDocument(AsyncClientClass &aClient, Firestore::Parent parent, const String &documentPath, DocumentMask mask, Document<Values::Value> &document)
+=======
+        bool createDocument(AsyncClientClass &aClient, Firestore::Parent parent, const String &documentPath, DocumentMask mask, Document<Values::Value> &document)
+>>>>>>> Stashed changes
         {
             AsyncResult result;
             parent.setDocPath(documentPath);
             String collectionId, documentId;
             parent.pathResove(collectionId, documentId);
             createDoc(aClient, &result, NULL, "", parent, collectionId, documentId, mask, document, false);
+<<<<<<< Updated upstream
             return result.c_str();
+=======
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Create a document at the defined document path.
@@ -454,16 +518,28 @@ namespace Firestore
          * @param document A Firestore document.
          * See https://firebase.google.com/docs/firestore/reference/rest/v1/projects.databases.documents#Document
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth, CustomAuth, UserAuth, CustomToken or IDToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String createDocument(AsyncClientClass &aClient, Firestore::Parent parent, const String &collectionId, const String &documentId, DocumentMask mask, Document<Values::Value> &document)
         {
             AsyncResult result;
             createDoc(aClient, &result, NULL, "", parent, collectionId, documentId, mask, document, false);
             return result.c_str();
+=======
+        bool createDocument(AsyncClientClass &aClient, Firestore::Parent parent, const String &collectionId, const String &documentId, DocumentMask mask, Document<Values::Value> &document)
+        {
+            AsyncResult result;
+            createDoc(aClient, &result, NULL, "", parent, collectionId, documentId, mask, document, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Create a document in the defined collection id.
@@ -528,16 +604,28 @@ namespace Firestore
          * A timestamp is in RFC3339 UTC "Zulu" format, with nanosecond resolution and up to nine fractional digits.
          * Examples: "2014-10-02T15:01:23Z" and "2014-10-02T15:01:23.045123456Z".
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth, CustomAuth, UserAuth, CustomToken or IDToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String deleteDoc(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &documentPath, const Precondition &currentDocument)
         {
             AsyncResult result;
             deleteDocBase(aClient, &result, NULL, "", parent, documentPath, currentDocument, false);
             return result.c_str();
+=======
+        bool deleteDoc(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &documentPath, const Precondition &currentDocument)
+        {
+            AsyncResult result;
+            deleteDocBase(aClient, &result, NULL, "", parent, documentPath, currentDocument, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Delete a document at the defined path.
@@ -610,16 +698,28 @@ namespace Firestore
          * If set, reads the version of the document at the given time. This may not be older than 270 seconds.
          * Examples: "2014-10-02T15:01:23Z" and "2014-10-02T15:01:23.045123456Z".
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth, CustomAuth, UserAuth, CustomToken or IDToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String get(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &documentPath, const GetDocumentOptions &options)
         {
             AsyncResult result;
             getDoc(aClient, &result, NULL, "", parent, documentPath, options, false);
             return result.c_str();
+=======
+        bool get(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &documentPath, const GetDocumentOptions &options)
+        {
+            AsyncResult result;
+            getDoc(aClient, &result, NULL, "", parent, documentPath, options, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Get a document at the defined path.
@@ -688,16 +788,28 @@ namespace Firestore
          * The option showMissing is for setting if the list should show missing documents.
          * A missing document is a document that does not exist but has sub-documents.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth, CustomAuth, UserAuth, CustomToken or IDToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String list(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &collectionId, ListDocumentsOptions listDocsOptions)
         {
             AsyncResult result;
             listDocs(aClient, &result, NULL, "", parent, collectionId, listDocsOptions, false);
             return result.c_str();
+=======
+        bool list(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &collectionId, ListDocumentsOptions listDocsOptions)
+        {
+            AsyncResult result;
+            listDocs(aClient, &result, NULL, "", parent, collectionId, listDocsOptions, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** List the documents in the defined documents collection.
@@ -770,16 +882,28 @@ namespace Firestore
          * This must be a microsecond precision timestamp within the past one hour, or if Point-in-Time Recovery is enabled,
          * can additionally be a whole minute timestamp within the past 7 days.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth authentication.
          *
          */
+<<<<<<< Updated upstream
         String listCollectionIds(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &documentPath, ListCollectionIdsOptions listCollectionIdsOptions)
         {
             AsyncResult result;
             listCollIds(aClient, &result, NULL, "", parent, documentPath, listCollectionIdsOptions, false);
             return result.c_str();
+=======
+        bool listCollectionIds(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &documentPath, ListCollectionIdsOptions listCollectionIdsOptions)
+        {
+            AsyncResult result;
+            listCollIds(aClient, &result, NULL, "", parent, documentPath, listCollectionIdsOptions, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** List the document collection ids in the defined document path.
@@ -859,16 +983,28 @@ namespace Firestore
          * Examples: "2014-10-02T15:01:23Z" and "2014-10-02T15:01:23.045123456Z".
          *  @param document A Firestore document.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth, CustomAuth, UserAuth, CustomToken or IDToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String patch(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &documentPath, PatchDocumentOptions patchOptions, Document<Values::Value> &document)
         {
             AsyncResult result;
             patchDoc(aClient, &result, NULL, "", parent, documentPath, patchOptions, document, false);
             return result.c_str();
+=======
+        bool patch(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &documentPath, PatchDocumentOptions patchOptions, Document<Values::Value> &document)
+        {
+            AsyncResult result;
+            patchDoc(aClient, &result, NULL, "", parent, documentPath, patchOptions, document, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Patch or update a document at the defined path.
@@ -952,6 +1088,7 @@ namespace Firestore
          * The Firestore database id should be (default) or empty "".
          * @param transaction Required. A base64-encoded string of the transaction to roll back.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
          *
          * This function requires ServiceAuth authentication.
@@ -961,6 +1098,17 @@ namespace Firestore
             AsyncResult result;
             transRollback(aClient, &result, NULL, "", parent, transaction, false);
             return result.c_str();
+=======
+         * @return Boolean value, indicates the success of the operation.
+         *
+         * This function requires ServiceAuth authentication.
+         */
+        bool rollback(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &transaction)
+        {
+            AsyncResult result;
+            transRollback(aClient, &result, NULL, "", parent, transaction, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Rolls back a transaction.
@@ -1019,18 +1167,30 @@ namespace Firestore
          * The new transaction ID will be returned as the first response in the stream.
          * - readTime used for reading the documents as they were at the given time.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth, CustomAuth, UserAuth, CustomToken or IDToken authentication.
          *
          * For more description, see https://firebase.google.com/docs/firestore/reference/rest/v1beta1/projects.databases.documents/runQuery
          *
          */
+<<<<<<< Updated upstream
         String runQuery(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &documentPath, QueryOptions queryOptions)
         {
             AsyncResult result;
             runQueryImpl(aClient, &result, NULL, "", parent, documentPath, queryOptions, false);
             return result.c_str();
+=======
+        bool runQuery(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &documentPath, QueryOptions queryOptions)
+        {
+            AsyncResult result;
+            runQueryImpl(aClient, &result, NULL, "", parent, documentPath, queryOptions, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Runs a query.

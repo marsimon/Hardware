@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created February 21, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -85,14 +89,20 @@
 #define FIREBASE_ERROR_OPERATION_CANCELLED -118
 #define FIREBASE_ERROR_TIME_IS_NOT_SET_OR_INVALID -119
 #define FIREBASE_ERROR_JWT_CREATION_REQUIRED -120
+<<<<<<< Updated upstream
 #define FIREBASE_ERROR_INVALID_DATABASE_SECRET -121
+=======
+>>>>>>> Stashed changes
 
 #if !defined(FPSTR)
 #define FPSTR
 #endif
 
+<<<<<<< Updated upstream
 #include "./core/AsyncResult/AppError.h"
 
+=======
+>>>>>>> Stashed changes
 class FirebaseError
 {
     friend class AsyncClientClass;
@@ -104,6 +114,7 @@ class FirebaseError
     friend class CloudFunctions;
     friend class Storage;
     friend class CloudStorage;
+<<<<<<< Updated upstream
     friend class FirebaseApp;
 
 private:
@@ -112,11 +123,28 @@ private:
     void clearError()
     {
         err.reset();
+=======
+
+private:
+    struct firebase_error_info_t
+    {
+        String message;
+        int code = 0;
+    };
+
+    firebase_error_info_t err;
+
+    void clearError()
+    {
+        err.message.remove(0, err.message.length());
+        err.code = 0;
+>>>>>>> Stashed changes
     }
 
     void setResponseError(const String &message, int code)
     {
         if (code == FIREBASE_ERROR_HTTP_CODE_PRECONDITION_FAILED)
+<<<<<<< Updated upstream
             err.setError(code, FPSTR("precondition failed (ETag does not match)"));
         else if (code == FIREBASE_ERROR_HTTP_CODE_UNAUTHORIZED)
             err.setError(code, FPSTR("unauthorized"));
@@ -128,15 +156,33 @@ private:
             buf += code;
             err.setError(code, buf);
         }
+=======
+            err.message = FPSTR("precondition failed (ETag does not match)");
+        else if (code == FIREBASE_ERROR_HTTP_CODE_UNAUTHORIZED)
+            err.message = FPSTR("unauthorized");
+        else if (message.length())
+            err.message = message;
+        else
+        {
+            err.message = FPSTR("HTTP Status ");
+            err.message += code;
+        }
+        err.code = code;
+>>>>>>> Stashed changes
     }
 
     void setClientError(int code)
     {
+<<<<<<< Updated upstream
+=======
+        err.code = code;
+>>>>>>> Stashed changes
         if (code < 0)
         {
             switch (code)
             {
             case FIREBASE_ERROR_TCP_CONNECTION:
+<<<<<<< Updated upstream
                 err.setError(code, FPSTR("TCP connection failed"));
                 break;
             case FIREBASE_ERROR_TCP_SEND:
@@ -195,6 +241,63 @@ private:
                 break;
             default:
                 err.setError(code, FPSTR("undefined"));
+=======
+                err.message = FPSTR("TCP connection failed");
+                break;
+            case FIREBASE_ERROR_TCP_SEND:
+                err.message = FPSTR("TCP send failed");
+                break;
+            case FIREBASE_ERROR_TCP_RECEIVE_TIMEOUT:
+                err.message = FPSTR("TCP receive time out");
+                break;
+            case FIREBASE_ERROR_TCP_DISCONNECTED:
+                err.message = FPSTR("TCP disconnected");
+                break;
+            case FIREBASE_ERROR_OPEN_FILE:
+                err.message = FPSTR("error opening file");
+                break;
+            case FIREBASE_ERROR_FILE_READ:
+                err.message = FPSTR("error reading file");
+                break;
+            case FIREBASE_ERROR_FILE_WRITE:
+                err.message = FPSTR("error writing file");
+                break;
+            case FIREBASE_ERROR_UNAUTHENTICATE:
+                err.message = FPSTR("unauthenticate");
+                break;
+            case FIREBASE_ERROR_TOKEN_PARSE_PK:
+                err.message = FPSTR("parse private key");
+                break;
+            case FIREBASE_ERROR_TOKEN_SIGN:
+                err.message = FPSTR("sign JWT token");
+                break;
+            case FIREBASE_ERROR_FW_UPDATE_TOO_LOW_FREE_SKETCH_SPACE:
+                err.message = FPSTR("too low sketch space");
+                break;
+            case FIREBASE_ERROR_FW_UPDATE_WRITE_FAILED:
+                err.message = FPSTR("firmware write failed");
+                break;
+            case FIREBASE_ERROR_FW_UPDATE_END_FAILED:
+                err.message = FPSTR("firmware end failed");
+                break;
+            case FIREBASE_ERROR_STREAM_TIMEOUT:
+                err.message = FPSTR("stream time out");
+                break;
+            case FIREBASE_ERROR_STREAM_AUTH_REVOKED:
+                err.message = FPSTR("auth revoked");
+                break;
+            case FIREBASE_ERROR_APP_WAS_NOT_ASSIGNED:
+                err.message = FPSTR("app was not assigned");
+                break;
+            case FIREBASE_ERROR_OPERATION_CANCELLED:
+                err.message = FPSTR("operation was cancelled");
+                break;
+            case FIREBASE_ERROR_TIME_IS_NOT_SET_OR_INVALID:
+                err.message = FPSTR("time was not set or not valid");
+                break;
+            default:
+                err.message = FPSTR("undefined");
+>>>>>>> Stashed changes
                 break;
             }
         }
@@ -203,6 +306,7 @@ private:
 public:
     FirebaseError() {}
     ~FirebaseError() {}
+<<<<<<< Updated upstream
     String message() { return err.message(); }
 
     int code() { return err.code(); }
@@ -212,6 +316,15 @@ public:
     void reset() { err.reset(); }
 
     bool isError() { return err.isError(); }
+=======
+    String message() const { return err.message; }
+    int code() const { return err.code; }
+    void setLastError(int code, const String &msg)
+    {
+        err.code = code;
+        err.message = msg;
+    }
+>>>>>>> Stashed changes
 };
 
 #endif

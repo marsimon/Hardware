@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created April 23, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -26,7 +30,13 @@
 #ifndef FIREBASE_CLIENT_H
 #define FIREBASE_CLIENT_H
 
+<<<<<<< Updated upstream
 // FIREBASE_CLIENT_VERSION macro moved to core/Core.h
+=======
+#if defined(FIREBASE_CLIENT_VERSION)
+#undef FIREBASE_CLIENT_VERSION
+#endif
+>>>>>>> Stashed changes
 
 #include <Arduino.h>
 #include "./core/FirebaseApp.h"
@@ -84,7 +94,11 @@ using namespace firebase;
 
 namespace firebase
 {
+<<<<<<< Updated upstream
     class FirebaseClient : public AppBase
+=======
+    class FirebaseClient
+>>>>>>> Stashed changes
     {
     private:
         void configApp(AsyncClientClass &aClient, FirebaseApp &app, user_auth_data &auth, firebase_core_auth_task_type task_type = firebase_core_auth_task_type_undefined)
@@ -92,6 +106,7 @@ namespace firebase
             app.aClient = &aClient;
             app.aclient_addr = reinterpret_cast<uint32_t>(&aClient);
 
+<<<<<<< Updated upstream
             JWT.setAppDebug(getAppDebug(app.aClient));
 
             if (app.refResult)
@@ -102,6 +117,9 @@ namespace firebase
             }
 
             app.addRemoveClientVecBase(app.aClient, reinterpret_cast<uint32_t>(&(app.cVec)), true);
+=======
+            app.aClient->addRemoveClientVec(reinterpret_cast<uint32_t>(&(app.cVec)), true);
+>>>>>>> Stashed changes
             app.auth_data.user_auth.copy(auth);
 
             app.auth_data.app_token.clear();
@@ -203,10 +221,13 @@ namespace firebase
                 uint32_t exp = app.auth_data.user_auth.auth_type == auth_user_id_token ? app.auth_data.user_auth.user.expire : app.auth_data.user_auth.sa.expire;
                 resetTimer(app, true, 0, exp);
             }
+<<<<<<< Updated upstream
             else
             {
                 app.setEventResult(nullptr, FPSTR("initialization failed"), auth_event_error);
             }
+=======
+>>>>>>> Stashed changes
         }
 
         void signup(AsyncClientClass &aClient, FirebaseApp &app, user_auth_data &auth)
@@ -253,6 +274,7 @@ namespace firebase
 
 static FirebaseClient Firebase;
 
+<<<<<<< Updated upstream
 /**
  * Get the user authentication/autorization credentials data.
  *
@@ -459,4 +481,18 @@ static void deleteUser(AsyncClientClass &aClient, FirebaseApp &app, user_auth_da
     Firebase.deleteUser(aClient, app, auth);
 }
 
+=======
+template <typename T>
+static user_auth_data &getAuth(T &auth) { return auth.get(); }
+static void initializeApp(AsyncClientClass &aClient, FirebaseApp &app, user_auth_data &auth) { Firebase.initializeApp(aClient, app, auth); }
+template <typename T = const char *>
+static void signup(AsyncClientClass &aClient, FirebaseApp &app, user_auth_data &auth) { Firebase.signup(aClient, app, auth); }
+template <typename T = const char *>
+static void resetPassword(AsyncClientClass &aClient, FirebaseApp &app, user_auth_data &auth) { Firebase.resetPassword(aClient, app, auth); }
+template <typename T = const char *>
+static void verify(AsyncClientClass &aClient, FirebaseApp &app, user_auth_data &auth) { Firebase.verify(aClient, app, auth); }
+template <typename T = const char *>
+static void deleteUser(AsyncClientClass &aClient, FirebaseApp &app, user_auth_data &auth) { Firebase.deleteUser(aClient, app, auth); }
+
+>>>>>>> Stashed changes
 #endif

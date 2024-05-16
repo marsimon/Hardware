@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created April 13, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -544,14 +548,20 @@ namespace firebase
         bool initialized = false;
         bool jwt_signing = false;
         bool jwt_loop = false;
+<<<<<<< Updated upstream
         bool jwt_time_debug = false;
+=======
+>>>>>>> Stashed changes
         uint32_t jwt_ts = 0;
         auth_token_type auth_type = auth_unknown_token;
         user_auth_data_type auth_data_type = user_auth_data_undefined;
         firebase_core_auth_task_type task_type = firebase_core_auth_task_type_undefined;
         auth_status status;
         TimeStatusCallback timestatus_cb = NULL;
+<<<<<<< Updated upstream
         file_config_data file_data;
+=======
+>>>>>>> Stashed changes
     };
 
 #if defined(ENABLE_FS)
@@ -759,7 +769,10 @@ namespace firebase
                 if (p1 > -1 && p2 > -1)
                 {
                     auth_data.sa.val[sa_ns::pk] = buf.substring(p1 + 1, p2 - 1);
+<<<<<<< Updated upstream
                     auth_data.sa.val[sa_ns::pk].replace("\\n", "\n");
+=======
+>>>>>>> Stashed changes
                     p1 = p2;
                     auth_data.initialized = true;
                     ret = true;
@@ -810,7 +823,17 @@ namespace firebase
             data.clear();
             if (userFile.initialized)
             {
+<<<<<<< Updated upstream
                 data.file_data.copy(userFile);
+=======
+                userFile.cb(userFile.file, userFile.filename.c_str(), file_mode_open_read);
+                if (userFile.file)
+                {
+                    if (UserTokenFileParser::parseUserFile(UserTokenFileParser::token_type_user_data, userFile.file, data))
+                        data.initialized = true;
+                    userFile.file.close();
+                }
+>>>>>>> Stashed changes
             }
 #endif
         }
@@ -834,6 +857,7 @@ namespace firebase
 
         ~UserAuth() { data.clear(); };
         void clear() { data.clear(); }
+<<<<<<< Updated upstream
         user_auth_data &get()
         {
 #if defined(ENABLE_FS)
@@ -848,6 +872,9 @@ namespace firebase
 #endif
             return data;
         }
+=======
+        user_auth_data &get() { return data; }
+>>>>>>> Stashed changes
 
     private:
         user_auth_data data;
@@ -874,14 +901,27 @@ namespace firebase
             data.timestatus_cb = timeCb;
         };
 
+<<<<<<< Updated upstream
         ServiceAuth(TimeStatusCallback timeCb, file_config_data &safile, size_t expire = FIREBASE_DEFAULT_TOKEN_TTL)
+=======
+        ServiceAuth(TimeStatusCallback timeCb, file_config_data &safile)
+>>>>>>> Stashed changes
         {
 #if defined(ENABLE_FS)
             data.clear();
             if (safile.initialized)
             {
+<<<<<<< Updated upstream
                 data.file_data.copy(safile);
                 data.sa.expire = expire;
+=======
+                safile.cb(safile.file, safile.filename.c_str(), file_mode_open_read);
+                if (safile.file)
+                {
+                    SAParser::parseSAFile(safile.file, data);
+                    safile.file.close();
+                }
+>>>>>>> Stashed changes
                 data.timestatus_cb = timeCb;
             }
 #endif
@@ -889,6 +929,7 @@ namespace firebase
 
         ~ServiceAuth() { data.clear(); };
         void clear() { data.clear(); }
+<<<<<<< Updated upstream
         user_auth_data &get()
         {
 #if defined(ENABLE_FS)
@@ -908,6 +949,9 @@ namespace firebase
 #endif
             return data;
         }
+=======
+        user_auth_data &get() { return data; }
+>>>>>>> Stashed changes
         bool isInitialized() { return data.sa.val[sa_ns::cm].length() > 0 && data.sa.val[sa_ns::pid].length() > 0 && data.sa.val[sa_ns::pk].length() > 0; }
 
     private:
@@ -939,12 +983,17 @@ namespace firebase
             data.timestatus_cb = timeCb;
         };
 
+<<<<<<< Updated upstream
         CustomAuth(TimeStatusCallback timeCb, file_config_data &safile, const String &apiKey, const String &uid, const String &scope = "", const String &claims = "", size_t expire = FIREBASE_DEFAULT_TOKEN_TTL)
+=======
+        CustomAuth(TimeStatusCallback timeCb, file_config_data &safile, const String &uid)
+>>>>>>> Stashed changes
         {
 #if defined(ENABLE_FS)
             data.clear();
             if (safile.initialized)
             {
+<<<<<<< Updated upstream
                 data.file_data.copy(safile);
                 data.sa.expire = expire;
                 data.cust.val[cust_ns::api_key] = apiKey;
@@ -952,12 +1001,27 @@ namespace firebase
                 data.cust.val[cust_ns::scope] = scope;
                 data.cust.val[cust_ns::claims] = claims;
                 data.timestatus_cb = timeCb;
+=======
+                safile.cb(safile.file, safile.filename.c_str(), file_mode_open_read);
+                if (safile.file)
+                {
+                    if (SAParser::parseSAFile(safile.file, data))
+                    {
+                        data.cust.val[cust_ns::uid] = uid;
+                        data.auth_type = auth_sa_custom_token;
+                        data.auth_data_type = user_auth_data_custom_data;
+                    }
+                    safile.file.close();
+                    data.timestatus_cb = timeCb;
+                }
+>>>>>>> Stashed changes
             }
 #endif
         }
 
         ~CustomAuth() { data.clear(); };
 
+<<<<<<< Updated upstream
         user_auth_data &get()
         {
 #if defined(ENABLE_FS)
@@ -977,6 +1041,9 @@ namespace firebase
 #endif
             return data;
         }
+=======
+        user_auth_data &get() { return data; }
+>>>>>>> Stashed changes
 
         bool isInitialized() { return data.sa.val[sa_ns::pk].length() > 0 && data.sa.val[sa_ns::cm].length() > 0 && data.sa.val[sa_ns::pid].length() > 0 && data.sa.val[sa_ns::pk].length() > 0 && data.cust.val[cust_ns::uid].length() > 0; }
 
@@ -1054,7 +1121,21 @@ namespace firebase
             data.clear();
             if (tokenFile.initialized)
             {
+<<<<<<< Updated upstream
                 data.file_data.copy(tokenFile);
+=======
+                tokenFile.cb(tokenFile.file, tokenFile.filename.c_str(), file_mode_open_read);
+                if (tokenFile.file)
+                {
+                    if (UserTokenFileParser::parseUserFile(UserTokenFileParser::token_type_id_token, tokenFile.file, data))
+                    {
+                        data.initialized = true;
+                        data.auth_type = auth_id_token;
+                        data.auth_data_type = user_auth_data_id_token;
+                    }
+                    tokenFile.file.close();
+                }
+>>>>>>> Stashed changes
             }
 #endif
         }
@@ -1077,6 +1158,7 @@ namespace firebase
         }
 
         void clear() { data.clear(); }
+<<<<<<< Updated upstream
         user_auth_data &get()
         {
 #if defined(ENABLE_FS)
@@ -1095,6 +1177,9 @@ namespace firebase
 #endif
             return data;
         }
+=======
+        user_auth_data &get() { return data; }
+>>>>>>> Stashed changes
 
     private:
         user_auth_data data;
@@ -1128,7 +1213,21 @@ namespace firebase
             data.clear();
             if (tokenFile.initialized)
             {
+<<<<<<< Updated upstream
                 data.file_data.copy(tokenFile);
+=======
+                tokenFile.cb(tokenFile.file, tokenFile.filename.c_str(), file_mode_open_read);
+                if (tokenFile.file)
+                {
+                    if (UserTokenFileParser::parseUserFile(UserTokenFileParser::token_type_access_token, tokenFile.file, data))
+                    {
+                        data.initialized = true;
+                        data.auth_type = auth_access_token;
+                        data.auth_data_type = user_auth_data_access_token;
+                    }
+                    tokenFile.file.close();
+                }
+>>>>>>> Stashed changes
             }
 #endif
         }
@@ -1151,6 +1250,7 @@ namespace firebase
         }
 
         void clear() { data.clear(); }
+<<<<<<< Updated upstream
         user_auth_data &get()
         {
 #if defined(ENABLE_FS)
@@ -1169,6 +1269,9 @@ namespace firebase
 #endif
             return data;
         }
+=======
+        user_auth_data &get() { return data; }
+>>>>>>> Stashed changes
 
     private:
         user_auth_data data;
@@ -1194,13 +1297,32 @@ namespace firebase
             this->data.auth_data_type = user_auth_data_custom_token;
         }
 
+<<<<<<< Updated upstream
         CustomToken(file_config_data &tokenFile)
+=======
+        CustomToken(TimeStatusCallback timeCb, file_config_data &tokenFile)
+>>>>>>> Stashed changes
         {
             data.clear();
             if (tokenFile.initialized)
             {
 #if defined(ENABLE_FS)
+<<<<<<< Updated upstream
                 data.file_data.copy(tokenFile);
+=======
+                tokenFile.cb(tokenFile.file, tokenFile.filename.c_str(), file_mode_open_read);
+                if (tokenFile.file)
+                {
+                    if (UserTokenFileParser::parseUserFile(UserTokenFileParser::token_type_custom_token, tokenFile.file, data))
+                    {
+                        data.initialized = data.custom_token.val[cust_tk_ns::token].length() > 0 && data.user.val[user_ns::api_key].length() > 0;
+                        data.auth_type = auth_custom_token;
+                        data.auth_data_type = user_auth_data_custom_token;
+                    }
+                    tokenFile.file.close();
+                    data.timestatus_cb = timeCb;
+                }
+>>>>>>> Stashed changes
 #endif
             }
         }
@@ -1223,6 +1345,7 @@ namespace firebase
         }
 
         void clear() { data.clear(); }
+<<<<<<< Updated upstream
         user_auth_data &get()
         {
 #if defined(ENABLE_FS)
@@ -1241,6 +1364,9 @@ namespace firebase
 #endif
             return data;
         }
+=======
+        user_auth_data &get() { return data; }
+>>>>>>> Stashed changes
 
     private:
         user_auth_data data;
@@ -1268,7 +1394,21 @@ namespace firebase
             data.clear();
             if (tokenFile.initialized)
             {
+<<<<<<< Updated upstream
                 data.file_data.copy(tokenFile);
+=======
+                tokenFile.cb(tokenFile.file, tokenFile.filename.c_str(), file_mode_open_read);
+                if (tokenFile.file)
+                {
+                    if (UserTokenFileParser::parseUserFile(UserTokenFileParser::token_type_legacy_token, tokenFile.file, data))
+                    {
+                        data.initialized = true;
+                        data.auth_type = auth_unknown_token;
+                        data.auth_data_type = user_auth_data_legacy_token;
+                    }
+                    tokenFile.file.close();
+                }
+>>>>>>> Stashed changes
             }
 #endif
         }
@@ -1291,6 +1431,7 @@ namespace firebase
         }
 
         void clear() { data.clear(); }
+<<<<<<< Updated upstream
         user_auth_data &get()
         {
 #if defined(ENABLE_FS)
@@ -1309,6 +1450,9 @@ namespace firebase
 #endif
             return data;
         }
+=======
+        user_auth_data &get() { return data; }
+>>>>>>> Stashed changes
 
     private:
         user_auth_data data;
@@ -1359,7 +1503,10 @@ namespace firebase
         user_auth_data user_auth;
         app_token_t app_token;
         AsyncResultCallback cb;
+<<<<<<< Updated upstream
         AsyncResult *refResult = nullptr;
+=======
+>>>>>>> Stashed changes
     };
 
 };

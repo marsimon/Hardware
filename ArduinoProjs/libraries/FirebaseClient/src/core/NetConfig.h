@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created April 23, 2024
+=======
+ * Created April 6, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -85,9 +89,13 @@ private:
         }
     };
 #endif
+<<<<<<< Updated upstream
 #if defined(FIREBASE_ETHERNET_MODULE_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
 
     // SPI Ethernet Module Data
+=======
+#if defined(FIREBASE_ETH_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+>>>>>>> Stashed changes
     struct ethernet_data
     {
         int ethernet_reset_pin = -1;
@@ -119,6 +127,7 @@ private:
 #if defined(FIREBASE_GSM_MODEM_IS_AVAILABLE) && defined(ENABLE_GSM_NETWORK)
     gsm_data gsm;
 #endif
+<<<<<<< Updated upstream
 
 #if defined(ENABLE_ETHERNET_NETWORK)
 #if defined(FIREBASE_ETHERNET_MODULE_IS_AVAILABLE)
@@ -128,6 +137,12 @@ private:
     Firebase_SPI_ETH_Module *eth = NULL;
 #endif
 #endif
+=======
+#if defined(FIREBASE_ETH_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+    ethernet_data ethernet;
+    Firebase_SPI_ETH_Module *eth = NULL;
+#endif
+>>>>>>> Stashed changes
     bool initialized = false;
     bool network_status = false;
     bool reconnect = true;
@@ -153,7 +168,11 @@ public:
         gsm.copy(rhs.gsm);
 #endif
 
+<<<<<<< Updated upstream
 #if defined(FIREBASE_ETHERNET_MODULE_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+=======
+#if defined(FIREBASE_ETH_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+>>>>>>> Stashed changes
         ethernet.copy(rhs.ethernet);
 #endif
 
@@ -161,7 +180,11 @@ public:
         this->network_status = rhs.network_status;
         this->reconnect = rhs.reconnect;
         this->wifi = rhs.wifi;
+<<<<<<< Updated upstream
 #if defined(FIREBASE_LWIP_ETH_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+=======
+#if defined(FIREBASE_ETH_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+>>>>>>> Stashed changes
         this->eth = rhs.eth;
 #endif
         this->net_timer = rhs.net_timer;
@@ -174,7 +197,11 @@ public:
 #if defined(FIREBASE_GSM_MODEM_IS_AVAILABLE) && defined(ENABLE_GSM_NETWORK)
         gsm.clear();
 #endif
+<<<<<<< Updated upstream
 #if defined(FIREBASE_ETHERNET_MODULE_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+=======
+#if defined(FIREBASE_ETH_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+>>>>>>> Stashed changes
         ethernet.clear();
 #endif
         network_data_type = firebase_network_data_undefined;
@@ -182,7 +209,11 @@ public:
         network_status = false;
         reconnect = true;
         wifi = nullptr;
+<<<<<<< Updated upstream
 #if defined(FIREBASE_LWIP_ETH_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+=======
+#if defined(FIREBASE_ETH_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+>>>>>>> Stashed changes
         eth = NULL;
 #endif
         net_timer.stop();
@@ -248,7 +279,11 @@ public:
 };
 #endif
 
+<<<<<<< Updated upstream
 #if defined(FIREBASE_ETHERNET_MODULE_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+=======
+#if defined(FIREBASE_ETH_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+>>>>>>> Stashed changes
 class EthernetNetwork : public DefaultNetwork
 {
 
@@ -274,7 +309,11 @@ public:
     DefaultEthernetNetwork(Firebase_SPI_ETH_Module &eth)
     {
         init();
+<<<<<<< Updated upstream
 #if defined(FIREBASE_LWIP_ETH_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+=======
+#if defined(FIREBASE_ETH_IS_AVAILABLE) && defined(ENABLE_ETHERNET_NETWORK)
+>>>>>>> Stashed changes
         network_data.eth = &eth;
 #endif
         network_data.network_data_type = firebase_network_data_default_network;

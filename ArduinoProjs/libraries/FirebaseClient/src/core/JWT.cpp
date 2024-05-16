@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created March 25, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -74,7 +78,10 @@ void JWTClass::clear()
     {
         this->auth_data->user_auth.sa.step = jwt_step_begin;
         this->auth_data->user_auth.jwt_ts = 0;
+<<<<<<< Updated upstream
         this->auth_data->user_auth.jwt_time_debug = false;
+=======
+>>>>>>> Stashed changes
     }
     processing = false;
 }
@@ -91,12 +98,16 @@ bool JWTClass::loop(auth_data_t *auth_data)
         if (ret)
             ret = create();
         if (!ret)
+<<<<<<< Updated upstream
         {
             if (auth_data->refResult)
                 sendErrResult(auth_data->refResult);
             else
                 sendErrCB(auth_data ? auth_data->cb : NULL, nullptr);
         }
+=======
+            sendErrCB(auth_data ? auth_data->cb : NULL, nullptr);
+>>>>>>> Stashed changes
         return ret;
     }
     return false;
@@ -112,7 +123,12 @@ void JWTClass::sendErrCB(AsyncResultCallback cb, AsyncResult *aResult)
             bool hasRes = aResult != nullptr;
             if (!hasRes)
                 aResult = new AsyncResult();
+<<<<<<< Updated upstream
             aResult->error().setLastError(jwt_data.err_code, jwt_data.msg);
+=======
+            aResult->error_available = true;
+            aResult->lastError.setLastError(jwt_data.err_code, jwt_data.msg);
+>>>>>>> Stashed changes
             cb(*aResult);
             if (!hasRes)
             {
@@ -123,6 +139,7 @@ void JWTClass::sendErrCB(AsyncResultCallback cb, AsyncResult *aResult)
     }
 }
 
+<<<<<<< Updated upstream
 void JWTClass::sendErrResult(AsyncResult *refResult)
 {
     if (refResult)
@@ -134,6 +151,8 @@ void JWTClass::setAppDebug(app_debug_t *app_debug)
     this->app_debug = app_debug;
 }
 
+=======
+>>>>>>> Stashed changes
 bool JWTClass::begin(auth_data_t *auth_data)
 {
     if (processing || !auth_data)
@@ -160,6 +179,7 @@ bool JWTClass::create()
 
         uint32_t now = 0;
         if (auth_data->user_auth.timestatus_cb)
+<<<<<<< Updated upstream
         {
 
             if (app_debug && !auth_data->user_auth.jwt_time_debug)
@@ -170,6 +190,9 @@ bool JWTClass::create()
             }
             auth_data->user_auth.timestatus_cb(now);
         }
+=======
+            auth_data->user_auth.timestatus_cb(now);
+>>>>>>> Stashed changes
 
         if (now < FIREBASE_DEFAULT_TS)
         {

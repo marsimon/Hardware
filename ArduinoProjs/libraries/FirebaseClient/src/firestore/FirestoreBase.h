@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created March 31, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -34,7 +38,11 @@ using namespace firebase;
 
 #include "./firestore/Query.h"
 
+<<<<<<< Updated upstream
 class FirestoreBase : public AppBase
+=======
+class FirestoreBase
+>>>>>>> Stashed changes
 {
     friend class FirebaseApp;
 
@@ -93,8 +101,13 @@ public:
             AsyncClientClass *aClient = reinterpret_cast<AsyncClientClass *>(cVec[i]);
             if (aClient)
             {
+<<<<<<< Updated upstream
                 processBase(aClient, true);
                 handleRemoveBase(aClient);
+=======
+                aClient->process(true);
+                aClient->handleRemove();
+>>>>>>> Stashed changes
             }
         }
     }
@@ -159,22 +172,35 @@ protected:
 
         url(FPSTR("firestore.googleapis.com"));
 
+<<<<<<< Updated upstream
         async_data_item_t *sData = createSlotBase(request.aClient, request.opt);
+=======
+        async_data_item_t *sData = request.aClient->createSlot(request.opt);
+>>>>>>> Stashed changes
 
         if (!sData)
             return setClientError(request, FIREBASE_ERROR_OPERATION_CANCELLED);
 
+<<<<<<< Updated upstream
         newRequestBase(request.aClient, sData, service_url, request.path, extras, request.method, request.opt, request.uid);
+=======
+        request.aClient->newRequest(sData, service_url, request.path, extras, request.method, request.opt, request.uid);
+>>>>>>> Stashed changes
 
         if (request.options->payload.length())
         {
             sData->request.val[req_hndlr_ns::payload] = request.options->payload;
+<<<<<<< Updated upstream
             setContentLengthBase(request.aClient, sData, request.options->payload.length());
+=======
+            request.aClient->setContentLength(sData, request.options->payload.length());
+>>>>>>> Stashed changes
         }
 
         if (request.cb)
             sData->cb = request.cb;
 
+<<<<<<< Updated upstream
         addRemoveClientVecBase(request.aClient, reinterpret_cast<uint32_t>(&(cVec)), true);
 
         if (request.aResult)
@@ -184,6 +210,17 @@ protected:
         
         processBase(request.aClient, sData->async);
         handleRemoveBase(request.aClient);
+=======
+        request.aClient->addRemoveClientVec(reinterpret_cast<uint32_t>(&(cVec)), true);
+
+        if (request.aResult)
+            sData->setRefResult(request.aResult, reinterpret_cast<uint32_t>(&(request.aClient->rVec)));
+
+        sData->download = request.method == async_request_handler_t::http_get && sData->request.file_data.filename.length();
+
+        request.aClient->process(sData->async);
+        request.aClient->handleRemove();
+>>>>>>> Stashed changes
     }
 
     void addParams(async_request_data_t &request, String &extras)
@@ -200,6 +237,10 @@ protected:
         if (!aResult)
             aResult = new AsyncResult();
 
+<<<<<<< Updated upstream
+=======
+        aResult->error_available = true;
+>>>>>>> Stashed changes
         aResult->lastError.setClientError(code);
 
         if (request.cb)

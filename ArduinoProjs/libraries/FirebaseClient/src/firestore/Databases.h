@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created March 12, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -64,16 +68,28 @@ namespace Firestore
          * - bucketID is the Firebase storage bucket ID in the project.
          * - storagePath is the path in the Firebase Storage data bucket to store the exported database.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth or AccessToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String exportDocuments(AsyncClientClass &aClient, const Firestore::Parent &parent, EximDocumentOptions exportOptions)
         {
             AsyncResult result;
             eximDocs(aClient, &result, NULL, "", parent, exportOptions, false, false);
             return result.c_str();
+=======
+        bool exportDocuments(AsyncClientClass &aClient, const Firestore::Parent &parent, EximDocumentOptions exportOptions)
+        {
+            AsyncResult result;
+            eximDocs(aClient, &result, NULL, "", parent, exportOptions, false, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Export the documents in the database to the Firebase Storage data bucket.
@@ -134,16 +150,28 @@ namespace Firestore
          * - bucketID is the Firebase storage bucket ID in the project.
          * - storagePath is the path in the Firebase Storage data bucket that stores the exported database.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth or AccessToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String importDocuments(AsyncClientClass &aClient, const Firestore::Parent &parent, EximDocumentOptions importOptions)
         {
             AsyncResult result;
             eximDocs(aClient, &result, NULL, "", parent, importOptions, true, false);
             return result.c_str();
+=======
+        bool importDocuments(AsyncClientClass &aClient, const Firestore::Parent &parent, EximDocumentOptions importOptions)
+        {
+            AsyncResult result;
+            eximDocs(aClient, &result, NULL, "", parent, importOptions, true, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Import the exported documents stored in the Firebase Storage data bucket.
@@ -202,16 +230,28 @@ namespace Firestore
          * The Database information should be set via the following functions befor creation.
          * concurrencyMode, appEngineIntegrationMode, deleteProtectionState, pointInTimeRecoveryEnablement, databaseType, locationId and name.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth or AccessToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String create(AsyncClientClass &aClient, const Firestore::Parent &parent, Database &database)
         {
             AsyncResult result;
             manageDatabase(aClient, &result, NULL, "", parent, database.c_str(), "", Firestore::firestore_database_mode_create, false);
             return result.c_str();
+=======
+        bool create(AsyncClientClass &aClient, const Firestore::Parent &parent, Database &database)
+        {
+            AsyncResult result;
+            manageDatabase(aClient, &result, NULL, "", parent, database.c_str(), "", Firestore::firestore_database_mode_create, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Create a database.
@@ -264,16 +304,28 @@ namespace Firestore
          * @param etag The current etag of the Database.
          * If an etag is provided and does not match the current etag of the database, deletion will be blocked and a FAILED_PRECONDITION error will be returned.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth or AccessToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String deleteDatabase(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &etag)
         {
             AsyncResult result;
             manageDatabase(aClient, &result, NULL, "", parent, "", etag, Firestore::firestore_database_mode_delete, false);
             return result.c_str();
+=======
+        bool deleteDatabase(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &etag)
+        {
+            AsyncResult result;
+            manageDatabase(aClient, &result, NULL, "", parent, "", etag, Firestore::firestore_database_mode_delete, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Deletes a database.
@@ -320,16 +372,28 @@ namespace Firestore
          * The Firebase project Id should be only the name without the firebaseio.com.
          * The Firestore database Id is the Id of database to get the infomation.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth or AccessToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String get(AsyncClientClass &aClient, const Firestore::Parent &parent)
         {
             AsyncResult result;
             manageDatabase(aClient, &result, NULL, "", parent, "", "", Firestore::firestore_database_mode_get, false);
             return result.c_str();
+=======
+        bool get(AsyncClientClass &aClient, const Firestore::Parent &parent)
+        {
+            AsyncResult result;
+            manageDatabase(aClient, &result, NULL, "", parent, "", "", Firestore::firestore_database_mode_get, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Gets information about a database.
@@ -372,16 +436,28 @@ namespace Firestore
          * The Firebase project Id should be only the name without the firebaseio.com.
          * Leave the Firestore database Id to be empty for this case.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth or AccessToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String list(AsyncClientClass &aClient, const Firestore::Parent &parent)
         {
             AsyncResult result;
             manageDatabase(aClient, &result, NULL, "", parent, "", "", Firestore::firestore_database_mode_list, false);
             return result.c_str();
+=======
+        bool list(AsyncClientClass &aClient, const Firestore::Parent &parent)
+        {
+            AsyncResult result;
+            manageDatabase(aClient, &result, NULL, "", parent, "", "", Firestore::firestore_database_mode_list, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** List all the databases in the project.
@@ -430,16 +506,28 @@ namespace Firestore
          * The Database information should be set via the following functions befor creation.
          * concurrencyMode, appEngineIntegrationMode, deleteProtectionState, pointInTimeRecoveryEnablement, databaseType, locationId and name.
          *
+<<<<<<< Updated upstream
          * @return String The response payload.
+=======
+         * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
          *
          * This function requires ServiceAuth or AccessToken authentication.
          *
          */
+<<<<<<< Updated upstream
         String patch(AsyncClientClass &aClient, const Firestore::Parent &parent, Database &database, const String &updateMask)
         {
             AsyncResult result;
             manageDatabase(aClient, &result, NULL, "", parent, database.c_str(), updateMask, Firestore::firestore_database_mode_patch, false);
             return result.c_str();
+=======
+        bool patch(AsyncClientClass &aClient, const Firestore::Parent &parent, Database &database, const String &updateMask)
+        {
+            AsyncResult result;
+            manageDatabase(aClient, &result, NULL, "", parent, database.c_str(), updateMask, Firestore::firestore_database_mode_patch, false);
+            return result.lastError.code() == 0;
+>>>>>>> Stashed changes
         }
 
         /** Updates a database.
@@ -500,18 +588,30 @@ namespace Firestore
              * The Firestore database id should be (default) or empty "".
              * @param index The Index object that provides an index definition.
              *
+<<<<<<< Updated upstream
              * @return String The response payload.
+=======
+             * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
              *
              * For more description, see https://firebase.google.com/docs/firestore/reference/rest/v1beta1/projects.databases.indexes/create
              *
              * This function requires ServiceAuth authentication.
              *
              */
+<<<<<<< Updated upstream
             String create(AsyncClientClass &aClient, const Firestore::Parent &parent, DatabaseIndex::Index index)
             {
                 AsyncResult result;
                 databaseIndexManager(aClient, &result, NULL, "", parent, index, "", false, false);
                 return result.c_str();
+=======
+            bool create(AsyncClientClass &aClient, const Firestore::Parent &parent, DatabaseIndex::Index index)
+            {
+                AsyncResult result;
+                databaseIndexManager(aClient, &result, NULL, "", parent, index, "", false, false);
+                return result.lastError.code() == 0;
+>>>>>>> Stashed changes
             }
 
             /** Creates the specified index.
@@ -561,19 +661,31 @@ namespace Firestore
              * The Firestore database id should be (default) or empty "".
              * @param indexId The index to delete.
              *
+<<<<<<< Updated upstream
              * @return String The response payload.
+=======
+             * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
              *
              * For more description, see https://firebase.google.com/docs/firestore/reference/rest/v1beta1/projects.databases.indexes/delete
              *
              * This function requires ServiceAuth authentication.
              *
              */
+<<<<<<< Updated upstream
             String deleteIndex(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &indexId)
+=======
+            bool deleteIndex(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &indexId)
+>>>>>>> Stashed changes
             {
                 AsyncResult result;
                 DatabaseIndex::Index index("");
                 databaseIndexManager(aClient, &result, NULL, "", parent, index, indexId, true, false);
+<<<<<<< Updated upstream
                 return result.c_str();
+=======
+                return result.lastError.code() == 0;
+>>>>>>> Stashed changes
             }
 
             /** Deletes an index.
@@ -625,19 +737,31 @@ namespace Firestore
              * The Firestore database id should be (default) or empty "".
              * @param indexId The index to get.
              *
+<<<<<<< Updated upstream
              * @return String The response payload.
+=======
+             * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
              *
              * For more description, see https://firebase.google.com/docs/firestore/reference/rest/v1beta1/projects.databases.indexes/get
              *
              * This function requires ServiceAuth authentication.
              *
              */
+<<<<<<< Updated upstream
             String get(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &indexId)
+=======
+            bool get(AsyncClientClass &aClient, const Firestore::Parent &parent, const String &indexId)
+>>>>>>> Stashed changes
             {
                 AsyncResult result;
                 DatabaseIndex::Index index("");
                 databaseIndexManager(aClient, &result, NULL, "", parent, index, indexId, false, false);
+<<<<<<< Updated upstream
                 return result.c_str();
+=======
+                return result.lastError.code() == 0;
+>>>>>>> Stashed changes
             }
 
             /** Gets an index.
@@ -688,19 +812,31 @@ namespace Firestore
              * The Firebase project Id should be only the name without the firebaseio.com.
              * The Firestore database id should be (default) or empty "".
              *
+<<<<<<< Updated upstream
              * @return String The response payload.
+=======
+             * @return Boolean value, indicates the success of the operation.
+>>>>>>> Stashed changes
              *
              * For more description, see https://firebase.google.com/docs/firestore/reference/rest/v1beta1/projects.databases.indexes/list
              *
              * This function requires ServiceAuth authentication.
              *
              */
+<<<<<<< Updated upstream
             String list(AsyncClientClass &aClient, const Firestore::Parent &parent)
+=======
+            bool list(AsyncClientClass &aClient, const Firestore::Parent &parent)
+>>>>>>> Stashed changes
             {
                 AsyncResult result;
                 DatabaseIndex::Index index("");
                 databaseIndexManager(aClient, &result, NULL, "", parent, index, "", false, false);
+<<<<<<< Updated upstream
                 return result.c_str();
+=======
+                return result.lastError.code() == 0;
+>>>>>>> Stashed changes
             }
 
             /** Lists the indexes.

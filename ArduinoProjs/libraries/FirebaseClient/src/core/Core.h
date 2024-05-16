@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #ifndef CORE_CORE_H_
 #define CORE_CORE_H_
 
@@ -8,6 +9,14 @@
 #endif
 
 #define FIREBASE_CLIENT_VERSION "1.2.0"
+=======
+#ifndef CORE_H_
+#define CORE_H_
+
+#include <Arduino.h>
+
+#define FIREBASE_CLIENT_VERSION "1.1.6"
+>>>>>>> Stashed changes
 
 static void sys_idle()
 {

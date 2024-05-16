@@ -1,5 +1,9 @@
 /**
+<<<<<<< Updated upstream
  * Created May 5, 2024
+=======
+ * Created March 31, 2024
+>>>>>>> Stashed changes
  *
  * The MIT License (MIT)
  * Copyright (c) 2024 K. Suwatchai (Mobizt)
@@ -255,15 +259,26 @@ public:
      * The bucketid is the Storage bucket Id of object to get metadata.
      * The object is the object in Storage bucket to get metadata.
      *
+<<<<<<< Updated upstream
      * @return String The response payload.
      *
      */
     String getMetadata(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+=======
+     * @return Boolean value, indicates the success of the operation.
+     *
+     */
+    bool getMetadata(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+>>>>>>> Stashed changes
     {
         AsyncResult result;
         file_config_data file;
         sendRequest(aClient, &result, NULL, "", parent, file, "", FirebaseStorage::firebase_storage_request_type_get_meta, false);
+<<<<<<< Updated upstream
         return result.c_str();
+=======
+        return result.lastError.code() == 0;
+>>>>>>> Stashed changes
     }
 
     /** Get the metadata of object in Firebase Storage data bucket.
@@ -303,15 +318,26 @@ public:
      * @param parent The FirebaseStorage::Parent object included Storage bucket Id in its constructor.
      * The bucketid is the Storage bucket Id to list all objects.
      *
+<<<<<<< Updated upstream
      * @return String The response payload.
      *
      */
     String list(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+=======
+     * @return Boolean value, indicates the success of the operation.
+     *
+     */
+    bool list(AsyncClientClass &aClient, const FirebaseStorage::Parent &parent)
+>>>>>>> Stashed changes
     {
         AsyncResult result;
         file_config_data file;
         sendRequest(aClient, &result, NULL, "", parent, file, "", FirebaseStorage::firebase_storage_request_type_list, false);
+<<<<<<< Updated upstream
         return result.c_str();
+=======
+        return result.lastError.code() == 0;
+>>>>>>> Stashed changes
     }
 
     /** List all objects in Firebase Storage data bucket.
@@ -521,6 +547,10 @@ private:
         if (!aResult)
             aResult = new AsyncResult();
 
+<<<<<<< Updated upstream
+=======
+        aResult->error_available = true;
+>>>>>>> Stashed changes
         aResult->lastError.setClientError(code);
 
         if (request.cb)
