@@ -46,7 +46,7 @@ void UpdateFloor() {
 
 void b1PushCallback(void *ptr)  // Press event for button b1
 {
-  cfloor = cfloor * 10 + 2;
+  cfloor = cfloor * 10 + 1;
   UpdateFloor();
 } 
 
