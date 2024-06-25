@@ -1,6 +1,6 @@
-#include "HX711.h"
+#include <HX711.h>
 #include <Wire.h>
-#include "LiquidCrystal_I2C.h"
+#include <LiquidCrystal_I2C.h>
 
 #define LOADCELL_DOUT_PIN  3
 #define LOADCELL_SCK_PIN  2
@@ -58,15 +58,15 @@ void loop() {
   
 
   int ledOn;
-  if (analogRead(BUTTON_PIN) <= 300) {
-    weightThreshold = 500;
-    ledOn = 9;
-  } else if (analogRead(BUTTON_PIN) <= 500) {
-    weightThreshold = 1000;
-    ledOn = 10;
-  } else {
+  if (analogRead(BUTTON_PIN) >= 500) {
     weightThreshold = 1500;
     ledOn = 11;
+  } else if (analogRead(BUTTON_PIN) >= 300) {
+    weightThreshold = 1000;
+    ledOn = 10;
+  } else if(analogRead(BUTTON_PIN) >= 100){
+    weightThreshold = 500;
+    ledOn = 9;
   }
 
   lcd.setCursor(0, 1);
