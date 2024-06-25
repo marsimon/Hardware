@@ -40,10 +40,10 @@
 #error Platform not supported
 #endif
 
-#define ASYNCWEBSERVER_VERSION "2.9.5"
+#define ASYNCWEBSERVER_VERSION "2.10.1"
 #define ASYNCWEBSERVER_VERSION_MAJOR 2
-#define ASYNCWEBSERVER_VERSION_MINOR 9
-#define ASYNCWEBSERVER_VERSION_REVISION 5
+#define ASYNCWEBSERVER_VERSION_MINOR 10
+#define ASYNCWEBSERVER_VERSION_REVISION 1
 #define ASYNCWEBSERVER_FORK_mathieucarbou
 
 #ifdef ASYNCWEBSERVER_REGEX
@@ -363,6 +363,7 @@ class AsyncWebHandler {
     AsyncWebHandler():_username(""), _password(""){}
     AsyncWebHandler& setFilter(ArRequestFilterFunction fn) { _filter = fn; return *this; }
     AsyncWebHandler& setAuthentication(const char *username, const char *password){  _username = String(username);_password = String(password); return *this; };
+    AsyncWebHandler& setAuthentication(const String& username, const String& password){  _username = username;_password = password; return *this; };
     bool filter(AsyncWebServerRequest *request){ return _filter == NULL || _filter(request); }
     virtual ~AsyncWebHandler(){}
     virtual bool canHandle(AsyncWebServerRequest *request __attribute__((unused))){

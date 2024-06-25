@@ -1,5 +1,10 @@
 #include <Nextion.h>  
+#include <FastLED.h>
 
+#define LED_PIN 5    // Replace with the pin number you used for DATA connection
+#define NUM_LEDS 10  // Replace with the number of LEDs in your strip
+#define DELAY_TIME 20  // Delay between LED movements (in milliseconds)
+CRGB leds[NUM_LEDS];
 
 NexButton b1 = NexButton(0, 1, "b1");
 NexButton b2 = NexButton(0, 2, "b2");
@@ -97,7 +102,14 @@ void b0PushCallback(void *ptr)
 } 
 void bkPushCallback(void *ptr)  
 {
-  //힘 대 힘 
+  if(cfloor > 109 && cfloor < 120) {
+    for (int i = 0; i < NUM_LEDS; i++) {
+      leds[i] = CRGB::Black;
+    }
+    leds[cfloor%10] = CRGB::White;
+     
+    FastLED.show();
+  }
 } 
 void bdPushCallback(void *ptr)  
 {
@@ -107,8 +119,13 @@ void bdPushCallback(void *ptr)
 
 void setup() {  
   nexInit();
+  FastLED.addLeds<WS2811, LED_PIN, RGB>(leds, NUM_LEDS);
+  for (int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::Black;
+  }
+  FastLED.show();
   Serial.begin(9600);
-
+  
 
   b1.attachPush(b1PushCallback,&b1); 
   b2.attachPush(b2PushCallback,&b2); 
