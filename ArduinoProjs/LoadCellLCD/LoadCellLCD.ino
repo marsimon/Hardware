@@ -4,7 +4,7 @@
 
 #define LOADCELL_DOUT_PIN  3
 #define LOADCELL_SCK_PIN  2
-#define LOADCELL_CALIBRATION -7050.0
+#define LOADCELL_CALIBRATION -191760.0
 #define LBS_to_GRAM 453.6
 
 #define BUTTON_PIN  A0
@@ -48,12 +48,15 @@ void setup() {
 }
 
 void loop() {
-
-  weight = scale.get_units(3);
+  
+  weight = scale.get_units(5);
   weight = weight * LBS_to_GRAM;
+  if(weight < 0) weight=0;
   lcd.setCursor(0, 0);
   lcd.print("Weight: ");
-  lcd.print(weight);
+  char s[10];
+  sprintf(s,"%5d",(int)weight); 
+  lcd.print(s);
   lcd.print(" g");
   
 
