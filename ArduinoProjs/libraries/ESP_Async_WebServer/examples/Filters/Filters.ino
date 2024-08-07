@@ -2,11 +2,14 @@
 
 #include <DNSServer.h>
 #ifdef ESP32
-#include <AsyncTCP.h>
-#include <WiFi.h>
+  #include <AsyncTCP.h>
+  #include <WiFi.h>
 #elif defined(ESP8266)
-#include <ESP8266WiFi.h>
-#include <ESPAsyncTCP.h>
+  #include <ESP8266WiFi.h>
+  #include <ESPAsyncTCP.h>
+#elif defined(TARGET_RP2040)
+  #include <WebServer.h>
+  #include <WiFi.h>
 #endif
 #include "ESPAsyncWebServer.h"
 
@@ -18,7 +21,7 @@ class CaptiveRequestHandler : public AsyncWebHandler {
     CaptiveRequestHandler() {}
     virtual ~CaptiveRequestHandler() {}
 
-    bool canHandle(AsyncWebServerRequest* request) {
+    bool canHandle(__unused AsyncWebServerRequest* request) {
       // request->addInterestingHeader("ANY");
       return true;
     }

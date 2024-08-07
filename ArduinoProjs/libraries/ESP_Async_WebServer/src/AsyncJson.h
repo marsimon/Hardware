@@ -39,9 +39,9 @@
 #include <Print.h>
 
 #if ARDUINOJSON_VERSION_MAJOR == 6
-#ifndef DYNAMIC_JSON_DOCUMENT_SIZE
-#define DYNAMIC_JSON_DOCUMENT_SIZE 1024
-#endif
+  #ifndef DYNAMIC_JSON_DOCUMENT_SIZE
+    #define DYNAMIC_JSON_DOCUMENT_SIZE 1024
+  #endif
 #endif
 
 constexpr const char* JSON_MIMETYPE = "application/json";
@@ -120,7 +120,6 @@ class AsyncJsonResponse : public AsyncAbstractResponse {
     }
 #endif
 
-    ~AsyncJsonResponse() {}
     JsonVariant& getRoot() { return _root; }
     bool _sourceValid() const { return _isValid; }
     size_t setLength() {
@@ -230,7 +229,7 @@ class AsyncCallbackJsonWebHandler : public AsyncWebHandler {
     }
 
     virtual void handleRequest(AsyncWebServerRequest* request) override final {
-      if((_username != "" && _password != "") && !request->authenticate(_username.c_str(), _password.c_str()))
+      if ((_username != "" && _password != "") && !request->authenticate(_username.c_str(), _password.c_str()))
         return request->requestAuthentication();
       if (_onRequest) {
         if (request->method() == HTTP_GET) {
@@ -264,7 +263,7 @@ class AsyncCallbackJsonWebHandler : public AsyncWebHandler {
         request->send(500);
       }
     }
-    virtual void handleUpload(AsyncWebServerRequest* request, const String& filename, size_t index, uint8_t* data, size_t len, bool final) override final {
+    virtual void handleUpload(__unused AsyncWebServerRequest* request, __unused const String& filename, __unused size_t index, __unused uint8_t* data, __unused size_t len, __unused bool final) override final {
     }
     virtual void handleBody(AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total) override final {
       if (_onRequest) {

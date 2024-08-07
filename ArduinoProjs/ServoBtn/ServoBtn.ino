@@ -10,10 +10,12 @@ Servo clawServo;
 int clawPos = 0;  
 int linearPos = 1;
 
-int clawStep = 1; //집게의 한 스텝당 움직일 각도 크기
+int clawStep = 2; //집게의 한 스텝당 움직일 각도 크기
 int linearStep = 1; //직선 움직임의 한 스텝당 움직일 거리 (%)
 
 int delayms = 20; //한번 움직임 후 딜레이 (ms)
+
+bool isRunning = false;
 
 void SetStrokePerc(float strokePercentage)
 {
@@ -35,6 +37,13 @@ void setup()
 void loop() 
 { 
   if(digitalRead(PIN_BUTTON)==LOW) {
+    isRunning = true;
+  }
+  else {
+    isRunning = false;
+  }
+  if(isRunning) {
+    for(int i=0;i<200;i++) {
     clawPos+=clawStep;
     if(clawPos==180||clawPos==0) clawStep = -clawStep;
     clawServo.write(clawPos);
@@ -42,16 +51,7 @@ void loop()
     linearPos+=linearStep;
     if(linearPos==99||linearPos==1) linearStep = -linearStep;
     SetStrokePerc(linearPos);
+    delay(delayms);
+    }
   }
-
-  else if(clawPos!=0){
-    clawServo.write(0); 
-    clawPos=0;
-  }
-  else if(linearPos!=1) {
-    SetStrokePerc(1);
-    linearPos=1;
-  }
-
-  delay(delayms);
 }
