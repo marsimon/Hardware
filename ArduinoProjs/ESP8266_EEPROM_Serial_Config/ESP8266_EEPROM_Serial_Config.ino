@@ -7,6 +7,11 @@
 #define PASSWORD_MAX_LENGTH 32
 #define START_ADDRESS 0  // EEPROM의 시작 주소
 
+#define ECHO_PIN 1
+#define TRIG_PIN 1
+#define BUZZ_PIN 1
+#define BTN_PIN 1
+
 void setup() {
   Serial.begin(115200);
   EEPROM.begin(512);  // EEPROM 초기화 (512 바이트)
@@ -32,6 +37,14 @@ void loop() {
   }
 
   // 필요한 작업 수행
+  //주기적으로 수위센서를 확인하고, 웹서버에 전송하기. 
+  //일정 수위 이하에서 부저 on 
+  //버튼 입력 시 부저 off
+
+  if(Serial.available()) {
+    getDeviceInformation();
+  }
+
   delay(10000);  // 10초 대기
 }
 
@@ -39,19 +52,21 @@ void getDeviceInformation() {
   String deviceName, ssid, password;
 
   // 기기명 입력
-  Serial.print("Enter device name: ");
+  //Serial.print("Enter device name: ");
   deviceName = readSerialInput(DEVICE_NAME_MAX_LENGTH);
-  Serial.println(deviceName);
+  Serial.println("deviceName :");
+  Serial.print(deviceName);
 
   // WiFi SSID 입력
-  Serial.print("Enter WiFi SSID: ");
+  //Serial.print("Enter WiFi SSID: ");
   ssid = readSerialInput(SSID_MAX_LENGTH);
-  Serial.println(ssid);
-
+  Serial.println("ssid :");
+  Serial.print(ssid);
   // WiFi 비밀번호 입력
-  Serial.print("Enter WiFi Password: ");
+  //Serial.print("Enter WiFi Password: ");
   password = readSerialInput(PASSWORD_MAX_LENGTH);
-  Serial.println(password);
+  Serial.println("password :");
+  Serial.print(password);
 
   // 입력된 데이터를 EEPROM에 저장
   saveToEEPROM(deviceName, ssid, password);
@@ -72,7 +87,6 @@ String readSerialInput(int maxLength) {
       }
     }
   }
-
   return input;
 }
 
@@ -117,7 +131,7 @@ void connectWiFi() {
   int attempt = 0;
   while (WiFi.status() != WL_CONNECTED && attempt < max_attempts) {
     delay(500);
-    Serial.print(".");
+    Serial.println(".");
     attempt++;
   }
 
