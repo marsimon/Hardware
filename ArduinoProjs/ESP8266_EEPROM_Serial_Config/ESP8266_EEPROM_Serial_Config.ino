@@ -16,6 +16,9 @@ void setup() {
   Serial.begin(115200);
   EEPROM.begin(512);  // EEPROM 초기화 (512 바이트)
 
+  pinMode(TRIG_PIN, OUTPUT);   // trigPin 핀을 출력핀으로 설정합니다.
+  pinMode(ECHO_PIN, INPUT);    // echoPin 핀을 입력핀으로 설정합니다.
+
   Serial.println("Booting...");
 
   // 저장된 WiFi 정보로 연결 시도
@@ -35,15 +38,36 @@ void loop() {
     Serial.println("WiFi disconnected, trying to reconnect...");
     connectWiFi();
   }
+  
+  if(Serial.available()) {
+    getDeviceInformation();
+  }
 
   // 필요한 작업 수행
   //주기적으로 수위센서를 확인하고, 웹서버에 전송하기. 
   //일정 수위 이하에서 부저 on 
   //버튼 입력 시 부저 off
 
-  if(Serial.available()) {
-    getDeviceInformation();
+  long duration, distance;                   // 각 변수를 선언합니다.
+  digitalWrite(TRIG_PIN, LOW);                 // trigPin에 LOW를 출력하고
+  delayMicroseconds(2);                    // 2 마이크로초가 지나면
+  digitalWrite(TRIG_PIN, HIGH);                // trigPin에 HIGH를 출력합니다.
+  delayMicroseconds(10);                  // trigPin을 10마이크로초 동안 기다렸다가
+  digitalWrite(TRIG_PIN, LOW);                // trigPin에 LOW를 출력합니다.
+  duration = pulseIn(ECHO_PIN, HIGH);   // echoPin핀에서 펄스값을 받아옵니다.
+ 
+  distance = duration * 17 / 1000;          //  duration을 연산하여 센싱한 거리값을 distance에 저장합니다.
+
+  if (distance >= 200 || distance <= 0)       // 거리가 200cm가 넘거나 0보다 작으면
+  {
+    Serial.println("거리를 측정할 수 없음");   // 에러를 출력합니다.
   }
+  else                                                    // 거리가 200cm가 넘지 않거나 0보다 작지 않으면
+  {
+    Serial.print(distance);                         // distance를 시리얼 모니터에 출력합니다.
+    Serial.println(" cm");                           // cm를 출력하고 줄을 넘깁니다.
+  }
+
 
   delay(10000);  // 10초 대기
 }
