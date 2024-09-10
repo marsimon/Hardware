@@ -7,8 +7,8 @@
 #define PASSWORD_MAX_LENGTH 32
 #define START_ADDRESS 0  // EEPROM의 시작 주소
 
-#define ECHO_PIN 1
-#define TRIG_PIN 1
+#define ECHO_PIN 14 //D5
+#define TRIG_PIN 12 //D6
 #define BUZZ_PIN 1
 #define BTN_PIN 1
 
@@ -58,7 +58,7 @@ void loop() {
  
   distance = duration * 17 / 1000;          //  duration을 연산하여 센싱한 거리값을 distance에 저장합니다.
 
-  if (distance >= 200 || distance <= 0)       // 거리가 200cm가 넘거나 0보다 작으면
+  if (distance >= 300 || distance <= 0)       // 거리가 200cm가 넘거나 0보다 작으면
   {
     Serial.println("거리를 측정할 수 없음");   // 에러를 출력합니다.
   }
