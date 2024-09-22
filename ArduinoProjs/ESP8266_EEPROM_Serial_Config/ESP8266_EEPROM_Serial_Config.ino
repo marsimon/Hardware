@@ -1,5 +1,6 @@
 #include <EEPROM.h>
 #include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h>
 
 // EEPROM에 저장할 데이터의 최대 길이 설정
 #define DEVICE_NAME_MAX_LENGTH 32
@@ -7,10 +8,19 @@
 #define PASSWORD_MAX_LENGTH 32
 #define START_ADDRESS 0  // EEPROM의 시작 주소
 
+char deviceName[DEVICE_NAME_MAX_LENGTH];
+char ssid[SSID_MAX_LENGTH];
+char password[PASSWORD_MAX_LENGTH];
+
 #define ECHO_PIN 14 //D5
 #define TRIG_PIN 12 //D6
 #define BUZZ_PIN 1
 #define BTN_PIN 1
+
+const char* host = "www.machaboo.com";   // 서버 도메인 또는 IP
+const int httpsPort = 3000;             // HTTPS 포트 (기본: 443)
+
+float cDistance;
 
 void setup() {
   Serial.begin(115200);
@@ -64,12 +74,56 @@ void loop() {
   }
   else                                                    // 거리가 200cm가 넘지 않거나 0보다 작지 않으면
   {
+    cDistance = distance;
     Serial.print(distance);                         // distance를 시리얼 모니터에 출력합니다.
     Serial.println(" cm");                           // cm를 출력하고 줄을 넘깁니다.
+    SendDeviceData();
   }
 
 
   delay(10000);  // 10초 대기
+}
+
+void SendDeviceData() {
+  WiFiClientSecure client;
+  client.setInsecure();
+
+  Serial.print("Connecting to ");
+  Serial.println(host);
+
+  if (!client.connect(host, httpsPort)) {
+    Serial.println("Connection failed");
+    return;
+  }
+
+  // POST 요청용 JSON 형식의 body 데이터 생성
+  String postData = "{\"device\":\"" + String("test") + "\", \"litter\":" + String(cDistance) + "}";
+
+  // POST 요청 생성
+  String url = "/api/analysis/residual";  // API 엔드포인트 경로
+  client.println("POST " + url + " HTTP/1.1");
+  client.println("Host: " + String(host));
+  client.println("User-Agent: ESP8266");
+  client.println("Content-Type: application/json");
+  client.println("Connection: close");
+  client.print("Content-Length: ");
+  client.println(postData.length());
+  client.println();
+  client.println(postData);
+
+  // 서버 응답 읽기
+  while (client.connected()) {
+    String line = client.readStringUntil('\n');
+    if (line == "\r") {
+      Serial.println("Headers received");
+      break;
+    }
+  }
+
+  // 서버 응답 내용 출력
+  String response = client.readString();
+  Serial.println("Response: ");
+  Serial.println(response);
 }
 
 void getDeviceInformation() {
@@ -137,17 +191,16 @@ void saveToEEPROM(String deviceName, String ssid, String password) {
 }
 
 void connectWiFi() {
-  char deviceName[DEVICE_NAME_MAX_LENGTH];
-  char ssid[SSID_MAX_LENGTH];
-  char password[PASSWORD_MAX_LENGTH];
 
   readFromEEPROM(deviceName, ssid, password);
 
   Serial.println("Connecting to WiFi...");
-  Serial.print("Device Name: ");
-  Serial.println(deviceName);
-  Serial.print("SSID: ");
-  Serial.println(ssid);
+  Serial.println("Device Name: ");
+  Serial.print(deviceName);
+  Serial.println("SSID: ");
+  Serial.print(ssid);
+  Serial.println("PW: ");
+  Serial.print(password);
 
   WiFi.begin(ssid, password);
 
