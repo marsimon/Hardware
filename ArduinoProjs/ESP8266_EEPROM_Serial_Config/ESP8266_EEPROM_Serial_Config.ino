@@ -14,8 +14,8 @@ char password[PASSWORD_MAX_LENGTH];
 
 #define ECHO_PIN 14 //D5
 #define TRIG_PIN 12 //D6
-#define BUZZ_PIN 1
-#define BTN_PIN 1
+#define BUZZ_PIN 13 //D7
+#define BTN_PIN 0 //D3
 
 const char* host = "www.machaboo.com";   // 서버 도메인 또는 IP
 const int httpsPort = 3000;             // HTTPS 포트 (기본: 443)
@@ -28,29 +28,29 @@ void setup() {
 
   pinMode(TRIG_PIN, OUTPUT);   // trigPin 핀을 출력핀으로 설정합니다.
   pinMode(ECHO_PIN, INPUT);    // echoPin 핀을 입력핀으로 설정합니다.
-
+  pinMode(BUZZ_PIN, OUTPUT);
+  pinMode(BTN_PIN, INPUT_PULLUP);
   Serial.println("Booting...");
 
-  // 저장된 WiFi 정보로 연결 시도
-  connectWiFi();
-
-  // WiFi 연결 실패 시 새 정보를 입력받음
-  if (WiFi.status() != WL_CONNECTED) {
-    Serial.println("Enter new device information:");
-    getDeviceInformation();
-    connectWiFi();  // 입력된 정보로 다시 연결 시도
-  }
+  soundBuzz(1);
 }
 
 void loop() {
   // 주기적으로 WiFi 연결 상태를 확인하고, 필요 시 재연결 시도
-  if (WiFi.status() != WL_CONNECTED) {
-    Serial.println("WiFi disconnected, trying to reconnect...");
+  if(Serial.available()) {
+    getDeviceInformation();
     connectWiFi();
   }
   
-  if(Serial.available()) {
-    getDeviceInformation();
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("WiFi disconnected, trying to reconnect...");
+    connectWiFi();
+    return;
+  }
+
+  Serial.println(digitalRead(BTN_PIN));
+  if (digitalRead(BTN_PIN) == LOW) {
+    
   }
 
   // 필요한 작업 수행
@@ -214,10 +214,19 @@ void connectWiFi() {
 
   if (WiFi.status() == WL_CONNECTED) {
     Serial.println("\nWiFi connected!");
+    soundBuzz(3);
     Serial.print("IP Address: ");
     Serial.println(WiFi.localIP());
   } else {
     Serial.println("\nFailed to connect to WiFi.");
+  }
+}
+
+void soundBuzz(int n) {
+  for(int i=0;i<n;i++) {
+    digitalWrite(BUZZ_PIN, HIGH);                 
+    delay(500);                   
+    digitalWrite(BUZZ_PIN, LOW); 
   }
 }
 
