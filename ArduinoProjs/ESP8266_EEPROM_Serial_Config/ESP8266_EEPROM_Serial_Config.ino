@@ -7,6 +7,7 @@
 #define SSID_MAX_LENGTH 32
 #define PASSWORD_MAX_LENGTH 32
 #define START_ADDRESS 0  // EEPROM의 시작 주소
+#define WATER_LEVEL 80 //센서 부저 울릴 거리 기준
 
 char deviceName[DEVICE_NAME_MAX_LENGTH];
 char ssid[SSID_MAX_LENGTH];
@@ -18,18 +19,19 @@ char password[PASSWORD_MAX_LENGTH];
 #define BTN_PIN 0 //D3
 
 const char* host = "www.machaboo.com";   // 서버 도메인 또는 IP
-const int httpsPort = 3000;             // HTTPS 포트 (기본: 443)
+const int httpsPort = 3000;   // HTTPS 포트 (기본: 443)
 
-float cDistance;
-
+unsigned long muteTime=10000000;
+unsigned long lastSent=0;
 void setup() {
+
   Serial.begin(115200);
   EEPROM.begin(512);  // EEPROM 초기화 (512 바이트)
 
   pinMode(TRIG_PIN, OUTPUT);   // trigPin 핀을 출력핀으로 설정합니다.
   pinMode(ECHO_PIN, INPUT);    // echoPin 핀을 입력핀으로 설정합니다.
   pinMode(BUZZ_PIN, OUTPUT);
-  pinMode(BTN_PIN, INPUT_PULLUP);
+  pinMode(BTN_PIN, INPUT);
   Serial.println("Booting...");
 
   soundBuzz(1);
@@ -48,43 +50,76 @@ void loop() {
     return;
   }
 
-  Serial.println(digitalRead(BTN_PIN));
-  if (digitalRead(BTN_PIN) == LOW) {
-    
-  }
+  
 
   // 필요한 작업 수행
   //주기적으로 수위센서를 확인하고, 웹서버에 전송하기. 
   //일정 수위 이하에서 부저 on 
   //버튼 입력 시 부저 off
 
-  long duration, distance;                   // 각 변수를 선언합니다.
-  digitalWrite(TRIG_PIN, LOW);                 // trigPin에 LOW를 출력하고
-  delayMicroseconds(2);                    // 2 마이크로초가 지나면
-  digitalWrite(TRIG_PIN, HIGH);                // trigPin에 HIGH를 출력합니다.
-  delayMicroseconds(10);                  // trigPin을 10마이크로초 동안 기다렸다가
-  digitalWrite(TRIG_PIN, LOW);                // trigPin에 LOW를 출력합니다.
-  duration = pulseIn(ECHO_PIN, HIGH);   // echoPin핀에서 펄스값을 받아옵니다.
- 
-  distance = duration * 17 / 1000;          //  duration을 연산하여 센싱한 거리값을 distance에 저장합니다.
+  
+  int distance = getDistance();
+  Serial.println(distance);
+  
 
-  if (distance >= 300 || distance <= 0)       // 거리가 200cm가 넘거나 0보다 작으면
-  {
-    Serial.println("거리를 측정할 수 없음");   // 에러를 출력합니다.
-  }
-  else                                                    // 거리가 200cm가 넘지 않거나 0보다 작지 않으면
-  {
-    cDistance = distance;
-    Serial.print(distance);                         // distance를 시리얼 모니터에 출력합니다.
-    Serial.println(" cm");                           // cm를 출력하고 줄을 넘깁니다.
-    SendDeviceData();
+  unsigned long cTime = millis();
+  if (digitalRead(BTN_PIN) == LOW) {
+    muteTime = cTime;
+    Serial.println(muteTime);
   }
 
+  if(distance > WATER_LEVEL) {
+    if(cTime>=muteTime&& cTime < muteTime+600000) {
+      
+    }
+    else {
+      soundBuzz(2);
+    }
+  }
 
-  delay(10000);  // 10초 대기
+  unsigned long gap;
+  gap =(lastSent > cTime) ? lastSent - cTime : cTime - lastSent;
+
+  if(gap > 10000&&distance>15) {
+    SendDeviceData(distance);
+    lastSent = cTime;
+  }
+
+  delay(1000);  // 5초 대기
 }
 
-void SendDeviceData() {
+
+int getDistance() {
+  int distSum=0,cnt=0;
+  for(int i=0;i<5;i++) {
+    long duration, distance;                   // 각 변수를 선언합니다.
+    digitalWrite(TRIG_PIN, LOW);                 // trigPin에 LOW를 출력하고
+    delayMicroseconds(2);                    // 2 마이크로초가 지나면
+    digitalWrite(TRIG_PIN, HIGH);                // trigPin에 HIGH를 출력합니다.
+    delayMicroseconds(10);                  // trigPin을 10마이크로초 동안 기다렸다가
+    digitalWrite(TRIG_PIN, LOW);                // trigPin에 LOW를 출력합니다.
+    duration = pulseIn(ECHO_PIN, HIGH);   // echoPin핀에서 펄스값을 받아옵니다.
+ 
+    distance = duration * 17 / 1000;          //  duration을 연산하여 센싱한 거리값을 distance에 저장합니다.
+
+    if (distance >= 200 || distance <= 0)       // 거리가 200cm가 넘거나 0보다 작으면
+    {
+      Serial.println("거리를 측정할 수 없음");   // 에러를 출력합니다.
+    }
+    else                                                    // 거리가 200cm가 넘지 않거나 0보다 작지 않으면
+    {
+      cnt++;
+      distSum += distance;
+    }
+    delay(50);
+  }
+
+  if(cnt==0) return 0;
+  return distSum/cnt;
+}
+
+
+void SendDeviceData(int dist) {
   WiFiClientSecure client;
   client.setInsecure();
 
@@ -97,8 +132,8 @@ void SendDeviceData() {
   }
 
   // POST 요청용 JSON 형식의 body 데이터 생성
-  String postData = "{\"device\":\"" + String("test") + "\", \"litter\":" + String(cDistance) + "}";
-
+  String postData = "{\"device\":\"" + String(deviceName) + "\", \"litter\":" + String(dist) + "}";
+  Serial.println(postData);
   // POST 요청 생성
   String url = "/api/analysis/residual";  // API 엔드포인트 경로
   client.println("POST " + url + " HTTP/1.1");
@@ -111,6 +146,7 @@ void SendDeviceData() {
   client.println();
   client.println(postData);
 
+  /*
   // 서버 응답 읽기
   while (client.connected()) {
     String line = client.readStringUntil('\n');
@@ -124,6 +160,7 @@ void SendDeviceData() {
   String response = client.readString();
   Serial.println("Response: ");
   Serial.println(response);
+  */
 }
 
 void getDeviceInformation() {
