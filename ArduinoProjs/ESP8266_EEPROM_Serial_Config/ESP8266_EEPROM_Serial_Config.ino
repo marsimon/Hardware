@@ -7,7 +7,7 @@
 #define SSID_MAX_LENGTH 32
 #define PASSWORD_MAX_LENGTH 32
 #define START_ADDRESS 0  // EEPROM의 시작 주소
-#define WATER_LEVEL 80 //센서 부저 울릴 거리 기준
+#define WATER_LEVEL 25 //센서 부저 울릴 거리 기준
 
 char deviceName[DEVICE_NAME_MAX_LENGTH];
 char ssid[SSID_MAX_LENGTH];
@@ -16,10 +16,14 @@ char password[PASSWORD_MAX_LENGTH];
 #define ECHO_PIN 14 //D5
 #define TRIG_PIN 12 //D6
 #define BUZZ_PIN 13 //D7
+#define LEDR_PIN 5 //D1
+#define LEDG_PIN 4 //D2
 #define BTN_PIN 0 //D3
 
 const char* host = "www.machaboo.com";   // 서버 도메인 또는 IP
 const int httpsPort = 3000;   // HTTPS 포트 (기본: 443)
+
+bool alarmOn = false;
 
 unsigned long muteTime=10000000;
 unsigned long lastSent=0;
@@ -30,7 +34,9 @@ void setup() {
 
   pinMode(TRIG_PIN, OUTPUT);   // trigPin 핀을 출력핀으로 설정합니다.
   pinMode(ECHO_PIN, INPUT);    // echoPin 핀을 입력핀으로 설정합니다.
-  pinMode(BUZZ_PIN, OUTPUT);
+  pinMode(BUZZ_PIN, OUTPUT);  
+  pinMode(LEDR_PIN, OUTPUT);   
+  pinMode(LEDG_PIN, OUTPUT);   
   pinMode(BTN_PIN, INPUT);
   Serial.println("Booting...");
 
@@ -46,8 +52,12 @@ void loop() {
   
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("WiFi disconnected, trying to reconnect...");
+    digitalWrite(LEDG_PIN, LOW);
     connectWiFi();
     return;
+  } else {
+
+    digitalWrite(LEDG_PIN, HIGH);
   }
 
   
@@ -65,10 +75,9 @@ void loop() {
   unsigned long cTime = millis();
   if (digitalRead(BTN_PIN) == LOW) {
     muteTime = cTime;
-    Serial.println(muteTime);
   }
 
-  if(distance > WATER_LEVEL) {
+  if(alarmOn && distance > WATER_LEVEL - 3) {
     if(cTime>=muteTime&& cTime < muteTime+600000) {
       
     }
@@ -76,16 +85,30 @@ void loop() {
       soundBuzz(2);
     }
   }
+  else if (distance > WATER_LEVEL) {
+    alarmOn = true;
+    digitalWrite(LEDR_PIN, HIGH);
+    if(cTime>=muteTime&& cTime < muteTime+600000) {
+      
+    }
+    else {
+      soundBuzz(2);
+    }
+  }
+  else {
+    alarmOn = false;
+    digitalWrite(LEDR_PIN, LOW);
+  }
+
+
 
   unsigned long gap;
   gap =(lastSent > cTime) ? lastSent - cTime : cTime - lastSent;
-
-  if(gap > 10000&&distance>15) {
+  if(gap > 20000&&distance>15) {
     SendDeviceData(distance);
     lastSent = cTime;
   }
 
-  delay(1000);  // 5초 대기
 }
 
 
@@ -111,7 +134,7 @@ int getDistance() {
       cnt++;
       distSum += distance;
     }
-    delay(50);
+    delay(1000);
   }
 
   if(cnt==0) return 0;
