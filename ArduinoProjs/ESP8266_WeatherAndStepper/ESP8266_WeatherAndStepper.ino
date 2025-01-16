@@ -18,8 +18,8 @@ RTC_DS1307 RTC;
 // 기상청 서버 설정
 const int httpPort = 80;
 const char* host = "www.kma.go.kr";
-const char* ssid = "ksy1234"; // ksy1234
-const char* password = "ksy51580"; // ksy51580
+const char* ssid = "MarsHome"; // ksy1234
+const char* password = "mars1234"; // ksy51580
 const String url = "/w/rss/dfs/hr1-forecast.do?zone=2723068000"; // 지역별 주소 작성
 
 bool awaitingArrivals = true;
@@ -161,19 +161,22 @@ break;
 }
 
 void connectWiFi() {
-Serial.println();
-Serial.println();
-Serial.println("Connecting to ");
-Serial.print(ssid);
-WiFi.hostname("Name");
-WiFi.begin(ssid, password);
 
-while (WiFi.status() != WL_CONNECTED) {
-delay(500);
-Serial.print(".");
-}
-Serial.println("");
-Serial.println("WiFi connected");
-Serial.println("IP address: ");
-Serial.println(WiFi.localIP());
+  Serial.println("SSID: ");
+  Serial.print(ssid);
+  Serial.println("PW: ");
+  Serial.print(password);
+  WiFi.mode(WIFI_STA);
+  WiFi.disconnect();
+  WiFi.begin(ssid, password);
+  
+  int max_attempts = 10;
+  int attempt = 0;
+
+  while (WiFi.status() != WL_CONNECTED && attempt < max_attempts) {
+    delay(1000);
+    Serial.print(".");
+    attempt++;
+  }
+
 }

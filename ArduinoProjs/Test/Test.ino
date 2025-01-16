@@ -1,43 +1,31 @@
-#include <Servo.h>
-
-Servo myservo1;
-Servo myservo2;
-
-
+#include <EEPROM.h>
+#include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h>
 
 void setup() {
-  Serial.begin(9600);
-  myservo1.attach(9);
-  myservo2.attach(10); 
+
+  Serial.begin(115200);
+  unsigned long startTime = millis();  // 현재 시간을 저장
+  bool inputReceived = false;
+  while (millis() - startTime < 10000) {
+    Serial.println(".");
+    delay(500);
+    if (Serial.available()) {
+      inputReceived = true;
+      break;  // 입력이 있으면 루프 종료
+    }
+  }
+
+  //EEPROM.begin(512); 
+  if(inputReceived) {
+    Serial.println("wow");
+  }
+
+  
 }
 
 void loop() {
-  int angle;
-  if(Serial.available()) {
-    char buffer[10];
-    int cnt = 0;
-    unsigned long start = millis();
-    while (millis() - start < 100) {
-      if (Serial.available() < 1) {
-        continue;
-      }
-      char data = Serial.read();
-      if (data == '\n') {
-        buffer[cnt++] = '\0';
-        break;
-      }
-      buffer[cnt++] = data;
-    }
-    sscanf(buffer,"%d",&angle);
-    angle = angel + 0; //각도 값 수정
+  
 
-    if(angle>=0) {
-      myservo1.write(0);
-      myservo2.write(180-angle); 
-    }  
-    else {
-      myservo1.write(abs(angle));
-      myservo2.write(0); 
-    }  
-  }  
 }
+

@@ -30,42 +30,53 @@ unsigned long lastSent=0;
 void setup() {
 
   Serial.begin(115200);
-  EEPROM.begin(512);  // EEPROM 초기화 (512 바이트)
-
+  EEPROM.begin(512); 
   pinMode(TRIG_PIN, OUTPUT);   // trigPin 핀을 출력핀으로 설정합니다.
   pinMode(ECHO_PIN, INPUT);    // echoPin 핀을 입력핀으로 설정합니다.
   pinMode(BUZZ_PIN, OUTPUT);  
   pinMode(LEDR_PIN, OUTPUT);   
   pinMode(LEDG_PIN, OUTPUT);   
   pinMode(BTN_PIN, INPUT);
-  Serial.println("Booting...");
 
   soundBuzz(1);
+  unsigned long startTime = millis();  // 현재 시간을 저장
+  bool inputReceived = false;
+  while (millis() - startTime < 15000) {
+    Serial.println("Waiting for input..");
+    delay(500);
+    if (Serial.available()) {
+      inputReceived = true;
+      break;  // 입력이 있으면 루프 종료
+    }
+  }
+  
+  if(inputReceived) {
+    getDeviceInformation();
+    connectWiFi();
+  }
+
+  
 }
 
 void loop() {
   // 주기적으로 WiFi 연결 상태를 확인하고, 필요 시 재연결 시도
+  
+   
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("WiFi disconnected, trying to reconnect...");
     digitalWrite(LEDG_PIN, LOW);
     connectWiFi();
     return;
   } else {
-
     digitalWrite(LEDG_PIN, HIGH);
   }
 
-  if(Serial.available()) {
-    getDeviceInformation();
-    connectWiFi();
-  }
 
   // 필요한 작업 수행
   //주기적으로 수위센서를 확인하고, 웹서버에 전송하기. 
   //일정 수위 이하에서 부저 on 
   //버튼 입력 시 부저 off
 
-  
   int distance = getDistance();
   Serial.println(distance);
   
@@ -93,6 +104,7 @@ void loop() {
       soundBuzz(2);
     }
   }
+
   else {
     alarmOn = false;
     digitalWrite(LEDR_PIN, LOW);
@@ -120,7 +132,7 @@ int getDistance() {
     duration = pulseIn(ECHO_PIN, HIGH);   // echoPin핀에서 펄스값을 받아옵니다.
  
     distance = duration * 17 / 1000;          //  duration을 연산하여 센싱한 거리값을 distance에 저장합니다.
-
+    Serial.println(distance);
     if (distance >= 200 || distance <= 0)       // 거리가 200cm가 넘거나 0보다 작으면
     {
 
@@ -183,7 +195,7 @@ void SendDeviceData(int dist) {
   Serial.println("Response: ");
   Serial.println(response);
   */
-
+  
 }
 
 void getDeviceInformation() {
@@ -256,11 +268,12 @@ void connectWiFi() {
 
   Serial.println("Connecting to WiFi...");
   Serial.println("Device Name: ");
-  Serial.print(deviceName);
+  Serial.println(deviceName);
   Serial.println("SSID: ");
-  Serial.print(ssid);
+  Serial.println(ssid);
   Serial.println("PW: ");
-  Serial.print(password);
+  Serial.println(password);
+
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
   WiFi.begin(ssid, password);
@@ -281,7 +294,7 @@ void connectWiFi() {
   }
 
   else {
-    Serial.println("Failed to connect to WiFi.");
+    WiFi.disconnect();
   }
 
 }
